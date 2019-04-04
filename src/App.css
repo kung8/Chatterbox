@@ -4,6 +4,13 @@
     padding:0;
 }
 
+#nav-icons:hover {
+    background:white;
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
 .active-dot {
     background:#363E47;
     height:15px;

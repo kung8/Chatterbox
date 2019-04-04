@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
+import {Route} from 'react-router-dom';
 
 
 class Message extends Component {
+    
     render(){
+        console.log(111,this.props.messageType)
+
+        const ConditionalComponent = this.props.messageType
         return(
             <div style={{width:'25vw',background:'#363E47',height:'97vh',display:'flex',flexDirection:'column',justifyContent:'space-evenly',marginTop:'1.5vh',marginBottom:'1.5vh'}}>
                 <div style={{height:'10%',display:'flex',justifyContent:'space-evenly',alignItems:'center', borderBottom:'lightgrey solid 0.02px'}}>
@@ -16,7 +21,7 @@ class Message extends Component {
                     </button>
                 </div>
                 <div style={{height:'90%'}}>
-                    message history containing the profile/group pics and the name and the most recent message
+                    <ConditionalComponent/>    
                 </div>
                 {/* <div style={{height:10,width:10,background:'red',borderRadius:'50%',boxShadow:'-1px -1px 3px 1px black'}}></div> */}
 

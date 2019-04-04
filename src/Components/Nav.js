@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
+import List from './List';
+import Friends from './Friends';
+import Group from './Group';
+import Individual from './Individual';
 
 const icons = {fontSize:'65px',color:'lightgrey'}
 class Nav extends Component {
     render(){
+        console.log(this.props.updateState)
+        const {updateState} = this.props;
         return(
             <div style={{marginLeft:'1vw',width:'10vw',background:'#303841',height:'97vh',display:'flex',flexDirection:'column',marginTop:'1.5vh',borderRadius:'10px 0px 0px 10px',marginBottom:'1.5vh'}}>
                     {/* <img src='' alt='Profile Pic'/> */}
@@ -17,10 +23,10 @@ class Nav extends Component {
                 </div>
 
                 <div style={{display:'flex',flexDirection:'column',justifyContent:'space-evenly',height:'60%',alignItems:'center'}}>
-                    <i className="fas fa-comment" style={icons}></i>
-                    <i className="fas fa-address-book" style={icons}></i>
-                    <i className="fas fa-user" style={icons}></i>
-                    <i className="fas fa-users" style={icons}></i>
+                    <i onClick={()=>updateState(List)} className="fas fa-comment" style={icons} id="nav-chat-icon"></i>
+                    <i onClick={()=>updateState(Friends)} className="fas fa-address-book" style={icons} id="nav-icons"></i>
+                    <i onClick={()=>updateState(Individual)} className="fas fa-user" style={icons} id="nav-individual-icon"></i>
+                    <i onClick={()=>updateState(Group)} className="fas fa-users" style={icons} id="nav-group-icon"></i>
                 </div>
                 <div style={{display:'flex',alignItems:'center',height:'15%',justifyContent:'center'}}>
                     <i className="fas fa-power-off" style={icons}></i>
