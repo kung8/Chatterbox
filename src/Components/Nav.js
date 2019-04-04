@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-const icons = {fontSize:'65px',color:'white'}
+const icons = {fontSize:'65px',color:'lightgrey'}
 class Nav extends Component {
     render(){
         return(

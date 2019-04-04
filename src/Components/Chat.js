@@ -3,16 +3,27 @@ import React, {Component} from 'react';
 class Chat extends Component {
     render(){
         return(
-            <div style={{width:'45vw',background:'green',height:'97vh',display:'flex',flexDirection:'column',justifyContent:'space-evenly',marginTop:'1.5vh',marginBottom:'1.5vh'}}>
-                <img src='' alt='Individual or Group Pic'/>
-                <h1>Individual or Group Name</h1>
-                <p>Chat history from DB</p>
-                <form>
-                    <button>Pic Upload</button>
-                    <button>Emoji</button>
-                    <input placeholder='Send Message...'/>
-                    <button>Send</button>
-                </form>
+            <div style={{width:'45vw',background:'green',height:'97vh',display:'flex',flexDirection:'column',marginTop:'1.5vh',marginBottom:'1.5vh'}}>
+                <div style={{display:'flex',alignItems:'center',background:'lightgrey',height:'10%',borderBottom:'darkgrey solid 0.05px'}}>
+                    <h1>Ginny Weasley</h1>
+                    <div style={{marginLeft:'10px',marginRight:'10px',height:10,width:10,background:'red',borderRadius:'50%'}}></div>
+                    <span>unavailable</span>
+                </div>
+                <div style={{display:'flex',alignItems:'center',background:'lightgrey',height:'75%',maxHeight:'75%',width:'100%'}}>
+                    <p>Chat history from DB</p>
+                </div>
+                <div style={{display:'flex',alignItems:'center',background:'red',height:'15%',width:'100%'}}>
+                    <form style={{display:'flex',width:'100%',background:'gold',height:'100%'}}>
+                        <textarea placeholder='Send Message...' style={{maxWidth:'75%',minWidth:'75%',minHeight:'94%',maxHeight:'94%',fontSize:'20px'}}/>
+                        <div style={{display:'flex',flexDirection:'column',width:'25%'}}>
+                            <div style={{width:'100%',height:'50%',background:'green'}}>
+                                <button style={{height:'100%',width:'50%'}}><i className="fas fa-images" style={{fontSize:'25px'}}></i></button>
+                                <button style={{height:'100%',width:'50%'}}><i className="far fa-smile-wink" style={{fontSize:'25px'}}></i></button>
+                            </div>
+                            <button style={{height:'50%'}}><i className="far fa-paper-plane" style={{fontSize:'25px'}}></i></button>
+                        </div>
+                    </form>
+                </div>
             </div>
         )
     }
