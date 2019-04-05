@@ -1,6 +1,68 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 
+class Chat extends Component {
+    constructor(){
+        super()
+        this.state={
+            
+        }
+    }
+
+    render(){
+        return(
+            <ChatBody>
+                <ChatHeading>
+                    <NameDot>
+                        <Name>Ginny Weasley</Name>
+                        <Dot></Dot>
+                        {/* <span>unavailable</span> */}
+                    </NameDot>
+                    <IconHolder>
+                        <Icons className="fas fa-folder"></Icons>
+                        <Icons className="fas fa-phone"></Icons>
+                        <Icons className="fas fa-video"></Icons>
+                    </IconHolder>
+                </ChatHeading>
+
+                <Chats>
+                    <p>Chat history from DB</p>
+                </Chats>
+                <FormHolder>
+                    <Form>
+                        <Textarea placeholder='Send Message...'/>
+                        <ButtonsHolder>
+                            <TopButtons>
+                                <Buttons>
+                                    <Icons className="fas fa-images"></Icons>
+                                </Buttons>
+                                <Buttons>
+                                    <Icons className="far fa-smile-wink"></Icons>
+                                </Buttons>
+                            </TopButtons>
+                            <Send>
+                                <Icons className="far fa-paper-plane"></Icons>
+                            </Send>
+                        </ButtonsHolder>
+                    </Form>
+                </FormHolder>
+            </ChatBody>
+        )
+    }
+}
+
+export default Chat
+
+
+//////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
+
+
+
+
+
+
+
+
 const ChatBody = styled.div`
     width:45vw;
     height:97vh;
@@ -135,15 +197,12 @@ const Send = styled.button`
 
 const Name = styled.h1`
     font-size:55px;
-
     @media screen and (max-width:769px){
         font-size:50px;
     }
     @media screen and (max-width:600px){
         font-size:30px;
     }
-
-
     @media screen and (max-width:500px){
         font-size:25px;
     }
@@ -151,48 +210,3 @@ const Name = styled.h1`
         font-size:20px;
     } 
 `
-
-class Chat extends Component {
-    render(){
-        return(
-            <ChatBody>
-                <ChatHeading>
-                    <NameDot>
-                        <Name>Ginny Weasley</Name>
-                        <Dot></Dot>
-                        {/* <span>unavailable</span> */}
-                    </NameDot>
-                    <IconHolder>
-                        <Icons className="fas fa-folder"></Icons>
-                        <Icons className="fas fa-phone"></Icons>
-                        <Icons className="fas fa-video"></Icons>
-                    </IconHolder>
-                </ChatHeading>
-
-                <Chats>
-                    <p>Chat history from DB</p>
-                </Chats>
-                <FormHolder>
-                    <Form>
-                        <Textarea placeholder='Send Message...'/>
-                        <ButtonsHolder>
-                            <TopButtons>
-                                <Buttons>
-                                    <Icons className="fas fa-images"></Icons>
-                                </Buttons>
-                                <Buttons>
-                                    <Icons className="far fa-smile-wink"></Icons>
-                                </Buttons>
-                            </TopButtons>
-                            <Send>
-                                <Icons className="far fa-paper-plane"></Icons>
-                            </Send>
-                        </ButtonsHolder>
-                    </Form>
-                </FormHolder>
-            </ChatBody>
-        )
-    }
-}
-
-export default Chat

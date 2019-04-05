@@ -1,6 +1,41 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 
+class Profile extends Component {
+    constructor(){
+        super();
+        this.state={
+
+        }
+    }
+    
+    render(){
+        return(
+            <ProfileBody>
+                <ImageHolder>
+                    <Image 
+                        src='https://s3-us-west-1.amazonaws.com/marketin/Ginny.jpeg' 
+                        alt='InImageHolderidual or Group Pic'
+                        />
+                </ImageHolder>
+                <PersonalHolder>
+                    <h1>Ginny Weasley</h1>
+                    {/* the name needs to shrink when the name is very long to keep it on one line or break it on first and last name or when the window gets smaller.  */}
+                    <p>Email</p>
+                    <p>Location</p>
+                    <p>Phone</p>
+                    <p>Social Media</p>
+                </PersonalHolder>
+            </ProfileBody>
+            )
+    }
+}
+
+export default Profile
+
+
+//////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
+
 const ProfileBody = styled.div`
     width:20vw;
     background:#F2F7F7;
@@ -39,28 +74,3 @@ const PersonalHolder = styled.div`
     align-items:center;
     flex-wrap:wrap;
 `
-
-class Profile extends Component {
-    render(){
-        return(
-            <ProfileBody>
-                <ImageHolder>
-                    <Image 
-                        src='https://s3-us-west-1.amazonaws.com/marketin/Ginny.jpeg' 
-                        alt='InImageHolderidual or Group Pic'
-                        />
-                </ImageHolder>
-                <PersonalHolder>
-                    <h1>Ginny Weasley</h1>
-                    {/* the name needs to shrink when the name is very long to keep it on one line or break it on first and last name or when the window gets smaller.  */}
-                    <p>Email</p>
-                    <p>Location</p>
-                    <p>Phone</p>
-                    <p>Social Media</p>
-                </PersonalHolder>
-            </ProfileBody>
-            )
-    }
-}
-
-export default Profile

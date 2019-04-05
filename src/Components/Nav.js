@@ -5,6 +5,69 @@ import Group from './Group';
 import Individual from './Individual';
 import styled from 'styled-components'
 
+class Nav extends Component {
+    constructor(){
+        super();
+
+        this.state={
+            color:'red'
+        }
+    }
+    
+    handleDot(value){
+        console.log(1111,value)
+        this.setState({
+                color:value
+            })
+    }
+
+    render(){
+        //Need to save availability to redux so that I can pass that to other users
+        const {updateState} = this.props;
+        return(
+            <NavBody>
+                <NavTop>
+                    <ActiveDots>
+                        <Dot onClick={()=>this.handleDot('red')} id="red-dot"></Dot>
+                        <Dot onClick={()=>this.handleDot('yellow')} id="yellow-dot"></Dot>
+                        <Dot onClick={()=>this.handleDot('green')} id="green-dot"></Dot>
+                    </ActiveDots>
+                    <PicHolder>
+                        <ProfilePic src='https://s3-us-west-1.amazonaws.com/marketin/Hermoine.jpeg' alt='profile'/>
+                        <Active style={{background:this.state.color}}></Active>
+                    </PicHolder>
+                </NavTop>
+
+                <IconHolder>
+                    <IndIconHolder>
+                        <Icons onClick={()=>updateState(List)} className="fas fa-comment"></Icons>
+                    </IndIconHolder>
+                    <IndIconHolder>
+                        <Icons onClick={()=>updateState(Friends)} className="fas fa-address-book" ></Icons>
+                    </IndIconHolder>
+                    <IndIconHolder>
+                        <Icons onClick={()=>updateState(Individual)} className="fas fa-user"></Icons>
+                    </IndIconHolder>
+                    <IndIconHolder>
+                        <Icons onClick={()=>updateState(Group)} className="fas fa-users"></Icons>
+                    </IndIconHolder>
+                </IconHolder>
+                <Logout>
+                    <Icons className="fas fa-power-off"></Icons>
+                </Logout>
+            </NavBody>
+        )
+    }
+
+}
+
+
+export default Nav
+
+
+
+//////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
+
 const NavBody = styled.div`
     margin-left:1vw;
     // width:10vw;
@@ -107,7 +170,6 @@ const ProfilePic = styled.img`
 const Active = styled.div`
     height:15px;
     width:15px;
-    background:green;
     border-radius:50%;
     box-shadow:-1px -1px 3px 2px black;
     position:relative;
@@ -131,47 +193,3 @@ const Logout = styled.div`
         border-left:green solid 10px;
     }
 `
-
-class Nav extends Component {
-    render(){
-        console.log(this.props.updateState)
-        const {updateState} = this.props;
-        return(
-            <NavBody>
-                <NavTop>
-                    <ActiveDots>
-                        <Dot id="red-dot"></Dot>
-                        <Dot id="yellow-dot"></Dot>
-                        <Dot id="green-dot"></Dot>
-                    </ActiveDots>
-                    <PicHolder>
-                        <ProfilePic src='https://s3-us-west-1.amazonaws.com/marketin/Hermoine.jpeg' alt='profile'/>
-                        <Active></Active>
-                    </PicHolder>
-                </NavTop>
-
-                <IconHolder>
-                    <IndIconHolder>
-                        <Icons onClick={()=>updateState(List)} className="fas fa-comment"></Icons>
-                    </IndIconHolder>
-                    <IndIconHolder>
-                        <Icons onClick={()=>updateState(Friends)} className="fas fa-address-book" ></Icons>
-                    </IndIconHolder>
-                    <IndIconHolder>
-                        <Icons onClick={()=>updateState(Individual)} className="fas fa-user"></Icons>
-                    </IndIconHolder>
-                    <IndIconHolder>
-                        <Icons onClick={()=>updateState(Group)} className="fas fa-users"></Icons>
-                    </IndIconHolder>
-                </IconHolder>
-                <Logout>
-                    <Icons className="fas fa-power-off"></Icons>
-                </Logout>
-            </NavBody>
-        )
-    }
-
-}
-
-
-export default Nav

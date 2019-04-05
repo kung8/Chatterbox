@@ -1,6 +1,45 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 
+
+
+class Message extends Component {
+    constructor(){
+        super();
+        this.state={
+
+        }
+    }
+    
+    render(){
+        const ConditionalComponent = this.props.messageType
+        return(
+            <MessageBody>
+                <FormHolder>
+                    <Form>
+                        <Input placeholder='Search' id="search-input"/>
+                        <Search className="fas fa-search"/>
+                    </Form>
+                    
+                    <Button>
+                        <Plus className="fas fa-plus"/>
+                    </Button>
+                </FormHolder>
+                <Conditional>
+                    <ConditionalComponent/>    
+                </Conditional>
+                {/* <div style={{height:10,width:10,background:'red',borderRadius:'50%',boxShadow:'-1px -1px 3px 1px black'}}></div> */}
+            </MessageBody>
+        )
+    }
+}
+
+export default Message
+
+
+//////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
+
+
 const MessageBody = styled.div`
     width:25vw;
     background:#363E47;
@@ -74,29 +113,3 @@ const Plus = styled.i`
 const Conditional = styled.div`
     height:90%;
 `
-
-class Message extends Component {
-    render(){
-        const ConditionalComponent = this.props.messageType
-        return(
-            <MessageBody>
-                <FormHolder>
-                    <Form>
-                        <Input placeholder='Search' id="search-input"/>
-                        <Search className="fas fa-search"/>
-                    </Form>
-                    
-                    <Button>
-                        <Plus className="fas fa-plus"/>
-                    </Button>
-                </FormHolder>
-                <Conditional>
-                    <ConditionalComponent/>    
-                </Conditional>
-                {/* <div style={{height:10,width:10,background:'red',borderRadius:'50%',boxShadow:'-1px -1px 3px 1px black'}}></div> */}
-            </MessageBody>
-        )
-    }
-}
-
-export default Message

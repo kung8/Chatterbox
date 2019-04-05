@@ -6,13 +6,6 @@ import Profile from './Profile';
 import List from './List';
 import styled from 'styled-components';
 
-const Dash = styled.div`
-    display:flex;
-    width:100%;
-    background:#5d697f;
-    justify-content:center;
-`
-
 class Dashboard extends Component {
     constructor(){
         super();
@@ -41,3 +34,14 @@ class Dashboard extends Component {
 
 
 export default Dashboard
+
+
+
+//////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
+
+const Dash = styled.div`
+    display:flex;
+    width:100%;
+    background:#5d697f;
+    justify-content:center;
+`
