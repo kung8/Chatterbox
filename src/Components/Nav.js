@@ -10,12 +10,11 @@ class Nav extends Component {
         super();
 
         this.state={
-            color:'red'
+            color:'green'
         }
     }
     
     handleDot(value){
-        console.log(1111,value)
         this.setState({
                 color:value
             })

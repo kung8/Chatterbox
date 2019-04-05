@@ -5,11 +5,41 @@ class Chat extends Component {
     constructor(){
         super()
         this.state={
-            
+            message:'',
+            messages:[
+                    {
+                        id:1,
+                        message:'Hey I wanted to tell you something',
+                        username:'Hermione'
+                    },
+                    {
+                        id:2,
+                        message:'Yeah what is that?',
+                        username:'Ginny'
+                    },
+                    {
+                        id:3,
+                        message:'I am prego!',
+                        username:'Hermione'
+                    },
+                    {
+                        id:4,
+                        message:'WHAAAAATTTT REEEALLLLY?!?',
+                        username:'Ginny'
+                    }
+            ]
         }
     }
 
     render(){
+        const mappedMessages = this.state.messages.map(msg =>{
+            return(
+                <div key={msg.id}>
+                    <p>{msg.message}</p>
+                    <p>{msg.username}</p>
+                </div>
+            )
+        })
         return(
             <ChatBody>
                 <ChatHeading>
@@ -26,7 +56,7 @@ class Chat extends Component {
                 </ChatHeading>
 
                 <Chats>
-                    <p>Chat history from DB</p>
+                    <p>{mappedMessages}</p>
                 </Chats>
                 <FormHolder>
                     <Form>
