@@ -32,12 +32,43 @@ const Form = styled.form`
     align-items:center;
 `
 
+const Search = styled.div`
+    font-size:25px;
+    color:lightgrey;
+
+`
+const Input = styled.input`
+    font-size:25px;
+    background:#303841;
+    color:lightgrey;
+    height:65%;
+    width:78%;
+    border:transparent;
+    margin-left:10px;
+    margin-right:0.5rem;
+    &:focus {
+        outline:none;
+    }
+    &::-webkit-input-placeholder {
+        color: lightgray;
+    }
+`
+
 const Button = styled.button`
     height:65%;
     width:15%;
     border-radius:50%;
     background:#303841;
-    border:#303841
+    border:#303841;
+    &:focus {
+        box-shadow: 0 0 1px 1px darkgrey;
+        outline: none;
+    }
+`
+
+const Plus = styled.i`
+    font-size:25px;
+    color:lightgrey;
 `
 
 const Conditional = styled.div`
@@ -51,12 +82,12 @@ class Message extends Component {
             <MessageBody>
                 <FormHolder>
                     <Form>
-                        <i className="fas fa-search" style={{fontSize:'25px',color:'lightgrey',marginLeft:'5px',marginRight:'0.5rem'}}></i>
-                        <input placeholder='Search' id="search-input" style={{fontSize:'25px',background:'#303841',color:'lightgrey',height:'65%',width:'78%',border:'transparent'}}/>
+                        <Input placeholder='Search' id="search-input"/>
+                        <Search className="fas fa-search"/>
                     </Form>
                     
-                    <Button id="new-chat" style={{}}>
-                        <i style={{fontSize:'25px',color:'lightgrey'}} className="fas fa-plus"></i>
+                    <Button>
+                        <Plus className="fas fa-plus"/>
                     </Button>
                 </FormHolder>
                 <Conditional>
