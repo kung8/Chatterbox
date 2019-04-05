@@ -4,38 +4,6 @@
     padding:0;
 }
 
-#nav-icons:hover {
-    background:white;
-    width:100%;
-    display: flex;
-    justify-content: center;
-}
-
-.active-dot {
-    background:#363E47;
-    height:15px;
-    width:15px;
-    border-radius: 50%;    
-    margin-left:5px;
-    border:solid 1px #363E47;
-    box-shadow: 0 0 1px 1px gray;
-}
-
-#active-dot:hover > #red-dot {
-    background:red;
-    border:lightcoral solid 1px;
-}       
-        
-#active-dot:hover > #yellow-dot {
-    background:yellow;
-    border:#FFFFCC solid 1px;
-}
-        
-#active-dot:hover > #green-dot {
-    background:green;
-    border:#00FF7F solid 1px;
-}
-
 #search-input:focus {
    outline:none;
 }
