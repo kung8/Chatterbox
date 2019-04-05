@@ -17,7 +17,7 @@ const NavBody = styled.div`
     margin-top:1.5vh;
     border-radius:10px 0px 0px 10px;
     margin-bottom:1.5vh;    
-    @media screen and (max-width:1000px){
+    @media screen and (max-width:1025px){
         display:none;
     }
 `
@@ -73,6 +73,8 @@ const IndIconHolder = styled.div`
     height:25%
     &:hover {
         background:white;
+        margin-left:10px;
+        border-left:green solid 10px;
     }
 `
 
@@ -88,6 +90,8 @@ const PicHolder = styled.div`
     height:65%;
     &:hover {
         background:white;
+        margin-left:10px;
+        border-left:green solid 10px;
     }
 `
 
@@ -106,9 +110,13 @@ const Active = styled.div`
     background:green;
     border-radius:50%;
     box-shadow:-1px -1px 3px 2px black;
-    position:absolute;
-    top:145px;
-    left:115px;
+    position:relative;
+    top:55px;
+    left:-1050px;
+    @media screen and (max-width:2000px){
+        left:-25px;
+        top:45px;
+    }
 `
 
 const Logout = styled.div`
@@ -119,6 +127,8 @@ const Logout = styled.div`
     &:hover {
         background:white;
         border-radius:0 0 0 10px;
+        // margin-left:10px;
+        border-left:green solid 10px;
     }
 `
 
@@ -136,7 +146,7 @@ class Nav extends Component {
                     </ActiveDots>
                     <PicHolder>
                         <ProfilePic src='https://s3-us-west-1.amazonaws.com/marketin/Hermoine.jpeg' alt='profile'/>
-                        {/* <Active></Active> */}
+                        <Active></Active>
                     </PicHolder>
                 </NavTop>
 

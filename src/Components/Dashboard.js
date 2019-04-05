@@ -4,6 +4,14 @@ import Message from './Message';
 import Chat from './Chat';
 import Profile from './Profile';
 import List from './List';
+import styled from 'styled-components';
+
+const Dash = styled.div`
+    display:flex;
+    width:100%;
+    background:#5d697f;
+    justify-content:center;
+`
 
 class Dashboard extends Component {
     constructor(){
@@ -21,12 +29,12 @@ class Dashboard extends Component {
 
     render(){
         return(
-            <div style={{display:'flex',maxWidth:'100vw',background:'#5d697f'}}>
+            <Dash>
                 <Nav updateState={this.updateState}/>
                 <Message messageType={this.state.messageType}/>
                 <Chat/>
                 <Profile/>
-            </div>
+            </Dash>
         )
     }
 }
