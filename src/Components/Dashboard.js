@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import io from 'socket.io-client';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {updateUsers} from './../ducks/reducer';
+import {updateChats,updateUser} from './../ducks/reducer';
 
 class Dashboard extends Component {
     constructor(){
@@ -41,16 +41,20 @@ class Dashboard extends Component {
     }
 
     componentDidMount(){
-        this.getUsers()
+        this.current()
     }
 
-    getUsers=async()=>{
-        const users = await axios.get('/api/users');
-        console.log(users.data);
-        this.props.updateUsers(users.data)
-        // this.setState({
-        //     users:users.data
-        // })
+    current = async() => {
+        const {id} = this.props.user;
+        if(!id){
+            console.log('current entered')
+            try{
+                const user = await axios.post('/api/user/current');
+                this.props.updateUser(user.data)
+            } catch(err){
+                this.props.history.push('/')
+            }
+        } 
     }
 
     updateState=(value)=>{
@@ -62,12 +66,11 @@ class Dashboard extends Component {
 
 
     render(){
-        console.log(this.props)
         return(
             <Dash>
                 <Nav updateState={this.updateState}/>
                 <Message setSocketListeners={this.setSocketListeners} messageType={this.state.messageType}/>
-                <Chat messages={this.state.messages} />
+                <Chat />
                 <Profile/>
             </Dash>
         )
@@ -77,11 +80,13 @@ class Dashboard extends Component {
 function mapStateToProps(reduxState){
 
     return{
-        users:reduxState.users
+        chats:reduxState.chats,
+        user:reduxState.user,
+        
     }
 }
 
-export default connect(mapStateToProps,{updateUsers})(Dashboard)
+export default connect(mapStateToProps,{updateChats,updateUser})(Dashboard)
 
 
 

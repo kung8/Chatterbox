@@ -1,22 +1,34 @@
 const bcrypt = require('bcryptjs');
 
 module.exports = {
-    getUsers: async(req,res)=>{
+    getUsers: async (req,res)=>{
         const db = req.app.get('db');
-        let users = await db.get_users();
-        // console.log(users)
+        let {id}= req.params;
+        id = +id
+        let users = await db.get_users({id});
+        res.status(200).send(users)
+    },
+
+    getChats: async (req,res)=>{
+        const db = req.app.get('db');
+        let {id}= req.params;
+        id = +id
+        let users = await db.get_users({id});
+        res.status(200).send(users)
+    },
+
+    getFriends: async (req,res)=>{
+        const db = req.app.get('db');
+        let {id}= req.params;
+        id = +id
+        let users = await db.get_users({id});
         res.status(200).send(users)
     },
 
     register: async (req,res) => {
         const db = req.app.get('db');
-        console.log(req.body)
         const {first,last,email,password,username} = req.body;
-        
-        console.log(typeof email, email)
-
         let checkedUser1 = await db.check_email({email});
-        console.log(1,checkedUser1)
         checkedUser1 = checkedUser1[0] 
         //if the email is equal to an existing email in the db then return 'this email is already in the db, please input another email'
         if(checkedUser1){
@@ -25,7 +37,6 @@ module.exports = {
 
         //if the username is available then continue registering.
         let checkedUser2 = await db.check_username({username})
-        console.log(2,checkedUser2)
 
         checkedUser2 = checkedUser2[0]
         
@@ -38,10 +49,8 @@ module.exports = {
         let hash = bcrypt.hashSync(password,salt);
         let newUser = await db.register({first,last,email,password:hash,username});
         newUser = newUser[0];
-        console.log(3,newUser)
-
         req.session.user = newUser;
-        res.status(200).send(newUser);
+        res.status(200).send(req.session.user);
     },
 
     login: async (req,res) => {
@@ -58,14 +67,15 @@ module.exports = {
             req.session.user = user;
             res.status(200).send(req.session.user);
         } else {
-            res.status(401).send('password is incorrect');
+            return res.status(401).send('password is incorrect');
         }
     }, 
 
     current: async (req,res) =>{
         const db = req.app.get('db');
-        if(req.session.user){
-            res.status(200).send(req.session.user);
+        const {user} = req.session
+        if(user){
+            res.status(200).send(user);
         } else {
             res.sendStatus(401);
         }

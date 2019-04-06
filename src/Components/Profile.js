@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import {connect} from 'react-redux';
 
 class Profile extends Component {
     constructor(){
@@ -10,6 +11,7 @@ class Profile extends Component {
     }
     
     render(){
+        const {last,first,email} = this.props.friend
         return(
             <ProfileBody>
                 <ImageHolder>
@@ -19,19 +21,25 @@ class Profile extends Component {
                         />
                 </ImageHolder>
                 <PersonalHolder>
-                    <h1>Ginny Weasley</h1>
+                    <h1>{first} {last}</h1>
                     {/* the name needs to shrink when the name is very long to keep it on one line or break it on first and last name or when the window gets smaller.  */}
-                    <p>Email</p>
-                    <p>Location</p>
+                    <p>{email}</p>
+                    {/* <p>Location</p>
                     <p>Phone</p>
-                    <p>Social Media</p>
+                    <p>Social Media</p> */}
                 </PersonalHolder>
             </ProfileBody>
             )
     }
 }
 
-export default Profile
+function mapStateToProps(reduxState){
+    return{
+        friend:reduxState.friend
+    }
+}
+
+export default connect(mapStateToProps)(Profile)
 
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////

@@ -15,8 +15,8 @@ massive(CONNECTION_STRING).then(db=>{
 
 app.use(session({
     secret:SESSION_SECRET,
-    resave:true,
-    saveUninitialized:true,
+    resave: true,
+    saveUninitialized: true,
     cookie:{
         maxAge:600000
     }
@@ -29,7 +29,9 @@ const io = socket(app.listen(SERVER_PORT,()=>{
 }))
 
 //ENDPOINTS
-app.get('/api/users',ctrl.getUsers)
+app.get('/api/users/:id',ctrl.getUsers);
+app.get('/api/chats/:id',ctrl.getUsers);
+app.get('/api/friends/:id',ctrl.getUsers);
 app.post('/api/user/register',ctrl.register);
 app.post('/api/user/logout',ctrl.logout);
 app.post('/api/user/login',ctrl.login);

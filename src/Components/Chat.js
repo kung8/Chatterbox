@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import {connect} from 'react-redux';
 
 class Chat extends Component {
     constructor(props){
         super(props)
         this.state={
-            message:'',
-            
+            message:'', 
         }
     }
-
 
     send(){
         const {message} = this.state;
@@ -17,8 +16,7 @@ class Chat extends Component {
     }
 
     render(){
-        console.log(this.state)
-        const mappedMessages = this.props.messages.map(msg =>{
+        const mappedMessages = this.props.messages.map(msg => {
             return(
                 <div key={msg.id}>
                     <p>{msg.message}</p>
@@ -30,7 +28,7 @@ class Chat extends Component {
             <ChatBody>
                 <ChatHeading>
                     <NameDot>
-                        <Name>Ginny Weasley</Name>
+                        <Name>{this.props.friend.first} {this.props.friend.last}</Name>
                         <Dot></Dot>
                         {/* <span>unavailable</span> */}
                     </NameDot>
@@ -69,7 +67,14 @@ class Chat extends Component {
     }
 }
 
-export default Chat
+function mapStateToProps(reduxState){
+    return{
+        friend:reduxState.friend,
+        messages:reduxState.messages
+    }
+}
+
+export default connect(mapStateToProps)(Chat)
 
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////

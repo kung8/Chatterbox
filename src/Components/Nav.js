@@ -6,6 +6,8 @@ import Individual from './Individual';
 import styled from 'styled-components'
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {clearAll} from '../ducks/reducer';
 
 class Nav extends Component {
     constructor(){
@@ -15,7 +17,8 @@ class Nav extends Component {
             color:'green'
         }
     }
-    
+    componentDidMount(){
+    }
     handleDot(value){
         this.setState({
                 color:value
@@ -24,12 +27,12 @@ class Nav extends Component {
 
     logout = async() => {
         await axios.post('/api/user/logout')
+        this.props.clearAll()
         this.props.history.push('/')
     }
 
     render(){
         //Need to save availability to redux so that I can pass that to other users
-        console.log(this.props)
         const {updateState} = this.props;
         return(
             <NavBody>
@@ -68,8 +71,12 @@ class Nav extends Component {
 
 }
 
-
-export default withRouter(Nav)
+function mapStateToProps(reduxState){
+    return{
+        user:reduxState.user
+    }
+}
+export default withRouter(connect(mapStateToProps,{clearAll})(Nav))
 
 
 
