@@ -30,6 +30,14 @@ class Login extends Component {
         this.props.history.push('/dashboard')
     }
 
+    login = async () => {
+        const {username,password} = this.state;
+        const user = await axios.post('/api/user/login',{username,password}) 
+        console.log(user.data);
+        this.props.updateUser(user.data)
+        this.props.history.push('/dashboard')
+    }
+
     render(){
         return(
             <div>
@@ -40,6 +48,11 @@ class Login extends Component {
                     <input placeholder="username" onChange={e=>this.handleInput('username',e.target.value)}/>
                     <input placeholder="password" onChange={e=>this.handleInput('password',e.target.value)}/>
                     <button onClick={()=>this.register()}>Register</button>
+                </form>
+                <form>
+                    <input placeholder="username" onChange={e=>this.handleInput('username',e.target.value)}/>
+                    <input placeholder="password" onChange={e=>this.handleInput('password',e.target.value)}/>
+                    <button onClick={this.login}>Login</button>
                 </form>
             </div>
         )

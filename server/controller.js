@@ -13,7 +13,7 @@ module.exports = {
         console.log(req.body)
         const {first,last,email,password,username} = req.body;
         
-        console.log(typeof email)
+        console.log(typeof email, email)
 
         let checkedUser1 = await db.check_email({email});
         console.log(1,checkedUser1)
@@ -46,11 +46,11 @@ module.exports = {
 
     login: async (req,res) => {
         const db = req.app.get('db');
-        const {email,password} = req.body;
-        let user = await db.users.login({email});
+        const {username,password} = req.body;
+        let user = await db.check_username({username});
         user = user[0];
         if(!user){
-            return res.status(401).send('email not found')
+            return res.status(401).send('username not found')
         } 
         let authenticated = bcrypt.compareSync(password,user.password);
         if(authenticated){

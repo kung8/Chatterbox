@@ -4,6 +4,8 @@ import Friends from './Friends';
 import Group from './Group';
 import Individual from './Individual';
 import styled from 'styled-components'
+import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 
 class Nav extends Component {
     constructor(){
@@ -20,8 +22,14 @@ class Nav extends Component {
             })
     }
 
+    logout = async() => {
+        await axios.post('/api/user/logout')
+        this.props.history.push('/')
+    }
+
     render(){
         //Need to save availability to redux so that I can pass that to other users
+        console.log(this.props)
         const {updateState} = this.props;
         return(
             <NavBody>
@@ -51,7 +59,7 @@ class Nav extends Component {
                         <Icons onClick={()=>updateState(Group)} className="fas fa-users"></Icons>
                     </IndIconHolder>
                 </IconHolder>
-                <Logout>
+                <Logout onClick={this.logout}>
                     <Icons className="fas fa-power-off"></Icons>
                 </Logout>
             </NavBody>
@@ -61,7 +69,7 @@ class Nav extends Component {
 }
 
 
-export default Nav
+export default withRouter(Nav)
 
 
 

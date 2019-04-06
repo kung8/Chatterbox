@@ -30,7 +30,10 @@ const io = socket(app.listen(SERVER_PORT,()=>{
 
 //ENDPOINTS
 app.get('/api/users',ctrl.getUsers)
-app.post('/api/user/register',ctrl.register)
+app.post('/api/user/register',ctrl.register);
+app.post('/api/user/logout',ctrl.logout);
+app.post('/api/user/login',ctrl.login);
+app.post('/api/user/current',ctrl.current);
 
 //SOCKETS ENDPOINTS
 io.on('connection',function(socket){
