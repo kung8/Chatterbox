@@ -2,37 +2,23 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 
 class Chat extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
             message:'',
-            messages:[
-                    {
-                        id:1,
-                        message:'Hey I wanted to tell you something',
-                        username:'Hermione'
-                    },
-                    {
-                        id:2,
-                        message:'Yeah what is that?',
-                        username:'Ginny'
-                    },
-                    {
-                        id:3,
-                        message:'I am prego!',
-                        username:'Hermione'
-                    },
-                    {
-                        id:4,
-                        message:'WHAAAAATTTT REEEALLLLY?!?',
-                        username:'Ginny'
-                    }
-            ]
+            
         }
     }
 
+
+    send(){
+        const {message} = this.state;
+        console.log('hit');
+    }
+
     render(){
-        const mappedMessages = this.state.messages.map(msg =>{
+        console.log(this.state)
+        const mappedMessages = this.props.messages.map(msg =>{
             return(
                 <div key={msg.id}>
                     <p>{msg.message}</p>
@@ -57,10 +43,12 @@ class Chat extends Component {
 
                 <Chats>
                     <p>{mappedMessages}</p>
+                    
                 </Chats>
+
                 <FormHolder>
                     <Form>
-                        <Textarea placeholder='Send Message...'/>
+                        <Textarea onChange={(e)=>this.setState({message:e.target.value})} placeholder='Send Message...'/>
                         <ButtonsHolder>
                             <TopButtons>
                                 <Buttons>
@@ -70,7 +58,7 @@ class Chat extends Component {
                                     <Icons className="far fa-smile-wink"></Icons>
                                 </Buttons>
                             </TopButtons>
-                            <Send>
+                            <Send onClick={()=>this.send()}>
                                 <Icons className="far fa-paper-plane"></Icons>
                             </Send>
                         </ButtonsHolder>
@@ -85,13 +73,6 @@ export default Chat
 
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
-
-
-
-
-
-
-
 
 const ChatBody = styled.div`
     width:45vw;

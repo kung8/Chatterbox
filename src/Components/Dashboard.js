@@ -5,13 +5,52 @@ import Chat from './Chat';
 import Profile from './Profile';
 import List from './List';
 import styled from 'styled-components';
+import io from 'socket.io-client';
+import axios from 'axios';
+import {connect} from 'react-redux';
+import {updateUsers} from './../ducks/reducer';
 
 class Dashboard extends Component {
     constructor(){
         super();
         this.state={
-            messageType:List
+            messageType:List,
+            messages:[
+                {
+                    id:1,
+                    message:'Hey I wanted to tell you something',
+                    username:'Hermione'
+                },
+                {
+                    id:2,
+                    message:'Yeah what is that?',
+                    username:'Ginny'
+                },
+                {
+                    id:3,
+                    message:'I am prego!',
+                    username:'Hermione'
+                },
+                {
+                    id:4,
+                    message:'WHAAAAATTTT REEEALLLLY?!?',
+                    username:'Ginny'
+                }
+        ]
         }
+    }
+
+    componentDidMount(){
+        this.getUsers()
+    }
+
+    getUsers=async()=>{
+        const users = await axios.get('/api/users');
+        console.log(users.data);
+        this.props.updateUsers(users.data)
+        // this.setState({
+        //     users:users.data
+        // })
     }
 
     updateState=(value)=>{
@@ -20,20 +59,29 @@ class Dashboard extends Component {
         })
     }
 
+
+
     render(){
+        console.log(this.props)
         return(
             <Dash>
                 <Nav updateState={this.updateState}/>
-                <Message messageType={this.state.messageType}/>
-                <Chat/>
+                <Message setSocketListeners={this.setSocketListeners} messageType={this.state.messageType}/>
+                <Chat messages={this.state.messages} />
                 <Profile/>
             </Dash>
         )
     }
 }
 
+function mapStateToProps(reduxState){
 
-export default Dashboard
+    return{
+        users:reduxState.users
+    }
+}
+
+export default connect(mapStateToProps,{updateUsers})(Dashboard)
 
 
 
