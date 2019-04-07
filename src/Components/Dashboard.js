@@ -69,7 +69,7 @@ class Dashboard extends Component {
         return(
             <Dash>
                 <Nav updateState={this.updateState}/>
-                <Message setSocketListeners={this.setSocketListeners} messageType={this.state.messageType}/>
+                <Message messageType={this.state.messageType}/>
                 <Chat />
                 <Profile/>
             </Dash>

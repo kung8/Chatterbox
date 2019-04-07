@@ -29,9 +29,9 @@ const io = socket(app.listen(SERVER_PORT,()=>{
 }))
 
 //ENDPOINTS
-app.get('/api/users/:id',ctrl.getUsers);
-app.get('/api/chats/:id',ctrl.getUsers);
-app.get('/api/friends/:id',ctrl.getUsers);
+// app.get('/api/users/:id',ctrl.getUsers);
+app.get('/api/chats/:id',ctrl.getChats);
+app.get('/api/friends/:id',ctrl.getFriends);
 app.post('/api/user/register',ctrl.register);
 app.post('/api/user/logout',ctrl.logout);
 app.post('/api/user/login',ctrl.login);
@@ -40,8 +40,18 @@ app.post('/api/user/current',ctrl.current);
 //SOCKETS ENDPOINTS
 io.on('connection',function(socket){
     
-    socket.on('startChat',async function(data){
-        console.log(data)
+    socket.on('startChat',async function(room){
+        const db = app.get('db');
+        console.log(111,room)
+        let messages = await db.get_room(room)
+        console.log(222,messages);
+        if(messages[0]){
+            socket.join(room);
+            io.to(room).emit('startChat',messages)
+        } else {
+            await db.create_room(room)
+            socket.join(room)
+        }
     })
     
     socket.on('endChat',function(room){
@@ -49,3 +59,4 @@ io.on('connection',function(socket){
         socket.leave(room)
     })
 })
+

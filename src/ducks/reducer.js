@@ -9,7 +9,8 @@ const initialState = {
         }
     ],
     friends:[],
-    friend:{}
+    friend:{},
+    chat:[]
 }
 
 const UPDATE_USER = 'UPDATE_USER';
@@ -18,6 +19,7 @@ const UPDATE_MESSAGES = 'UPDATE_MESSAGES';
 const CLEAR_ALL = 'CLEAR_ALL';
 const UPDATE_FRIENDS = 'UPDATE_FRIENDS';
 const SELECTED_FRIEND = 'SELECTED_FRIEND';
+const UPDATE_CHAT = 'UPDATE_CHAT';
 
 export function updateUser(user){
     return{
@@ -26,10 +28,18 @@ export function updateUser(user){
     }
 }
 
+
 export function updateChats(chats){
     return{
         type:UPDATE_CHATS,
         payload:chats
+    }
+}
+
+export function updateChat(chat){
+    return{
+        type:UPDATE_CHAT,
+        payload:chat
     }
 }
 
@@ -65,6 +75,8 @@ export default function Reducer(reduxState=initialState,action){
             return {...reduxState,user:action.payload}
         case UPDATE_CHATS:
             return {...reduxState,chats:action.payload}
+        case UPDATE_CHAT:
+            return {...reduxState,chat:action.payload}
         case UPDATE_FRIENDS:
             return {...reduxState,friends:action.payload}
         case SELECTED_FRIEND:

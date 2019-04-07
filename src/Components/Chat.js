@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
+import io from 'socket.io-client';
+import {updateChat} from '../ducks/reducer';
 
 class Chat extends Component {
     constructor(props){
@@ -8,6 +10,14 @@ class Chat extends Component {
         this.state={
             message:'', 
         }
+    }
+
+    componentDidMount(){
+        this.socket=io();
+        this.socket.on('startChat',messages =>{
+            console.log(messages);
+            this.props.updateChat(messages)
+        })
     }
 
     send(){
@@ -74,7 +84,7 @@ function mapStateToProps(reduxState){
     }
 }
 
-export default connect(mapStateToProps)(Chat)
+export default connect(mapStateToProps,{updateChat})(Chat)
 
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////

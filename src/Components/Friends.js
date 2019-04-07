@@ -29,8 +29,20 @@ class Friends extends Component {
         const {id} = friend;
         this.socket=io();
         this.socket.emit('endChat',this.state.room);
-
-        this.socket.emit('startChat',id);
+        let bigger;
+        let smaller;
+        if(userId > id){
+            bigger = userId;
+            smaller = id
+        } else {
+            bigger = id;
+            smaller = userId;
+        } 
+        let room = bigger+':'+smaller;
+        this.setState({
+            room:room
+        })
+        this.socket.emit('startChat',{room});
     }
 
     render(){
