@@ -42,18 +42,30 @@ io.on('connection',function(socket){
     
     socket.on('startChat',async function(room){
         const db = app.get('db');
-        console.log(111,room)
+        console.log(room)
         let messages = await db.get_room(room)
-        console.log(222,messages);
         if(messages[0]){
-            socket.join(room);
-            io.to(room).emit('startChat',messages)
+            console.log(222222222)
+            socket.join(room.room);
+            console.log(messages, room)
+            io.in(room.room).emit('test',messages)
         } else {
+            console.log(111111111111111111)
             await db.create_room(room)
             socket.join(room)
+            io.to(room).emit('startChat',messages)
         }
     })
     
+    socket.on('sendMsg', async function(data){
+        const db = app.get('db');
+        const {message,id,room} = data;
+        console.log(message,id,room)
+        const messages = await db.create_message({message,id,room})
+        console.log(messages,room)
+        io.to(room).emit('sendMsg',messages)
+    })
+
     socket.on('endChat',function(room){
         console.log('ended hit',room)
         socket.leave(room)

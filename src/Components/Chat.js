@@ -8,29 +8,56 @@ class Chat extends Component {
     constructor(props){
         super(props)
         this.state={
-            message:'', 
+            message:'',
+            messages:[]
+
         }
+        this.socket=io();
+        this.socket.on('test',messages =>{
+            this.startChat('startChat',messages)            
+            console.log('hit socket again',messages)
+        
+        });
+        this.socket.on('sendMsg',messages =>{
+            console.log('entering send',messages)
+            this.setState({
+                messages:messages.data,
+                message:''
+            })
+        })
     }
 
     componentDidMount(){
-        this.socket=io();
-        this.socket.on('startChat',messages =>{
-            console.log(messages);
-            this.props.updateChat(messages)
+
+        console.log('hit socket thrice')
+    }
+
+    startChat=(messages)=>{
+        this.setState({
+            messages:messages.data
         })
     }
 
     send(){
         const {message} = this.state;
-        console.log('hit');
+        const {id} = this.props.user;
+        const {room} = this.props;
+        console.log('hit',message,id,room);
+        this.socket.emit('sendMsg',{message,id,room})
+    }
+
+    componentWillUnmount(){
+        this.socket.disconnect();
     }
 
     render(){
-        const mappedMessages = this.props.messages.map(msg => {
+        // console.log(this.state.messages)
+        const mappedMessages = this.state.messages.map(msg => {
             return(
                 <div key={msg.id}>
                     <p>{msg.message}</p>
                     <p>{msg.username}</p>
+                    <p>{msg.id}</p>
                 </div>
             )
         })
@@ -80,7 +107,9 @@ class Chat extends Component {
 function mapStateToProps(reduxState){
     return{
         friend:reduxState.friend,
-        messages:reduxState.messages
+        chat:reduxState.chat,
+        user:reduxState.user,
+        room:reduxState.room
     }
 }
 

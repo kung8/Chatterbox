@@ -1,28 +1,14 @@
 const bcrypt = require('bcryptjs');
 
 module.exports = {
-    // getUsers: async (req,res)=>{
-    //     const db = req.app.get('db');
-    //     let {id}= req.params;
-    //     id = +id
-        
-    //     let users = await db.get_users({id});
-    //     res.status(200).send(users)
-    // },
-
     getChats: async (req,res)=>{
         const db = req.app.get('db');
         let {id}= req.params;
-        // id = +id
-        console.log(id)
+        console.log(678,id)
         let id1 =`${id}`+':'+`%`;
         let id2 =`%`+`:`+`${id}`;
         console.log(id1,id2)
         let users = await db.get_chats({id1,id2,id});
-        console.log(666,users)
-        // let uniqueUsers = [...new Set(users.map(item=>{
-        //     return item.room_id
-        // }))]
         
         var uniqueUsers = users.reduce((accumulator, current) => {
             if (checkIfAlreadyExist(current)) {
@@ -33,13 +19,10 @@ module.exports = {
            
             function checkIfAlreadyExist(currentVal) {
               return accumulator.some((item) => {
-                  console.log(123,item,id)
                 return (item.room_id === currentVal.room_id && item.user_id !== id );
               });
             }
            }, []);
-
-           console.log(uniqueUsers)
         res.status(200).send(uniqueUsers)
     },
 

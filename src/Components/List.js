@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import io from 'socket.io-client';
 import axios from 'axios';
-import {updateChats,selectedFriend} from './../ducks/reducer';
+import {updateChats,selectedFriend,updateRoom} from './../ducks/reducer';
 
 class Message extends Component {
     constructor(){
         super();
         this.state={
-            room:''
         }
     }
 
@@ -18,18 +17,16 @@ class Message extends Component {
 
     getChats = async() => {
         const {id} = this.props.user;
-        console.log(id)
         const users = await axios.get(`/api/chats/${id}`);
         this.props.updateChats(users.data)
         //will evenutally need to be converted to the message table on the SQL file
     }    
 
     startChat(userId,user){
-        console.log(userId,user)
         this.props.selectedFriend(user)
-        const {id} = user;
+        const {user_id:id} = user;
         this.socket=io();
-        this.socket.emit('endChat',this.state.room);
+        this.socket.emit('endChat',this.props.room);
         let bigger;
         let smaller;
         if(userId > id){
@@ -40,9 +37,7 @@ class Message extends Component {
             smaller = userId;
         } 
         let room = bigger+':'+smaller;
-        this.setState({
-            room:room
-        })
+        this.props.updateRoom(room)
         this.socket.emit('startChat',{room});
     }
 
@@ -73,9 +68,10 @@ class Message extends Component {
 function mapStateToProps(reduxState){
     return{
         chats:reduxState.chats,
-        user:reduxState.user
-        
+        user:reduxState.user,
+        room:reduxState.room,
+        friend:reduxState.friend
     }
 }
 
-export default connect(mapStateToProps,{updateChats,selectedFriend})(Message)
+export default connect(mapStateToProps,{updateChats,selectedFriend,updateRoom})(Message)

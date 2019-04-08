@@ -5,7 +5,6 @@ import Chat from './Chat';
 import Profile from './Profile';
 import List from './List';
 import styled from 'styled-components';
-import io from 'socket.io-client';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {updateChats,updateUser} from './../ducks/reducer';
