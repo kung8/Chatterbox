@@ -1,6 +1,16 @@
 const bcrypt = require('bcryptjs');
 
 module.exports = {
+    getChatHistory: async(req,res)=>{
+        const db = req.app.get('db');
+        // console.log('hit!')
+        console.log(req.params)
+        const {room} = req.params;
+        const chat = await db.get_room({room})
+        console.log(chat)
+        res.status(200).send(chat)
+    },
+
     getChats: async (req,res)=>{
         const db = req.app.get('db');
         let {id}= req.params;
@@ -28,10 +38,13 @@ module.exports = {
 
     getFriends: async (req,res)=>{
         const db = req.app.get('db');
+        // console.log(req.params)
         let {id}= req.params;
-        id = +id
-        let users = await db.get_friends({id});
-        res.status(200).send(users)
+        // id = +id
+        // console.log(id)
+        let friends = await db.get_friends({id});
+        // console.log(friends)
+        res.status(200).send(friends)
     },
 
     register: async (req,res) => {

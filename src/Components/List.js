@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import io from 'socket.io-client';
+import socket from './Sockets'
 import axios from 'axios';
 import {updateChats,selectedFriend,updateRoom} from './../ducks/reducer';
 
@@ -25,8 +25,8 @@ class Message extends Component {
     startChat(userId,user){
         this.props.selectedFriend(user)
         const {user_id:id} = user;
-        this.socket=io();
-        this.socket.emit('endChat',this.props.room);
+        // this.socket=io();
+        socket.emit('endChat',this.props.room);
         let bigger;
         let smaller;
         if(userId > id){
@@ -38,7 +38,7 @@ class Message extends Component {
         } 
         let room = bigger+':'+smaller;
         this.props.updateRoom(room)
-        this.socket.emit('startChat',{room});
+        socket.emit('startChat',{room});
     }
 
 

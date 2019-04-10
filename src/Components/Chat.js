@@ -1,73 +1,57 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
+import socket from './Sockets'
 import {updateChat} from '../ducks/reducer';
-
+import axios from 'axios'
 class Chat extends Component {
     constructor(props){
         super(props)
         this.state={
-            message:'',
-            messages:[]
-
+            message:''
         }
-        this.socket=io();
-        this.socket.on('test',messages =>{
-            this.startChat('startChat',messages)            
-            console.log('hit socket again',messages)
-        
-        });
-        this.socket.on('sendMsg',messages =>{
-            console.log('entering send',messages)
+    }
+
+    componentDidMount(){
+        socket.on('startChat',chat=>{
+            this.props.updateChat(chat)
+        })
+        socket.on('updateMsg',messages => {
+            console.log(messages)
+            this.props.updateChat(messages)
             this.setState({
-                messages:messages.data,
                 message:''
             })
         })
     }
 
-    componentDidMount(){
-
-        console.log('hit socket thrice')
-    }
-
-    startChat=(messages)=>{
-        this.setState({
-            messages:messages.data
-        })
-    }
-
     send(){
         const {message} = this.state;
-        const {id} = this.props.user;
         const {room} = this.props;
-        console.log('hit',message,id,room);
-        this.socket.emit('sendMsg',{message,id,room})
-    }
-
-    componentWillUnmount(){
-        this.socket.disconnect();
+        const {id} = this.props.user
+        console.log(room)
+        socket.emit('sendMsg',{message,room,id})
+        
     }
 
     render(){
-        // console.log(this.state.messages)
-        const mappedMessages = this.state.messages.map(msg => {
+        const mappedChat = this.props.chat.map(message => {
+            console.log(this.props.chat)
             return(
-                <div key={msg.id}>
-                    <p>{msg.message}</p>
-                    <p>{msg.username}</p>
-                    <p>{msg.id}</p>
+                <div key={message.id} >
+                    <h1>{message.message}</h1>
+                    <h1>{message.first} {message.last}</h1>
                 </div>
             )
         })
+
         return(
             <ChatBody>
                 <ChatHeading>
                     <NameDot>
                         <Name>{this.props.friend.first} {this.props.friend.last}</Name>
                         <Dot></Dot>
-                        {/* <span>unavailable</span> */}
                     </NameDot>
                     <IconHolder>
                         <Icons className="fas fa-folder"></Icons>
@@ -77,8 +61,7 @@ class Chat extends Component {
                 </ChatHeading>
 
                 <Chats>
-                    <p>{mappedMessages}</p>
-                    
+                    {mappedChat}
                 </Chats>
 
                 <FormHolder>
@@ -108,8 +91,8 @@ function mapStateToProps(reduxState){
     return{
         friend:reduxState.friend,
         chat:reduxState.chat,
-        user:reduxState.user,
-        room:reduxState.room
+        room:reduxState.room,
+        user:reduxState.user
     }
 }
 
@@ -193,11 +176,11 @@ const Icons = styled.i`
 
 const Chats = styled.div`
     display:flex;
-    align-items:center;
     background:lightgrey;
     height:75%;
     max-height:75%;
     width:100%;
+    flex-direction:column;
 `
 
 const FormHolder = styled.div`

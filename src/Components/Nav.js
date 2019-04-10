@@ -47,7 +47,7 @@ class Nav extends Component {
                         <Active style={{background:this.state.color}}></Active>
                     </PicHolder>
                 </NavTop>
-
+  
                 <IconHolder>
                     <IndIconHolder>
                         <Icons onClick={()=>updateState(List)} className="fas fa-comment"></Icons>

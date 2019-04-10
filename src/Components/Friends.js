@@ -1,54 +1,36 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {updateFriends,selectedFriend,updateRoom} from '../ducks/reducer';
-import io from 'socket.io-client';
+import socket from './Sockets'
 
 class Friends extends Component {
     constructor(){
         super();
         this.state={
-
+            friends:[]
         }
     }
     
     componentDidMount(){
         this.getFriends()
-        this.socket=io('http://localhost:8888', {transports: ['websocket']});
-        console.log('we here now')
-            this.socket.on('test',messages =>{
-                console.log('hit socket again')
-                this.startChat('startChat',messages)            
-            
-            });
-        this.socket.on('sendMsg',messages =>{
-            console.log('entering send',messages)
-            this.setState({
-                messages:messages.data,
-                message:''
-            })
-        })
     }
 
-    // startChat=(messages)=>{
-    //     this.setState({
-    //         messages:messages.data
-    //     })
-    // }
-
-    getFriends = async() => {
+    getFriends = async()=>{
         const {id} = this.props.user;
-        const users = await axios.get(`/api/friends/${id}`);
-        this.props.updateFriends(users.data)
-        //will need to get off of a friends table eventually but for now we will just do all users 
-    }    
+        // console.log(id)
+        let friends = await axios.get(`/api/friends/${id}`)
+        // console.log(friends.data)
+        friends = friends.data;
+        this.props.updateFriends(friends)
+    }
 
     startChat(userId,friend){
-        console.log('hi')
-        this.props.selectedFriend(friend);
+        this.props.selectedFriend(friend)
         const {id} = friend;
-        this.socket=io();
-        this.socket.emit('endChat',this.props.room);
+        // console.log(this.props.room)
+        socket.emit('endChat',this.props.room);
+        // console.log(this.props.room)
         let bigger;
         let smaller;
         if(userId > id){
@@ -60,23 +42,23 @@ class Friends extends Component {
         } 
         let room = bigger+':'+smaller;
         this.props.updateRoom(room)
-        console.log('made it this far')
-        this.socket.emit('startChat',{room});
+        socket.emit('startChat',{room});
     }
 
     render(){
         const userId = this.props.user.id
-        const {friends} = this.props;
-        const mappedFriends = friends.map(friend=>{
+        // console.log(this.props.friend)
+        const {friends} = this.props
+        const friendsArray = friends.map(friend =>{
             return(
-                <div key={friend.id}>
+                <div>
                     <h1 onClick={()=>this.startChat(userId,friend)}>{friend.first} {friend.last}</h1>
                 </div>
-            )
+            )    
         })
         return(
             <div>
-                {mappedFriends}
+                {friendsArray}
             </div>
         )
     }
@@ -84,12 +66,11 @@ class Friends extends Component {
 
 function mapStateToProps(reduxState){
     return{
-        chats:reduxState.chats,
         user:reduxState.user,
+        friend:reduxState.friend,
         friends:reduxState.friends,
         room:reduxState.room
-
     }
 }
 
-export default connect(mapStateToProps,{updateRoom,updateFriends,selectedFriend})(Friends)
+export default connect(mapStateToProps,{updateFriends,selectedFriend,updateRoom})(Friends)

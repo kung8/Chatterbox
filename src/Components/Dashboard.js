@@ -3,7 +3,7 @@ import Nav from './Nav';
 import Message from './Message';
 import Chat from './Chat';
 import Profile from './Profile';
-import List from './List';
+import Friends from './Friends';
 import styled from 'styled-components';
 import axios from 'axios';
 import {connect} from 'react-redux';
@@ -13,7 +13,7 @@ class Dashboard extends Component {
     constructor(){
         super();
         this.state={
-            messageType:List,
+            messageType:Friends, 
             messages:[
                 {
                     id:1,
