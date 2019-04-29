@@ -1,3 +1,5 @@
+const path = require('path'); // Usually moved to the start of file
+
 require('dotenv').config()
 const express = require('express');
 const session = require('express-session');
@@ -70,3 +72,6 @@ io.on('connection',function(socket){
     })
 })
 
+app.get('*', (req, res)=>{
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+  });
