@@ -1,52 +1,86 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 // import io from 'socket.io-client';
 import socket from './Sockets'
-import {updateChat} from '../ducks/reducer';
+import { updateChat } from '../ducks/reducer';
 import axios from 'axios'
 class Chat extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state={
-            message:''
+        this.state = {
+            message: ''
         }
     }
 
-    componentDidMount(){
-        socket.on('startChat',chat=>{
+    componentDidMount() {
+        socket.on('startChat', chat => {
             this.props.updateChat(chat)
         })
-        socket.on('updateMsg',messages => {
+        socket.on('updateMsg', messages => {
             console.log(messages)
             this.props.updateChat(messages)
             this.setState({
-                message:''
+                message: ''
             })
         })
     }
 
-    send(){
-        const {message} = this.state;
-        const {room} = this.props;
-        const {id} = this.props.user
-        console.log(room)
-        socket.emit('sendMsg',{message,room,id})
-        
+    send() {
+        const { message } = this.state;
+        const { room } = this.props;
+        const { id } = this.props.user
+        console.log(room,message,id)
+        socket.emit('sendMsg', { message, room, id })
+
     }
 
-    render(){
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.chat !== this.props.chat) {
+            console.log('hit')
+        }
+    }
+
+    render() {
         const mappedChat = this.props.chat.map(message => {
-            console.log(this.props.chat)
-            return(
-                <div key={message.id} >
-                    <h1>{message.message}</h1>
-                    <h1>{message.first} {message.last}</h1>
-                </div>
-            )
+            let color;
+            let position;
+            if (message.user_id === this.props.user.id) {
+                color = "#26f7ff75";
+                position = "flex-end";
+                return (
+                    <div key={message.id} style={{ width: "98%", display: "flex", justifyContent: `${position}`, marginRight: "5px" }}>
+                        <div style={{ background: `${color}`, display: "flex", marginTop: "5px", maxWidth: "60%", justifyContent: "flex-end", borderRadius: "10px", padding: "4px" }}>
+                            <div style={{ display: "flex"}}>
+                                <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" }}>{message.message}</p>
+                            </div>
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", height: "100%" }}>
+                                <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%", marginLeft:'5px' }} />
+                            </div>
+                        </div>
+                    </div>
+                )
+            } else {
+                color = "lightgreen";
+                position = "flex-start";
+                return (
+                    <div key={message.id} style={{ width: "98%", display: "flex", justifyContent: `${position}`, marginLeft: "5px" }} >
+                        <div style={{ background: `${color}`, display: "flex",marginTop: "5px", maxWidth: "60%", justifyContent: "flex-start", borderRadius: "10px", padding: "4px" }}>
+                            <div style={{ display: "flex", textAlign: "left", padding: "2px" }}>
+                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
+                                    <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%" , marginRight:'5px' }} />
+                                </div>
+                                <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" }}>
+                                    {message.message}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
         })
 
-        return(
+        return (
             <ChatBody>
                 <ChatHeading>
                     <NameDot>
@@ -66,7 +100,7 @@ class Chat extends Component {
 
                 <FormHolder>
                     <Form>
-                        <Textarea onChange={(e)=>this.setState({message:e.target.value})} placeholder='Send Message...'/>
+                        <Textarea onChange={(e) => this.setState({ message: e.target.value })} placeholder='Send Message...' />
                         <ButtonsHolder>
                             <TopButtons>
                                 <Buttons>
@@ -76,7 +110,7 @@ class Chat extends Component {
                                     <Icons className="far fa-smile-wink"></Icons>
                                 </Buttons>
                             </TopButtons>
-                            <Send onClick={()=>this.send()}>
+                            <Send onClick={() => this.send()}>
                                 <Icons className="far fa-paper-plane"></Icons>
                             </Send>
                         </ButtonsHolder>
@@ -87,16 +121,16 @@ class Chat extends Component {
     }
 }
 
-function mapStateToProps(reduxState){
-    return{
-        friend:reduxState.friend,
-        chat:reduxState.chat,
-        room:reduxState.room,
-        user:reduxState.user
+function mapStateToProps(reduxState) {
+    return {
+        friend: reduxState.friend,
+        chat: reduxState.chat,
+        room: reduxState.room,
+        user: reduxState.user
     }
 }
 
-export default connect(mapStateToProps,{updateChat})(Chat)
+export default connect(mapStateToProps, { updateChat })(Chat)
 
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
@@ -181,6 +215,10 @@ const Chats = styled.div`
     max-height:75%;
     width:100%;
     flex-direction:column;
+    overflow-y:scroll;
+    ::-webkit-scrollbar {
+        width:0px
+    }
 `
 
 const FormHolder = styled.div`
@@ -234,9 +272,9 @@ const Send = styled.button`
 `
 
 const Name = styled.h1`
-    font-size:55px;
+    font-size:40px;
     @media screen and (max-width:769px){
-        font-size:50px;
+        font-size:35px;
     }
     @media screen and (max-width:600px){
         font-size:30px;

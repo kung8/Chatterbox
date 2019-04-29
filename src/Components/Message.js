@@ -1,15 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 
-
-
 class Message extends Component {
-    constructor(){
-        super();
-        this.state={
-
-        }
-    }
     
     render(){
         const ConditionalComponent = this.props.messageType
@@ -28,14 +20,12 @@ class Message extends Component {
                 <Conditional>
                     <ConditionalComponent setSocketListeners={this.props.setSocketListeners}/>    
                 </Conditional>
-                {/* <div style={{height:10,width:10,background:'red',borderRadius:'50%',boxShadow:'-1px -1px 3px 1px black'}}></div> */}
             </MessageBody>
         )
     }
 }
 
 export default Message
-
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
 

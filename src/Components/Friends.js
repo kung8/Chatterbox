@@ -20,6 +20,7 @@ class Friends extends Component {
         const {id} = this.props.user;
         // console.log(id)
         let friends = await axios.get(`/api/friends/${id}`)
+        console.log(friends.data)
         // console.log(friends.data)
         friends = friends.data;
         this.props.updateFriends(friends)
@@ -51,8 +52,11 @@ class Friends extends Component {
         const {friends} = this.props
         const friendsArray = friends.map(friend =>{
             return(
-                <div>
-                    <h1 onClick={()=>this.startChat(userId,friend)}>{friend.first} {friend.last}</h1>
+                <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
+                    <div onClick={()=>this.startChat(userId,friend)} style={{display:'flex', alignItems:'center',background:'orange',borderRadius:'16px',width:'98%',marginLeft:'1%'}}>
+                        <img src={friend.pic} style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
+                        <h3>{friend.first} {friend.last}</h3>
+                    </div>
                 </div>
             )    
         })

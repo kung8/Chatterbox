@@ -11,17 +11,17 @@ class Profile extends Component {
     }
     
     render(){
-        const {last,first,email} = this.props.friend
+        const {last,first,email,pic} = this.props.friend
         return(
             <ProfileBody>
                 <ImageHolder>
                     <Image 
-                        src='https://s3-us-west-1.amazonaws.com/marketin/Ginny.jpeg' 
-                        alt='InImageHolderidual or Group Pic'
+                        src={pic} 
+                        alt='friend pic'
                         />
                 </ImageHolder>
                 <PersonalHolder>
-                    <h1>{first} {last}</h1>
+                    <p>{first} {last}</p>
                     {/* the name needs to shrink when the name is very long to keep it on one line or break it on first and last name or when the window gets smaller.  */}
                     <p>{email}</p>
                     {/* <p>Location</p>

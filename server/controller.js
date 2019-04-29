@@ -1,49 +1,54 @@
 const bcrypt = require('bcryptjs');
 
 module.exports = {
-    getChatHistory: async(req,res)=>{
-        const db = req.app.get('db');
-        // console.log('hit!')
-        console.log(req.params)
-        const {room} = req.params;
-        const chat = await db.get_room({room})
-        console.log(chat)
-        res.status(200).send(chat)
-    },
-
-    getChats: async (req,res)=>{
-        const db = req.app.get('db');
-        let {id}= req.params;
-        console.log(678,id)
-        let id1 =`${id}`+':'+`%`;
-        let id2 =`%`+`:`+`${id}`;
-        console.log(id1,id2)
-        let users = await db.get_chats({id1,id2,id});
+    // getChatHistory: async(req,res,next)=>{
+        //     const db = req.app.get('db');
+        //     console.log(req.params)
+        //     const {room} = req.params;
+        //     const chat = await db.get_room({room})
+        //     console.log(chat)
+        //     res.status(200).send(chat)    
+        // },
         
-        var uniqueUsers = users.reduce((accumulator, current) => {
-            if (checkIfAlreadyExist(current)) {
-              return accumulator;
-            } else {
-              return [...accumulator, current];
-            }
-           
-            function checkIfAlreadyExist(currentVal) {
-              return accumulator.some((item) => {
-                return (item.room_id === currentVal.room_id && item.user_id !== id );
-              });
-            }
-           }, []);
-        res.status(200).send(uniqueUsers)
-    },
-
-    getFriends: async (req,res)=>{
+        // middlewarePractice:(req,res,next)=>{
+        //     console.log('Hey I was hit first!')
+        //     next()
+        // },
+        
+        
+        getChats: async (req,res,next)=>{
+            const db = req.app.get('db');
+            let {id}= req.params;
+            console.log(678,id)
+            let id1 =`${id}`+':'+`%`;
+            let id2 =`%`+`:`+`${id}`;
+            console.log(id1,id2)
+            let users = await db.get_chats({id1,id2,id});
+            console.log(users)
+            var uniqueUsers = users.reduce((accumulator, current) => {
+                if (checkIfAlreadyExist(current)) {
+                    return accumulator;
+                } else {
+                    return [...accumulator, current];
+                }
+                
+                function checkIfAlreadyExist(currentVal) {
+                    return accumulator.some((item) => {
+                        return (item.room_id === currentVal.room_id && item.user_id !== id );
+                    });
+                }
+            }, []);
+            res.status(200).send(uniqueUsers)
+        },
+        
+        getFriends: async (req,res,next)=>{
+            // console.log('hit after the middleware!')
         const db = req.app.get('db');
-        // console.log(req.params)
+        console.log(req.session.user.id)
         let {id}= req.params;
         // id = +id
         // console.log(id)
         let friends = await db.get_friends({id});
-        // console.log(friends)
         res.status(200).send(friends)
     },
 
@@ -96,6 +101,7 @@ module.exports = {
     current: async (req,res) =>{
         const db = req.app.get('db');
         const {user} = req.session
+        console.log(user)
         if(user){
             res.status(200).send(user);
         } else {

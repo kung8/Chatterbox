@@ -89,7 +89,7 @@ export default function Reducer(reduxState=initialState,action){
         case UPDATE_ROOM:
             return {...reduxState,room:action.payload}
         case CLEAR_ALL:
-            return {...reduxState,user:{},chats:[],messages:[],friends:[],friend:{}}
+            return {...reduxState,user:{},chats:[],messages:[],friends:[],friend:{},chat:[]}
         default:
             return {...reduxState}  
     }

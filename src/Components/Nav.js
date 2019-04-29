@@ -34,6 +34,7 @@ class Nav extends Component {
     render(){
         //Need to save availability to redux so that I can pass that to other users
         const {updateState} = this.props;
+        console.log(this.props.user)
         return(
             <NavBody>
                 <NavTop>
@@ -43,7 +44,7 @@ class Nav extends Component {
                         <Dot onClick={()=>this.handleDot('green')} id="green-dot"></Dot>
                     </ActiveDots>
                     <PicHolder>
-                        <ProfilePic src='https://s3-us-west-1.amazonaws.com/marketin/Hermoine.jpeg' alt='profile'/>
+                        <ProfilePic src={this.props.user.pic} alt='profile'/>
                         <Active style={{background:this.state.color}}></Active>
                     </PicHolder>
                 </NavTop>

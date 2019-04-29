@@ -14,28 +14,7 @@ class Dashboard extends Component {
         super();
         this.state={
             messageType:Friends, 
-            messages:[
-                {
-                    id:1,
-                    message:'Hey I wanted to tell you something',
-                    username:'Hermione'
-                },
-                {
-                    id:2,
-                    message:'Yeah what is that?',
-                    username:'Ginny'
-                },
-                {
-                    id:3,
-                    message:'I am prego!',
-                    username:'Hermione'
-                },
-                {
-                    id:4,
-                    message:'WHAAAAATTTT REEEALLLLY?!?',
-                    username:'Ginny'
-                }
-        ]
+            messages:[]
         }
     }
 
@@ -62,7 +41,7 @@ class Dashboard extends Component {
         })
     }
 
-
+    
 
     render(){
         return(

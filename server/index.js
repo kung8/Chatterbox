@@ -8,6 +8,7 @@ const ctrl = require('./controller');
 
 const app = express();
 app.use(express.json());
+app.use( express.static( `${__dirname}/../build` ) );
 
 massive(CONNECTION_STRING).then(db=>{
     app.set('db',db);
@@ -22,7 +23,10 @@ app.use(session({
     }
 }))
 
-
+// app.use(function(req,res,next){
+//     console.log('Hey I am application level middleware')
+//     next()
+// })
 
 const io = socket(app.listen(SERVER_PORT,()=>{
     console.log('Server is running on port '+ SERVER_PORT)
@@ -32,11 +36,12 @@ const io = socket(app.listen(SERVER_PORT,()=>{
 // app.get('/api/users/:id',ctrl.getUsers);
 // app.get('/api/chats/:id',ctrl.getChats);
 app.get('/api/friends/:id',ctrl.getFriends);
+// app.get('/api/friends/:id',ctrl.middlewarePractice,ctrl.getFriends);
 app.post('/api/user/register',ctrl.register);
 app.post('/api/user/logout',ctrl.logout);
 app.post('/api/user/login',ctrl.login);
 app.post('/api/user/current',ctrl.current);
-app.get('/api/chathistory/:room',ctrl.getChatHistory)
+// app.get('/api/chathistory/:room',ctrl.middlewarePractice);
 //SOCKETS ENDPOINTS
 io.on('connection',function(socket){
     
