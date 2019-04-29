@@ -44,7 +44,6 @@ module.exports = {
         getFriends: async (req,res,next)=>{
             // console.log('hit after the middleware!')
         const db = req.app.get('db');
-        console.log(req.session.user.id)
         let {id}= req.params;
         // id = +id
         // console.log(id)

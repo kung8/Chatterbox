@@ -61,14 +61,11 @@ io.on('connection',function(socket){
     socket.on('sendMsg', async function(data){
         const db = app.get('db');
         const {message,id,room} = data;
-        console.log(message,id,room);
         const messages = await db.create_message({message,id,room})
-        console.log(messages,room)
-        io.in(room).emit('updateMsg',messages)
+        io.in(room).emit('sendMsg',messages)
     })
 
     socket.on('endChat',function(room){
-        // console.log('ended hit',room)
         socket.leave(room)
     })
 })

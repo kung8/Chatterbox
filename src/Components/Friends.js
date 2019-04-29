@@ -18,10 +18,7 @@ class Friends extends Component {
 
     getFriends = async()=>{
         const {id} = this.props.user;
-        // console.log(id)
         let friends = await axios.get(`/api/friends/${id}`)
-        console.log(friends.data)
-        // console.log(friends.data)
         friends = friends.data;
         this.props.updateFriends(friends)
     }
@@ -29,9 +26,7 @@ class Friends extends Component {
     startChat(userId,friend){
         this.props.selectedFriend(friend)
         const {id} = friend;
-        // console.log(this.props.room)
         socket.emit('endChat',this.props.room);
-        // console.log(this.props.room)
         let bigger;
         let smaller;
         if(userId > id){
@@ -48,7 +43,6 @@ class Friends extends Component {
 
     render(){
         const userId = this.props.user.id
-        // console.log(this.props.friend)
         const {friends} = this.props
         const friendsArray = friends.map(friend =>{
             return(

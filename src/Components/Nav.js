@@ -34,7 +34,6 @@ class Nav extends Component {
     render(){
         //Need to save availability to redux so that I can pass that to other users
         const {updateState} = this.props;
-        console.log(this.props.user)
         return(
             <NavBody>
                 <NavTop>

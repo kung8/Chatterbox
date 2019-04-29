@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-// import io from 'socket.io-client';
 import socket from './Sockets'
 import { updateChat } from '../ducks/reducer';
 import axios from 'axios'
+
 class Chat extends Component {
     constructor(props) {
         super(props)
@@ -17,7 +17,7 @@ class Chat extends Component {
         socket.on('startChat', chat => {
             this.props.updateChat(chat)
         })
-        socket.on('updateMsg', messages => {
+        socket.on('sendMsg', messages => {
             console.log(messages)
             this.props.updateChat(messages)
             this.setState({
@@ -26,19 +26,12 @@ class Chat extends Component {
         })
     }
 
-    send() {
+    send(){
         const { message } = this.state;
         const { room } = this.props;
         const { id } = this.props.user
-        console.log(room,message,id)
+        socket.emit('startChat',{room})
         socket.emit('sendMsg', { message, room, id })
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.chat !== this.props.chat) {
-            console.log('hit')
-        }
     }
 
     render() {
@@ -100,7 +93,7 @@ class Chat extends Component {
 
                 <FormHolder>
                     <Form>
-                        <Textarea onChange={(e) => this.setState({ message: e.target.value })} placeholder='Send Message...' />
+                        <Textarea onChange={(e) => this.setState({ message: e.target.value })} placeholder='Send Message...' value={this.state.message} />
                         <ButtonsHolder>
                             <TopButtons>
                                 <Buttons>
@@ -273,6 +266,7 @@ const Send = styled.button`
 
 const Name = styled.h1`
     font-size:40px;
+    margin-left:5px;
     @media screen and (max-width:769px){
         font-size:35px;
     }
