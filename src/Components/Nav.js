@@ -33,7 +33,8 @@ class Nav extends Component {
 
     render(){
         //Need to save availability to redux so that I can pass that to other users
-        const {updateState} = this.props;
+        const {updateState,messageType} = this.props;
+        
         return(
             <NavBody>
                 <NavTop>
@@ -49,17 +50,17 @@ class Nav extends Component {
                 </NavTop>
   
                 <IconHolder>
-                    <IndIconHolder>
-                        <Icons onClick={()=>updateState(List)} className="fas fa-comment"></Icons>
+                    <IndIconHolder onClick={()=>updateState(List)} style={{backgroundColor:messageType==List&&'white',marginLeft:messageType==List&&'10px',borderLeft:messageType==List&&'green solid 10px'}}>
+                        <Icons  className="fas fa-comment"></Icons>
                     </IndIconHolder>
-                    <IndIconHolder>
-                        <Icons onClick={()=>updateState(Friends)} className="fas fa-address-book" ></Icons>
+                    <IndIconHolder onClick={()=>updateState(Friends)} style={{backgroundColor:messageType==Friends&&'white',marginLeft:messageType==Friends&&'10px',borderLeft:messageType==Friends&&'green solid 10px'}}>
+                        <Icons  className="fas fa-address-book" ></Icons>
                     </IndIconHolder>
-                    <IndIconHolder>
-                        <Icons onClick={()=>updateState(Individual)} className="fas fa-user"></Icons>
+                    <IndIconHolder onClick={()=>updateState(Individual)} style={{backgroundColor:messageType==Individual&&'white',marginLeft:messageType==Individual&&'10px',borderLeft:messageType==Individual&&'green solid 10px'}}>
+                        <Icons  className="fas fa-user"></Icons>
                     </IndIconHolder>
-                    <IndIconHolder>
-                        <Icons onClick={()=>updateState(Group)} className="fas fa-users"></Icons>
+                    <IndIconHolder onClick={()=>updateState(Group)} style={{backgroundColor:messageType==Group&&'white',marginLeft:messageType==Group&&'10px',borderLeft:messageType==Group&&'green solid 10px'}}>
+                        <Icons  className="fas fa-users"></Icons>
                     </IndIconHolder>
                 </IconHolder>
                 <Logout onClick={this.logout}>
@@ -147,11 +148,11 @@ const IndIconHolder = styled.div`
     width:100%;
     justify-content:center;
     align-items:center;
-    height:25%
+    height:25%;
     &:hover {
         background:white;
-        margin-left:10px;
-        border-left:green solid 10px;
+        // margin-left:10px;
+        // border-left:green solid 10px;
     }
 `
 
@@ -167,8 +168,8 @@ const PicHolder = styled.div`
     height:65%;
     &:hover {
         background:white;
-        margin-left:10px;
-        border-left:green solid 10px;
+        // margin-left:10px;
+        // border-left:green solid 10px;
     }
 `
 
@@ -203,7 +204,6 @@ const Logout = styled.div`
     &:hover {
         background:white;
         border-radius:0 0 0 10px;
-        // margin-left:10px;
-        border-left:green solid 10px;
+        // border-left:green solid 10px;
     }
 `

@@ -43,8 +43,7 @@ class Friends extends Component {
 
     render(){
         const userId = this.props.user.id
-        const {friends} = this.props
-        const {search} = this.props
+        const {friends,search} = this.props
         const friendsArray = friends.filter(friend => {
             const friendSearch = search.toLowerCase().split(' ')
             for (let i = 0; i < friendSearch.length; i++) {
@@ -61,7 +60,7 @@ class Friends extends Component {
         .map(friend =>{
             return(
                 <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                    <div onClick={()=>this.startChat(userId,friend)} style={{display:'flex', alignItems:'center',background:'orange',borderRadius:'16px',width:'98%',marginLeft:'1%'}}>
+                    <div onClick={()=>this.startChat(userId,friend)} style={{display:'flex', alignItems:'center',background:'orange',borderRadius:'10px',width:'98%',marginLeft:'1%'}}>
                         <img src={friend.pic} style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
                         <h3>{friend.first} {friend.last}</h3>
                     </div>

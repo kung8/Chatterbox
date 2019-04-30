@@ -41,12 +41,10 @@ class Dashboard extends Component {
         })
     }
 
-    
-
     render(){
         return(
             <Dash>
-                <Nav updateState={this.updateState}/>
+                <Nav updateState={this.updateState} messageType={this.state.messageType}/>
                 <Message messageType={this.state.messageType}/>
                 <Chat />
                 <Profile/>
