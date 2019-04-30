@@ -277,16 +277,12 @@ const Send = styled.button`
     outline-color:lightgreen;
     @media screen and (max-width:1370px){
         border-radius:0 0 10px 0;
-
     }
 `
 
 const Name = styled.h1`
-    font-size:40px;
+    font-size:30px;
     margin-left:5px;
-    @media screen and (max-width:769px){
-        font-size:35px;
-    }
     @media screen and (max-width:600px){
         font-size:30px;
     }
