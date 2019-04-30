@@ -44,7 +44,21 @@ class Friends extends Component {
     render(){
         const userId = this.props.user.id
         const {friends} = this.props
-        const friendsArray = friends.map(friend =>{
+        const {search} = this.props
+        const friendsArray = friends.filter(friend => {
+            const friendSearch = search.toLowerCase().split(' ')
+            for (let i = 0; i < friendSearch.length; i++) {
+              const searchName = friendSearch[i];
+              if (!friend.first.toLowerCase().includes(searchName) &&
+                !friend.last.toLowerCase().includes(searchName)) {
+                return false
+              }
+            }
+            return true
+          })
+        
+        
+        .map(friend =>{
             return(
                 <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
                     <div onClick={()=>this.startChat(userId,friend)} style={{display:'flex', alignItems:'center',background:'orange',borderRadius:'16px',width:'98%',marginLeft:'1%'}}>

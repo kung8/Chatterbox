@@ -2,14 +2,26 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 
 class Message extends Component {
-    
+    constructor(){
+        super()
+        this.state={
+            search:''
+        }
+    }
+
+    search(value){
+        this.setState({
+            search:value
+        })
+    }
+
     render(){
         const ConditionalComponent = this.props.messageType
         return(
             <MessageBody>
                 <FormHolder>
                     <Form>
-                        <Input placeholder='Search' id="search-input"/>
+                        <Input placeholder='Search' id="search-input" onChange={e=>this.search(e.target.value)}/>
                         <Search className="fas fa-search"/>
                     </Form>
                     
@@ -18,7 +30,7 @@ class Message extends Component {
                     </Button>
                 </FormHolder>
                 <Conditional>
-                    <ConditionalComponent setSocketListeners={this.props.setSocketListeners}/>    
+                    <ConditionalComponent search={this.state.search}/>    
                 </Conditional>
             </MessageBody>
         )
