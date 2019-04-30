@@ -20,6 +20,7 @@ class Message extends Component {
         return(
             <MessageBody>
                 <FormHolder>
+                    <Hamburger className="fas fa-bars"/>
                     <Form>
                         <Input placeholder='Search' id="search-input" onChange={e=>this.search(e.target.value)}/>
                         <Search className="fas fa-search"/>
@@ -52,6 +53,10 @@ const MessageBody = styled.div`
     margin-top:1.5vh;
     margin-bottom:1.5vh;
     @media screen and (max-width:1300px){
+        width:40vw;
+        border-radius:10px 0 0 10px
+    }
+    @media screen and (max-width:1025px){
         display:none;
     }
 `
@@ -62,6 +67,17 @@ const FormHolder = styled.div`
     justify-content:space-evenly;
     align-items:center;
     border-bottom:lightgrey solid 0.02px;
+`
+
+const Hamburger = styled.i`
+    color:lightgrey;
+    font-size:35px;
+    @media screen and (min-width:1300px){
+        display:none;
+    }
+    &:hover{
+        color:white;
+    }
 `
 
 const Form = styled.form`

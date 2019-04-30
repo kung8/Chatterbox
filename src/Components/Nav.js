@@ -95,7 +95,7 @@ const NavBody = styled.div`
     margin-top:1.5vh;
     border-radius:10px 0px 0px 10px;
     margin-bottom:1.5vh;    
-    @media screen and (max-width:1025px){
+    @media screen and (max-width:1300px){
         display:none;
     }
 `

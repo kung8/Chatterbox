@@ -77,6 +77,7 @@ class Chat extends Component {
             <ChatBody>
                 <ChatHeading>
                     <NameDot>
+                        <ChevronLeft className="fas fa-chevron-left"/>
                         <Name>{this.props.friend.first} {this.props.friend.last}</Name>
                         <Dot></Dot>
                     </NameDot>
@@ -136,7 +137,7 @@ const ChatBody = styled.div`
     margin-top:1.5vh;
     margin-bottom:1.5vh;
     @media screen and (max-width:1370px){
-        min-width:700px;
+        // min-width:700px;
         border-radius:0 10px 10px 0;
     }
 
@@ -147,8 +148,8 @@ const ChatBody = styled.div`
     }
 
     @media screen and (max-width:415px){
-        min-width:97vw;
-        max-width:97vw;
+        min-width:90vw;
+        max-width:90vw;
         height:97vh;
     }
 
@@ -157,8 +158,24 @@ const ChatBody = styled.div`
         max-width:97vw;
         height:97vh;
     }
-    
 `
+
+const ChevronLeft = styled.i `
+    font-size:45px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:50px;
+    width:50px;
+    @media screen and (min-width:1025px){
+        display:none
+    }
+    &:hover{
+        color:white;
+    }
+`
+
 const ChatHeading = styled.div`
     display:flex;
     align-items:center;
