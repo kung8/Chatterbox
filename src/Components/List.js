@@ -45,7 +45,20 @@ class Message extends Component {
     render(){
         const {chats} = this.props
         const userId = this.props.user.id
-        const mappedChats = chats.map(user =>{
+        const {search} = this.props
+        const mappedChats = chats.filter(user=>{
+            const friendSearch = search.toLowerCase().split(' ')
+              for (let i = 0; i < friendSearch.length; i++) {
+                const searchName = friendSearch[i];
+                if (!user.first.toLowerCase().includes(searchName) &&
+                  !user.last.toLowerCase().includes(searchName)) {
+                  return false
+                }
+              }
+              return true
+          })
+        
+        .map(user =>{
             return(
                 <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
                     <div onClick={()=>this.startChat(userId,user)} key={user.id} style={{display:'flex', alignItems:'center',background:'orange',borderRadius:'16px',width:'98%',marginLeft:'1%'}}>
