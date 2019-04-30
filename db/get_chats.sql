@@ -1,5 +1,8 @@
-select room_id, chats.id,message,user_id,first,last,pic 
+select distinct room_id
 from chats
-join users on users.id = chats.user_id
-where room_id ilike ${id1} or room_id ilike ${id2} and user_id != ${id}
-order by chats.id
+where room_id ilike ${id1} or room_id ilike ${id2} and user_id in (
+    select user_id
+    from users
+    where user_id = ${id}
+    order by user_id asc
+)

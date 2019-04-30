@@ -24,9 +24,9 @@ class Message extends Component {
     }    
 
     startChat(userId,user){
+        console.log(userId,user)
         this.props.selectedFriend(user)
-        const {user_id:id} = user;
-        // this.socket=io();
+        const {id} = user;
         socket.emit('endChat',this.props.room);
         let bigger;
         let smaller;
@@ -49,12 +49,13 @@ class Message extends Component {
         const userId = this.props.user.id
         const mappedChats = chats.map(user =>{
             return(
-                <div key={user.id}>
-                    <h1 onClick={()=>this.startChat(userId,user)}>
-                        {user.first} {user.last}
-                    </h1>
-                    <p>{user.message}</p>  
-                    {/* add time and date*/}
+                <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
+                    <div onClick={()=>this.startChat(userId,user)} key={user.id} style={{display:'flex', alignItems:'center',background:'orange',borderRadius:'16px',width:'98%',marginLeft:'1%'}}>
+                        <img src={user.pic} style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
+                        <h3 >{user.first} {user.last}</h3>
+                        {/* <p>{user.message}</p>   */}
+                        {/* add time and date*/}
+                    </div>
                 </div>
             )
         })

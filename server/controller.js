@@ -19,34 +19,41 @@ module.exports = {
         getChats: async (req,res,next)=>{
             const db = req.app.get('db');
             let {id}= req.params;
-            console.log(678,id)
             let id1 =`${id}`+':'+`%`;
             let id2 =`%`+`:`+`${id}`;
-            console.log(id1,id2)
-            let users = await db.get_chats({id1,id2,id});
-            console.log(users)
-            var uniqueUsers = users.reduce((accumulator, current) => {
-                if (checkIfAlreadyExist(current)) {
-                    return accumulator;
-                } else {
-                    return [...accumulator, current];
-                }
-                
-                function checkIfAlreadyExist(currentVal) {
-                    return accumulator.some((item) => {
-                        return (item.room_id === currentVal.room_id && item.user_id !== id );
-                    });
-                }
-            }, []);
-            res.status(200).send(uniqueUsers)
+            let chats = await db.get_chats({id1,id2,id});            
+            if(chats.length !==0){
+                const array = []
+                let users = chats.map(room=>{
+                    const roomArr = room.room_id.split(':')
+                    const user = roomArr.filter(item=>{
+                        if(item != id){
+                            return item
+                        } 
+                    })
+                    return user
+                }).map(userId => {
+                    return +userId[0]
+                })       
+
+                let awaiting = users.map(async id1 =>{
+                        let awaitedUsers = await db.get_chat({id1})
+                        array.push(awaitedUsers[0])
+                        return array
+                    })
+        
+                Promise.all(awaiting).then(
+                    (awaitingU)=>{
+                        awaitingU = awaitingU[0]
+                        awaitingU = awaitingU.sort((a,b)=>{return b.user_id - a.user_id })
+                        res.status(200).send(awaitingU)
+                    })
+            }
         },
         
         getFriends: async (req,res,next)=>{
-            // console.log('hit after the middleware!')
         const db = req.app.get('db');
         let {id}= req.params;
-        // id = +id
-        // console.log(id)
         let friends = await db.get_friends({id});
         res.status(200).send(friends)
     },
@@ -100,7 +107,6 @@ module.exports = {
     current: async (req,res) =>{
         const db = req.app.get('db');
         const {user} = req.session
-        console.log(user)
         if(user){
             res.status(200).send(user);
         } else {

@@ -36,7 +36,7 @@ const io = socket(app.listen(SERVER_PORT,()=>{
 
 //ENDPOINTS
 // app.get('/api/users/:id',ctrl.getUsers);
-// app.get('/api/chats/:id',ctrl.getChats);
+app.get('/api/chats/:id',ctrl.getChats);
 app.get('/api/friends/:id',ctrl.getFriends);
 // app.get('/api/friends/:id',ctrl.middlewarePractice,ctrl.getFriends);
 app.post('/api/user/register',ctrl.register);
@@ -48,6 +48,7 @@ app.post('/api/user/current',ctrl.current);
 io.on('connection',function(socket){
     
     socket.on('startChat',async function(room){
+        console.log('hit start chat',room)
         const db = app.get('db');
         let messages = await db.get_room(room)
         if(messages[0]){
