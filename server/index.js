@@ -48,7 +48,6 @@ app.post('/api/user/current',ctrl.current);
 io.on('connection',function(socket){
     
     socket.on('startChat',async function(room){
-        console.log('hit start chat',room)
         const db = app.get('db');
         let messages = await db.get_room(room)
         if(messages[0]){

@@ -18,13 +18,11 @@ class Message extends Component {
     getChats = async() => {
         const {id} = this.props.user;
         const users = await axios.get(`/api/chats/${id}`);
-        console.log(users.data)
         this.props.updateChats(users.data)
         //will evenutally need to be converted to the message table on the SQL file
     }    
 
     startChat(userId,user){
-        console.log(userId,user)
         this.props.selectedFriend(user)
         const {id} = user;
         socket.emit('endChat',this.props.room);
