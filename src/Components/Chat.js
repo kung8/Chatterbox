@@ -74,7 +74,7 @@ class Chat extends Component {
         })
 
         return (
-            <ChatBody style={{position:'relative',left:this.props.isChatClicked&&0, left:this.props.isProfileOpened&&'12.5vw',display:this.props.isChatClicked?'flex':'none' && this.props.isProfileOpened?'flex':'none',zIndex:this.props.isChatClicked&&3}}>
+            <ChatBody style={{position:'relative',left:this.props.isChatClicked&&0, left:this.props.isProfileOpened&&'12.5vw',display:this.props.isChatClicked?'flex':'none'}}>
                 <ChatHeading>
                     <NameDot>
                         <ChevronLeft className="fas fa-chevron-left" onClick={()=>this.props.handleChatToggle()}/>
@@ -138,6 +138,9 @@ const ChatBody = styled.div`
     margin-top:1.5vh;
     margin-bottom:1.5vh;
     border-radius:10px;
+    @media screen and (max-width:1280px){
+        width:0
+    } 
     // @media screen and (max-width:1370px){
     //     // min-width:700px;
     //     border-radius:0 10px 10px 0;

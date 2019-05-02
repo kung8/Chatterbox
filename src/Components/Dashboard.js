@@ -64,15 +64,20 @@ class Dashboard extends Component {
         }
     }
 
-    handleChatToggle=()=>{
+    handleChatToggle=async()=>{
+        if(this.state.isProfileOpened){
+            await this.setState({
+                isProfileOpened:false
+            })
+        }
         this.setState({
             isChatClicked:!this.state.isChatClicked
         })
     }
 
-    handleProfileToggle=()=>{
-        this.setState({
-            isProfileOpened:!this.state.isProfileOpened
+    handleProfileToggle=async()=>{
+        await this.setState({
+            isProfileOpened:!this.state.isProfileOpened,
         })
     }
 
