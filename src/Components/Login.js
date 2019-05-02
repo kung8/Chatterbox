@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {updateUser} from './../ducks/reducer';
-
+import styled from 'styled-components'
 class Login extends Component {
     constructor(){
         super();
@@ -52,20 +52,36 @@ class Login extends Component {
 
     render(){
         return(
-            <div>
-                <form>
-                    <input type="text" placeholder="first" onChange={e=>this.handleInput('first',e.target.value)}/>
-                    <input type="text" placeholder="last" onChange={e=>this.handleInput('last',e.target.value)}/>
-                    <input type="text" placeholder="email" onChange={e=>this.handleInput('email',e.target.value)}/>
-                    <input type="text" placeholder="username" onChange={e=>this.handleInput('username',e.target.value)}/>
-                    <input type="password" placeholder="password" onChange={e=>this.handleInput('password',e.target.value)}/>
-                    <button onClick={()=>this.register()}>Register</button>
-                </form>
-                <form>
-                    <input type="text" placeholder="username" onChange={e=>this.handleInput('username',e.target.value)}/>
-                    <input type="password" placeholder="password" onChange={e=>this.handleInput('password',e.target.value)}/>
-                    <button onClick={this.login}>Login</button>
-                </form>
+            <div style={{background:'#5d697f',overflow:'hidden',width:"100vw",overflowY:'auto'}}>
+                <span style={{display:'flex',justifyContent:'center',background:'#303841',height:'10vh',alignItems:'center',marginTop:'1.5vh',borderRadius:'10px 10px 0 0',marginLeft:'1vw',marginRight:'1vw'}}>
+                    <h1 style={{letterSpacing:'0.25em',fontSize:45,color:'white'}}>CHATTERBOX</h1>
+                </span>
+                <div style={{display:'flex',height:'87vh',justifyContent:'space-evenly',alignItems:'center',background:'lightgrey',marginLeft:'1vw',marginRight:'1vw',marginBottom:'1.5vh',borderRadius:'0 0 10px 10px'}}>
+                    <div style={{display:'flex',flexDirection:'column',width:'30vw',height:'70vh',alignItems:'center',borderRadius:'10px',background:'#5d697f'}}>
+                        <div style={{height:'10%',borderBottom:'solid black',width:'100%',display:'flex',justifyContent:'center',alignItems:'center',background:'#303841',borderRadius:'10px 10px 0 0'}}>
+                            <h1 style={{fontSize:'2rem',letterSpacing:'0.1em',textAlign:'center',color:'white'}}>REGISTER</h1>
+                        </div>                        
+                        <form style={{display:'flex',flexDirection:'column',justifyContent:'space-evenly',height:'90%',alignItems:'center'}}>
+                            <Input style={{width:'85%',height:'3rem',fontSize:'2rem',background:'#303841',color:'white'}} type="text" placeholder="First Name" onChange={e=>this.handleInput('first',e.target.value)}/>
+                            <Input style={{width:'85%',height:'3rem',fontSize:'2rem',background:'#303841',color:'white'}} type="text" placeholder="Last Name" onChange={e=>this.handleInput('last',e.target.value)}/>
+                            <Input style={{width:'85%',height:'3rem',fontSize:'2rem',background:'#303841',color:'white'}} type="text" placeholder="Email" onChange={e=>this.handleInput('email',e.target.value)}/>
+                            <Input style={{width:'85%',height:'3rem',fontSize:'2rem',background:'#303841',color:'white'}} type="text" placeholder="Username" onChange={e=>this.handleInput('username',e.target.value)}/>
+                            <Input style={{width:'85%',height:'3rem',fontSize:'2rem',background:'#303841',color:'white'}} type="password" placeholder="Password" onChange={e=>this.handleInput('password',e.target.value)}/>
+                            <button style={{width:'60%',height:'40px',borderRadius:'10px',background:'#303841',color:'white',fontSize:30}} onClick={()=>this.register()}>Register</button>
+                        </form>
+
+                    </div>
+                    <div style={{display:'flex',flexDirection:'column',width:'30vw',height:'70vh',alignItems:'center',borderRadius:'10px',background:'#5d697f'}}>
+                        <div style={{height:'10%',borderBottom:'solid black',width:'100%',display:'flex',justifyContent:'center',alignItems:'center',background:'#303841',borderRadius:'10px 10px 0 0'}}>
+                            <h1 style={{fontSize:'2rem',letterSpacing:'0.1em',textAlign:'center',color:'white'}}>LOGIN</h1>
+                        </div>
+                        <form style={{display:'flex',flexDirection:'column',justifyContent:'space-evenly',height:'90%',alignItems:'center'}} >
+                            <Input style={{width:'85%',height:'3rem',fontSize:'2rem',background:'#303841',color:'white'}} type="text" placeholder="Username" onChange={e=>this.handleInput('username',e.target.value)}/>
+                            <Input style={{width:'85%',height:'3rem',fontSize:'2rem',background:'#303841',color:'white'}} type="password" placeholder="Password" onChange={e=>this.handleInput('password',e.target.value)}/>
+                            <button style={{width:'60%',height:'40px',borderRadius:'10px',background:'#303841',color:'white',fontSize:30}} onClick={this.login}>Login</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -73,3 +89,12 @@ class Login extends Component {
 
 
 export default connect(null,{updateUser})(Login)
+
+const Input = styled.input`
+&::-webkit-input-placeholder {
+    color: lightgray;
+}
+&:focus {
+    outline:none;
+}
+`
