@@ -59,8 +59,11 @@ const ProfileBody = styled.div`
     border-radius:0 10px 10px 0;
     margin-bottom:1.5vh;
     align-items:center;
-    @media screen and (max-width:1370px){
-        display:none;
+    // @media screen and (max-width:1370px){
+    //     display:none;
+    // }
+    @media screen and (max-width:1280px){
+        margin:1.5vh auto
     }
 `
 const ChevronLeft = styled.i `
