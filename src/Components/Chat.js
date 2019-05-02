@@ -35,6 +35,7 @@ class Chat extends Component {
     }
 
     render() {
+        console.log(22222,this.props.isChatClicked)
         const mappedChat = this.props.chat.map(message => {
             let color;
             let position;
@@ -133,14 +134,14 @@ const ChatBody = styled.div`
     width:25vw;
     min-width:320px;
     height:97vh;
-    display:flex;
+    display:none;
     flex-direction:column;
     margin-top:1.5vh;
     margin-bottom:1.5vh;
     border-radius:10px;
-    @media screen and (max-width:1280px){
-        width:0
-    } 
+    // @media screen and (max-width:1280px){
+    //     width:0
+    // } 
     // @media screen and (max-width:1370px){
     //     // min-width:700px;
     //     border-radius:0 10px 10px 0;

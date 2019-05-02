@@ -21,7 +21,7 @@ module.exports = {
             let {id}= req.params;
             let id1 =`${id}`+':'+`%`;
             let id2 =`%`+`:`+`${id}`;
-            let chats = await db.get_chats({id1,id2,id});            
+            let chats = await db.get_chats({id1,id2,id});
             if(chats.length !==0){
                 const array = []
                 let users = chats.map(room=>{

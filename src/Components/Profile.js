@@ -14,7 +14,7 @@ class Profile extends Component {
         const {last,first,email,pic} = this.props.friend
         console.log(this.props.friend)
         return(
-            <ProfileBody style={{borderRadius:'10px',position:'relative', left:this.props.isProfileOpened&&'-12.5vw', display:this.props.isProfileOpened?'flex':'none',zIndex:this.props.isProfileOpened&&4}}>
+            <ProfileBody style={{borderRadius:'10px',position:'relative', display:this.props.isProfileOpened?'flex':'none',zIndex:this.props.isProfileOpened&&4}}>
                     <ChevronLeft className="fas fa-chevron-left" onClick={()=>this.props.handleProfileToggle()}/>
                     <h1 style={{fontSize:35}}>PROFILE</h1>
                 <ImageHolder>
@@ -46,7 +46,7 @@ export default connect(mapStateToProps)(Profile)
 
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
-
+const sw = 'background:#F2F7F7;'
 const ProfileBody = styled.div`
     width:25vw;
     background:#F2F7F7;
@@ -62,9 +62,9 @@ const ProfileBody = styled.div`
     // @media screen and (max-width:1370px){
     //     display:none;
     // }
-    @media screen and (max-width:1280px){
-        margin:1.5vh auto
-    }
+    // @media screen and (max-width:1280px){
+    //     margin:1.5vh auto
+    // }
 `
 const ChevronLeft = styled.i `
     font-size:45px;
