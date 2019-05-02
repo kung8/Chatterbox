@@ -1,66 +1,82 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import List from './List';
 import Friends from './Friends';
 import Group from './Group';
 import Individual from './Individual';
 import styled from 'styled-components'
 import axios from 'axios';
-import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {clearAll} from '../ducks/reducer';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { clearAll } from '../ducks/reducer';
 
 class Nav extends Component {
-    constructor(){
+    constructor() {
         super();
 
-        this.state={
-            color:'green'
+        this.state = {
+            color: 'green'
         }
     }
-    componentDidMount(){
+    componentDidMount() {
     }
-    handleDot(value){
+    handleDot(value) {
         this.setState({
-                color:value
-            })
+            color: value
+        })
     }
 
-    logout = async() => {
+    logout = async () => {
         await axios.post('/api/user/logout')
         this.props.clearAll()
         this.props.history.push('/')
     }
 
-    render(){
+
+    // handleNavStyling(){
+    //     if(this.props.isHamburgerOpened){
+    //         return (
+    //             `display:'flex':'none'`
+    //         )
+    //     }
+    // }
+
+    render() {
         //Need to save availability to redux so that I can pass that to other users
-        const {updateState,messageType} = this.props;
-        
-        return(
-            <NavBody>
+        const { isHamburgerOpened } = this.props
+
+        const { updateState, messageType } = this.props;
+
+        return (
+            
+            <NavBody style={{display:`${this.props.isHamburgerOpened?'flex':'none'}`,left:`${this.props.isHamburgerOpened?'75px':'0px'}`,zIndex:`${this.props.isHamburgerOpened&&2}`,position:`${this.props.isHamburgerOpened&&'relative'}`}}>
                 <NavTop>
-                    <ActiveDots>
-                        <Dot onClick={()=>this.handleDot('red')} id="red-dot"></Dot>
-                        <Dot onClick={()=>this.handleDot('yellow')} id="yellow-dot"></Dot>
-                        <Dot onClick={()=>this.handleDot('green')} id="green-dot"></Dot>
-                    </ActiveDots>
+                    <div style={{display:'flex',marginTop:'20px'}}>
+                        <Hamburger className="fas fa-bars" onClick={()=>this.props.handleHamburgerToggle()} style={{marginLeft:'-65px'}}/>
+                        {/* <ActiveDots>
+                            <Dot onClick={() => this.handleDot('red')} id="red-dot"></Dot>
+                            <Dot onClick={() => this.handleDot('yellow')} id="yellow-dot"></Dot>
+                            <Dot onClick={() => this.handleDot('green')} id="green-dot"></Dot>
+                        </ActiveDots> */}
+                    </div>
+                    {/* <hr style={{width:'100%',marginTop:'18px'}}/> */}
                     <PicHolder>
-                        <ProfilePic src={this.props.user.pic} alt='profile'/>
-                        <Active style={{background:this.state.color}}></Active>
+                        <ProfilePic src={this.props.user.pic} alt='profile' />
+                        <Active style={{ background: this.state.color }}></Active>
                     </PicHolder>
                 </NavTop>
-  
+
                 <IconHolder>
-                    <IndIconHolder onClick={()=>updateState(List)} style={{backgroundColor:messageType==List&&'white',marginLeft:messageType==List&&'10px',borderLeft:messageType==List&&'green solid 10px'}}>
-                        <Icons  className="fas fa-comment"></Icons>
+                    <IndIconHolder onClick={() => updateState(List)} style={{ backgroundColor: messageType == List && 'white', borderRight: messageType == List && 'green solid 20px',width: messageType == List && '130px'}}>
+                        <Icons className="fas fa-comment"></Icons>
                     </IndIconHolder>
-                    <IndIconHolder onClick={()=>updateState(Friends)} style={{backgroundColor:messageType==Friends&&'white',marginLeft:messageType==Friends&&'10px',borderLeft:messageType==Friends&&'green solid 10px'}}>
-                        <Icons  className="fas fa-address-book" ></Icons>
+                    <IndIconHolder onClick={() => updateState(Friends)} style={{ backgroundColor: messageType == Friends && 'white',borderRight: messageType == Friends && 'green solid 20px',width: messageType == Friends && '130px' }}>
+                        <Icons className="fas fa-address-book" ></Icons>
                     </IndIconHolder>
-                    <IndIconHolder onClick={()=>updateState(Individual)} style={{backgroundColor:messageType==Individual&&'white',marginLeft:messageType==Individual&&'10px',borderLeft:messageType==Individual&&'green solid 10px'}}>
-                        <Icons  className="fas fa-user"></Icons>
+                    <IndIconHolder onClick={() => updateState(Individual)} style={{ backgroundColor: messageType == Individual && 'white', borderRight: messageType == Individual && 'green solid 20px',width: messageType == Individual && '130px'}}>
+                        <Icons className="fas fa-user"></Icons>
                     </IndIconHolder>
-                    <IndIconHolder onClick={()=>updateState(Group)} style={{backgroundColor:messageType==Group&&'white',marginLeft:messageType==Group&&'10px',borderLeft:messageType==Group&&'green solid 10px'}}>
-                        <Icons  className="fas fa-users"></Icons>
+                    <IndIconHolder onClick={() => updateState(Group)} style={{ backgroundColor: messageType == Group && 'white', borderRight: messageType == Group && 'green solid 20px',width: messageType == Group && '130px' }}>
+                        <Icons className="fas fa-users"></Icons>
                     </IndIconHolder>
                 </IconHolder>
                 <Logout onClick={this.logout}>
@@ -72,19 +88,19 @@ class Nav extends Component {
 
 }
 
-function mapStateToProps(reduxState){
-    return{
-        user:reduxState.user
+function mapStateToProps(reduxState) {
+    return {
+        user: reduxState.user
     }
 }
-export default withRouter(connect(mapStateToProps,{clearAll})(Nav))
+export default withRouter(connect(mapStateToProps, { clearAll })(Nav))
 
 
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
 
 const NavBody = styled.div`
-    margin-left:1vw;
+    // margin-left:1vw;
     // width:10vw;
     min-width:150px;
     max-width:150px;
@@ -95,9 +111,9 @@ const NavBody = styled.div`
     margin-top:1.5vh;
     border-radius:10px 0px 0px 10px;
     margin-bottom:1.5vh;    
-    @media screen and (max-width:1300px){
-        display:none;
-    }
+    // @media screen and (max-width:1300px){
+    //     display:none;
+    // }
 `
 const NavTop = styled.div`
     height:25%;
@@ -106,11 +122,21 @@ const NavTop = styled.div`
     align-items:center;
     justify-content:space-between;
 `
+const Hamburger = styled.i`
+    color:lightgrey;
+    font-size:35px;
+    // @media screen and (min-width:1300px){
+    //     display:none;
+    // }
+    &:hover{
+        color:white;
+    }
+`
 
 const ActiveDots = styled.div`
     display:flex;
     margin-top:10px;
-    margin-left:-55px;
+    // margin-right:-50px;
     &:hover > #red-dot {
         background:red;
         border:lightcoral solid 1px;
@@ -138,7 +164,6 @@ const Dot = styled.div`
 const IconHolder = styled.div`
     display:flex;
     flex-direction:column;
-    // justify-content:space-evenly;
     height:60%;
     align-items:center;
 `
@@ -151,8 +176,6 @@ const IndIconHolder = styled.div`
     height:25%;
     &:hover {
         background:white;
-        // margin-left:10px;
-        // border-left:green solid 10px;
     }
 `
 
@@ -163,13 +186,16 @@ const Icons = styled.i`
 const PicHolder = styled.div`
     display:flex;
     width:100%;
+    margin-top:-8px;
+    margin-left:15px;
     justify-content:center;
     align-items:center;
     height:65%;
     &:hover {
         background:white;
-        // margin-left:10px;
-        // border-left:green solid 10px;
+        margin-left:0px;
+        width:100%;
+        height:100%
     }
 `
 
@@ -190,10 +216,10 @@ const Active = styled.div`
     position:relative;
     top:55px;
     left:-1050px;
-    @media screen and (max-width:2000px){
-        left:-25px;
-        top:45px;
-    }
+    // @media screen and (max-width:2000px){
+    //     left:-25px;
+    //     top:45px;
+    // }
 `
 
 const Logout = styled.div`
@@ -204,6 +230,5 @@ const Logout = styled.div`
     &:hover {
         background:white;
         border-radius:0 0 0 10px;
-        // border-left:green solid 10px;
     }
 `

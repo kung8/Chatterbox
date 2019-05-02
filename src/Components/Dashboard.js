@@ -14,7 +14,10 @@ class Dashboard extends Component {
         super();
         this.state={
             messageType:List, 
-            messages:[]
+            messages:[],
+            isHamburgerOpened:false,
+            isChatClicked:false,
+            isProfileOpened:false
         }
     }
 
@@ -36,18 +39,51 @@ class Dashboard extends Component {
     }
 
     updateState=(value)=>{
+        if(this.state.isHamburgerOpened){
+            this.setState({
+                isHamburgerOpened:false
+            })
+        }
         this.setState({
             messageType:value
         })
     }
 
+    handleHamburgerToggle=async()=>{
+        await this.setState({
+            isHamburgerOpened:!this.state.isHamburgerOpened
+        })
+        console.log(this.state.isHamburgerOpened)
+    }
+
+    hamburgerToggleChatOnly=()=>{
+        if(this.state.isHamburgerOpened){
+            this.setState({
+                isHamburgerOpened:false
+            })
+        }
+    }
+
+    handleChatToggle=()=>{
+        this.setState({
+            isChatClicked:!this.state.isChatClicked
+        })
+    }
+
+    handleProfileToggle=()=>{
+        this.setState({
+            isProfileOpened:!this.state.isProfileOpened
+        })
+    }
+
+
     render(){
         return(
             <Dash>
-                <Nav updateState={this.updateState} messageType={this.state.messageType}/>
-                <Message messageType={this.state.messageType}/>
-                <Chat />
-                <Profile/>
+                <Nav updateState={this.updateState} messageType={this.state.messageType} isHamburgerOpened={this.state.isHamburgerOpened} handleHamburgerToggle={this.handleHamburgerToggle} isChatClicked={this.state.isChatClicked}/>
+                <Message messageType={this.state.messageType} isHamburgerOpened={this.state.isHamburgerOpened} handleHamburgerToggle={this.handleHamburgerToggle} isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} hamburgerToggleChatOnly={this.hamburgerToggleChatOnly}/>
+                <Chat isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} handleProfileToggle={this.handleProfileToggle}  isProfileOpened={this.state.isProfileOpened}/>
+                <Profile isProfileOpened={this.state.isProfileOpened} handleProfileToggle={this.handleProfileToggle}/>
             </Dash>
         )
     }
@@ -73,4 +109,5 @@ const Dash = styled.div`
     width:100%;
     background:#5d697f;
     justify-content:center;
+    overflow:hidden;
 `

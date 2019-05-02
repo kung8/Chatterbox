@@ -18,9 +18,9 @@ class Message extends Component {
     render(){
         const ConditionalComponent = this.props.messageType
         return(
-            <MessageBody>
+            <MessageBody style={{borderRadius:'10px',position:'relative',left:this.props.isHamburgerOpened&&'-75px',display:this.props.isChatClicked&&'none'}}>
                 <FormHolder>
-                    <Hamburger className="fas fa-bars"/>
+                    <Hamburger className="fas fa-bars" onClick={()=>this.props.handleHamburgerToggle()}/>
                     <Form>
                         <Input placeholder='Search' id="search-input" onChange={e=>this.search(e.target.value)}/>
                         <Search className="fas fa-search"/>
@@ -31,7 +31,7 @@ class Message extends Component {
                     </Button>
                 </FormHolder>
                 <Conditional>
-                    <ConditionalComponent search={this.state.search}/>    
+                    <ConditionalComponent search={this.state.search} handleChatToggle={this.props.handleChatToggle} isChatClicked={this.props.isChatClicked} handleHamburgerToggle={this.props.handleHamburgerToggle} hamburgerToggleChatOnly={this.props.hamburgerToggleChatOnly}/>    
                 </Conditional>
             </MessageBody>
         )
@@ -52,13 +52,14 @@ const MessageBody = styled.div`
     justify-content:space-evenly;
     margin-top:1.5vh;
     margin-bottom:1.5vh;
-    @media screen and (max-width:1300px){
-        width:40vw;
-        border-radius:10px 0 0 10px
-    }
-    @media screen and (max-width:1025px){
-        display:none;
-    }
+    min-width:320px;
+    // @media screen and (max-width:1300px){
+    //     width:40vw;
+    //     border-radius:10px 0 0 10px
+    // }
+    // @media screen and (max-width:1025px){
+    //     display:none;
+    // }
 `
 
 const FormHolder = styled.div`
@@ -72,9 +73,9 @@ const FormHolder = styled.div`
 const Hamburger = styled.i`
     color:lightgrey;
     font-size:35px;
-    @media screen and (min-width:1300px){
-        display:none;
-    }
+    // @media screen and (min-width:1300px){
+    //     display:none;
+    // }
     &:hover{
         color:white;
     }

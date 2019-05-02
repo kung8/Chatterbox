@@ -24,6 +24,8 @@ class Friends extends Component {
     }
 
     startChat(userId,friend){
+        this.props.hamburgerToggleChatOnly()
+        this.props.handleChatToggle()
         this.props.selectedFriend(friend)
         const {id} = friend;
         socket.emit('endChat',this.props.room);
