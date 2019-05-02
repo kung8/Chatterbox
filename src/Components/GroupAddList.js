@@ -5,16 +5,38 @@ class GroupAddList extends Component {
     constructor(){
         super()
         this.state={
-            isUserSelected:false
+            isUserSelected:false,
+            group:[]
         }
     }
+
+    async handleAddUserToGroup(user){
+        await this.setState({isUserSelected:!this.state.isUserSelected})
+        this.props.handleAddUserToGroup(user,this.state.isUserSelected)
+        // if(this.state.isUserSelected){
+        //     this.setState({
+        //         group:[...this.state.group,user.id]
+        //     })
+        //     console.log(this.state.group)
+        // } else {
+        //     console.log('hit false')
+        //     // let filter = group.filter(list=>{
+        //         //     list.id = user.id
+        //         // })
+                
+        //         // group.find(filtered=>{})
+                
+        //     }
+            // console.log(group)   
+    }
+
     render(){
         const {user} = this.props
         return(
             <div style={{display:'flex', alignItems:'center',background:'orange',borderRadius:'10px',width:'98%',marginLeft:'1%',position:'relative'}}>
                 <img src={user.pic} style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
                 <h3 >{user.first} {user.last}</h3>
-                <Button onClick={()=>this.setState({isUserSelected:!this.state.isUserSelected})} style={{position:'absolute',right:'5px'}}>
+                <Button onClick={()=>this.handleAddUserToGroup(user)} style={{position:'absolute',right:'5px',background:this.state.isUserSelected?'green':'red',boxShadow:'0 0 1px 1px black'}}>
                     {this.state.isUserSelected?<i style={{color:'white',fontSize:'25px'}} className="fas fa-check"/>:<Plus className="fas fa-plus"/>}
                 </Button>
         </div>

@@ -1,17 +1,21 @@
-import React, {Component} from 'react';
+import React, {Component,memo} from 'react';
 import {connect} from 'react-redux';
 import {selectedFriend,updateRoom} from '../ducks/reducer';
 import socket from './Sockets'
 import styled from 'styled-components';
 import GroupAddList from './GroupAddList';
 import GroupSelect from './GroupSelect';
+import axios from 'axios';
 
 class Group extends Component {
     constructor(){
         super();
         this.state={
             isGroupSelected:false,
-            isUserSelected:false
+            isUserSelected:false,
+            group:[],
+            groupName:false,
+            name:''
         }
     }
     
@@ -37,7 +41,41 @@ class Group extends Component {
 
     handleIsGroupSelected=()=>{
         this.setState({
-            isGroupSelected:!this.state.isGroupSelected
+            isGroupSelected:!this.state.isGroupSelected,
+            groupName:true
+        })
+    }
+
+   handleAddUserToGroup=async(user,selected)=>{
+        const {id} = user;
+        if(selected){
+            await this.setState({
+                group:[...this.state.group,id]
+            })
+        } else {
+            const found = this.state.group.filter(num=>{return num !== +id})
+            this.setState({
+                group:found
+            })
+        }
+        console.log(this.state.group)
+    }
+
+    createGroup=async()=>{
+        if(this.state.group.length < 2){
+            alert('Group chats are meant for more than two users, please add an additional user')
+        } else if (this.state.name.charAt(0) =='') {
+            alert('Please create a group name')
+        } else {
+            console.log(this.state.group,this.state.name)
+            //Need to hide the search bar when trying to create a group
+            
+        }
+    }
+
+    handleGroupNameCreation=(value)=>{
+        this.setState({
+            name:value
         })
     }
 
@@ -57,23 +95,23 @@ class Group extends Component {
           }).map(user =>{
             return(
                 <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                    <GroupAddList key={user.id} user={user} />
+                    <GroupAddList key={user.id} user={user} handleAddUserToGroup={this.handleAddUserToGroup}/>
                 </div>
             )
         })
         return(
             <>
                 <h1 style={{textAlign:'center',background:'#303841',marginTop:0,marginBottom:0,color:'white'}}>Groups</h1>
-                <Users style={{maxHeight:'90%',minHeight:'40%',background:'lightgrey',overflowY:'scroll'}}>
+                <Users style={{maxHeight:'90%',minHeight:'90%',background:'lightgrey',overflowY:'scroll'}}>
                     <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                        <GroupSelect isGroupSelected={this.state.isGroupSelected} handleIsGroupSelected={this.handleIsGroupSelected}/>
+                        <GroupSelect handleGroupNameCreation={this.handleGroupNameCreation} groupName={this.state.groupName} isGroupSelected={this.state.isGroupSelected} handleIsGroupSelected={this.handleIsGroupSelected} createGroup={this.createGroup}/>
                         {this.state.isGroupSelected&&
                             <>
                                 <h1 style={{textAlign:'center',background:'#303841',marginBottom:0,marginTop:'5px',color:'white'}}>All Users</h1>
                                 <Users style={{maxHeight:'40%',minHeight:'40%',background:'lightgrey',overflowY:'scroll'}}>
                                     {mappedfriends}
                                 </Users>
-                                <span style={{height:'10px',background:'#303841'}}></span>
+                                <span style={{height:'10px',background:'#303841',marginTop:5}}></span>
                             </>                        
                         }
                     </div>
@@ -133,7 +171,7 @@ function mapStateToProps(reduxState){
     }
 }
 
-export default connect(mapStateToProps,{selectedFriend,updateRoom})(Group);
+export default memo(connect(mapStateToProps,{selectedFriend,updateRoom})(Group));
 
 const Button = styled.button`
     height:65%;
