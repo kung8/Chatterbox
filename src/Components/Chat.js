@@ -74,18 +74,18 @@ class Chat extends Component {
         })
 
         return (
-            <ChatBody>
+            <ChatBody style={{position:'relative',left:this.props.isChatClicked&&0, left:this.props.isProfileOpened&&'12.5vw',display:this.props.isChatClicked?'flex':'none' && this.props.isProfileOpened?'flex':'none',zIndex:this.props.isChatClicked&&3}}>
                 <ChatHeading>
                     <NameDot>
-                        <ChevronLeft className="fas fa-chevron-left"/>
-                        <Name>{this.props.friend.first} {this.props.friend.last}</Name>
+                        <ChevronLeft className="fas fa-chevron-left" onClick={()=>this.props.handleChatToggle()}/>
+                        <Name onClick={this.props.handleProfileToggle}>{this.props.friend.first} {this.props.friend.last}</Name>
                         <Dot></Dot>
                     </NameDot>
-                    <IconHolder>
+                    {/* <IconHolder>
                         <Icons className="fas fa-folder"></Icons>
                         <Icons className="fas fa-phone"></Icons>
                         <Icons className="fas fa-video"></Icons>
-                    </IconHolder>
+                    </IconHolder> */}
                 </ChatHeading>
 
                 <Chats>
@@ -130,34 +130,39 @@ export default connect(mapStateToProps, { updateChat })(Chat)
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
 
 const ChatBody = styled.div`
-    width:45vw;
+    width:25vw;
+    min-width:320px;
     height:97vh;
     display:flex;
     flex-direction:column;
     margin-top:1.5vh;
     margin-bottom:1.5vh;
-    @media screen and (max-width:1370px){
-        // min-width:700px;
-        border-radius:0 10px 10px 0;
-    }
+    border-radius:10px;
+    // @media screen and (max-width:1370px){
+    //     // min-width:700px;
+    //     border-radius:0 10px 10px 0;
+    // }
 
-    @media screen and (max-width:1025px){
-        min-width:97vw;
-        max-width:97vw;
-        height:97vh;
-    }
+    // @media screen and (max-width:1025px){
+    //     min-width:97vw;
+    //     max-width:97vw;
+    //     height:97vh;
+    // }
 
-    @media screen and (max-width:415px){
-        min-width:90vw;
-        max-width:90vw;
-        height:97vh;
-    }
+    // @media screen and (max-width:415px){
+    //     min-width:90vw;
+    //     max-width:90vw;
+    //     height:97vh;
+    // }
 
-    @media screen and (max-width:376px){
-        min-width:97vw;
-        max-width:97vw;
-        height:97vh;
-    }
+    // @media screen and (max-width:376px){
+    //     min-width:97vw;
+    //     max-width:97vw;
+    //     height:97vh;
+    // }
+    // @media screen and (min-width:320px){
+    //     display:none
+    // }
 `
 
 const ChevronLeft = styled.i `
@@ -168,9 +173,9 @@ const ChevronLeft = styled.i `
     align-items:center;
     height:50px;
     width:50px;
-    @media screen and (min-width:1025px){
-        display:none
-    }
+    // @media screen and (min-width:1025px){
+    //     display:none
+    // }
     &:hover{
         color:white;
     }
@@ -181,16 +186,17 @@ const ChatHeading = styled.div`
     align-items:center;
     background:lightgrey;
     height:10%;
+    border-radius:10px 10px 0 0;
     border-bottom:darkgrey solid 0.05px;
     width:100%;
     justify-content:space-between;
-    @media screen and (max-width:1370px){
-        border-radius:0 10px 0 0;
-    }
-    @media screen and (max-width:1025px){
-        border-radius:10px 10px 0 0;
-        width:100%;
-    }
+    // @media screen and (max-width:1370px){
+    //     border-radius:0 10px 0 0;
+    // }
+    // @media screen and (max-width:1025px){
+    //     border-radius:10px 10px 0 0;
+    //     width:100%;
+    // }
 `
 
 const NameDot = styled.div`
@@ -249,9 +255,11 @@ const Textarea = styled.textarea`
     min-height:97%;
     max-height:97%;
     font-size:20px;
-    @media screen and (max-width:1025px){
-        border-radius:0 0 0 10px;
-    }
+    border-radius:0 0 0 10px;
+
+    // @media screen and (max-width:1025px){
+    //     border-radius:0 0 0 10px;
+    // }
 `
 
 const ButtonsHolder = styled.div`
@@ -275,21 +283,23 @@ const Send = styled.button`
     height:50%;
     background:forestgreen;
     outline-color:lightgreen;
-    @media screen and (max-width:1370px){
-        border-radius:0 0 10px 0;
-    }
+    border-radius:0 0 10px 0;
+
+    // @media screen and (max-width:1370px){
+    //     border-radius:0 0 10px 0;
+    // }
 `
 
 const Name = styled.h1`
     font-size:30px;
     margin-left:5px;
-    @media screen and (max-width:600px){
-        font-size:30px;
-    }
-    @media screen and (max-width:500px){
-        font-size:25px;
-    }
-    @media screen and (max-width:376px){
-        font-size:20px;
-    } 
+    // @media screen and (max-width:600px){
+    //     font-size:30px;
+    // }
+    // @media screen and (max-width:500px){
+    //     font-size:25px;
+    // }
+    // @media screen and (max-width:376px){
+    //     font-size:20px;
+    // } 
 `

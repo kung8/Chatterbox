@@ -23,6 +23,8 @@ class Message extends Component {
     }    
 
     startChat(userId,user){
+        this.props.hamburgerToggleChatOnly()
+        this.props.handleChatToggle()
         this.props.selectedFriend(user)
         const {id} = user;
         socket.emit('endChat',this.props.room);
