@@ -29,7 +29,7 @@ class Login extends Component {
             const user = await axios.post('/api/user/register', { first, last, email, password, username });
             console.log(user.data)
             this.props.updateUser(user.data)
-            this.props.history.push('/dashboard')
+            await this.props.history.push('/dashboard')
         } else {
             alert('please fill out all fields')
         }

@@ -3,7 +3,8 @@ import Nav from './Nav';
 import Message from './Message';
 import Chat from './Chat';
 import Profile from './Profile';
-import List from './List'
+import Group from './Group';
+import List from './List';
 import styled from 'styled-components';
 import axios from 'axios';
 import {connect} from 'react-redux';
@@ -13,11 +14,12 @@ class Dashboard extends Component {
     constructor(){
         super();
         this.state={
-            messageType:List, 
+            messageType:Group, 
             messages:[],
             isHamburgerOpened:false,
             isChatClicked:false,
-            isProfileOpened:false
+            isProfileOpened:false,
+            isMessageOpened:true
         }
     }
 
@@ -67,17 +69,19 @@ class Dashboard extends Component {
     handleChatToggle=async()=>{
         if(this.state.isProfileOpened){
             await this.setState({
-                isProfileOpened:false
+                isProfileOpened:false,
             })
         }
         this.setState({
-            isChatClicked:!this.state.isChatClicked
+            isChatClicked:!this.state.isChatClicked,
+            isMessageOpened:!this.state.isMessageOpened
         })
     }
 
     handleProfileToggle=async()=>{
         await this.setState({
             isProfileOpened:!this.state.isProfileOpened,
+            isChatClicked:!this.state.isChatClicked
         })
     }
 
@@ -86,7 +90,7 @@ class Dashboard extends Component {
         return(
             <Dash>
                 <Nav updateState={this.updateState} messageType={this.state.messageType} isHamburgerOpened={this.state.isHamburgerOpened} handleHamburgerToggle={this.handleHamburgerToggle} isChatClicked={this.state.isChatClicked}/>
-                <Message messageType={this.state.messageType} isHamburgerOpened={this.state.isHamburgerOpened} handleHamburgerToggle={this.handleHamburgerToggle} isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} hamburgerToggleChatOnly={this.hamburgerToggleChatOnly}/>
+                <Message isMessageOpened={this.state.isMessageOpened} messageType={this.state.messageType} isHamburgerOpened={this.state.isHamburgerOpened} handleHamburgerToggle={this.handleHamburgerToggle} isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} hamburgerToggleChatOnly={this.hamburgerToggleChatOnly} isProfileOpened={this.state.isProfileOpened}/>
                 <Chat isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} handleProfileToggle={this.handleProfileToggle}  isProfileOpened={this.state.isProfileOpened}/>
                 <Profile isProfileOpened={this.state.isProfileOpened} handleProfileToggle={this.handleProfileToggle}/>
             </Dash>

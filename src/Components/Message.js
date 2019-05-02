@@ -18,7 +18,7 @@ class Message extends Component {
     render(){
         const ConditionalComponent = this.props.messageType
         return(
-            <MessageBody style={{borderRadius:'10px',position:'relative',left:this.props.isHamburgerOpened&&'-75px',display:this.props.isChatClicked&&'none'}}>
+            <MessageBody style={{borderRadius:'10px',position:'relative',left:this.props.isHamburgerOpened&&'-75px',display:this.props.isChatClicked&&'none', display:this.props.isProfileOpened&&'none', display:!this.props.isMessageOpened&&'none'}}>
                 <FormHolder>
                     <Hamburger className="fas fa-bars" onClick={()=>this.props.handleHamburgerToggle()}/>
                     <Form>
@@ -26,9 +26,7 @@ class Message extends Component {
                         <Search className="fas fa-search"/>
                     </Form>
                     
-                    <Button>
-                        <Plus className="fas fa-plus"/>
-                    </Button>
+
                 </FormHolder>
                 <Conditional>
                     <ConditionalComponent search={this.state.search} handleChatToggle={this.props.handleChatToggle} isChatClicked={this.props.isChatClicked} handleHamburgerToggle={this.props.handleHamburgerToggle} hamburgerToggleChatOnly={this.props.hamburgerToggleChatOnly}/>    
