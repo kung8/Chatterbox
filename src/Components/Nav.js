@@ -31,15 +31,6 @@ class Nav extends Component {
         this.props.history.push('/')
     }
 
-
-    // handleNavStyling(){
-    //     if(this.props.isHamburgerOpened){
-    //         return (
-    //             `display:'flex':'none'`
-    //         )
-    //     }
-    // }
-
     render() {
         //Need to save availability to redux so that I can pass that to other users
         const { isHamburgerOpened } = this.props
@@ -111,9 +102,6 @@ const NavBody = styled.div`
     margin-top:1.5vh;
     border-radius:10px 0px 0px 10px;
     margin-bottom:1.5vh;    
-    // @media screen and (max-width:1300px){
-    //     display:none;
-    // }
 `
 const NavTop = styled.div`
     height:25%;
@@ -125,9 +113,6 @@ const NavTop = styled.div`
 const Hamburger = styled.i`
     color:lightgrey;
     font-size:35px;
-    // @media screen and (min-width:1300px){
-    //     display:none;
-    // }
     &:hover{
         color:white;
     }
