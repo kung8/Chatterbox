@@ -49,6 +49,8 @@ const MessageBody = styled.div`
     justify-content:space-evenly;
     margin-top:1.5vh;
     margin-bottom:1.5vh;
+    margin-left:0.5vw;
+    margin-right:0.5vw;
     min-width:315px;
     @media screen and (min-width:300px) and (max-width:1024px){
         min-width:97vw;
