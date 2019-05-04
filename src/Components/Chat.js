@@ -132,41 +132,16 @@ export default connect(mapStateToProps, { updateChat })(Chat)
 
 const ChatBody = styled.div`
     width:25vw;
-    min-width:320px;
+    min-width:315px;
     height:97vh;
     display:none;
     flex-direction:column;
     margin-top:1.5vh;
     margin-bottom:1.5vh;
     border-radius:10px;
-    // @media screen and (max-width:1280px){
-    //     width:0
-    // } 
-    // @media screen and (max-width:1370px){
-    //     // min-width:700px;
-    //     border-radius:0 10px 10px 0;
-    // }
-
-    // @media screen and (max-width:1025px){
-    //     min-width:97vw;
-    //     max-width:97vw;
-    //     height:97vh;
-    // }
-
-    // @media screen and (max-width:415px){
-    //     min-width:90vw;
-    //     max-width:90vw;
-    //     height:97vh;
-    // }
-
-    // @media screen and (max-width:376px){
-    //     min-width:97vw;
-    //     max-width:97vw;
-    //     height:97vh;
-    // }
-    // @media screen and (min-width:320px){
-    //     display:none
-    // }
+    @media screen and (min-width:300px) and (max-width:1024px){
+        width:97vw
+    }
 `
 
 const ChevronLeft = styled.i `
@@ -177,9 +152,6 @@ const ChevronLeft = styled.i `
     align-items:center;
     height:50px;
     width:50px;
-    // @media screen and (min-width:1025px){
-    //     display:none
-    // }
     &:hover{
         color:white;
     }
@@ -194,13 +166,6 @@ const ChatHeading = styled.div`
     border-bottom:darkgrey solid 0.05px;
     width:100%;
     justify-content:space-between;
-    // @media screen and (max-width:1370px){
-    //     border-radius:0 10px 0 0;
-    // }
-    // @media screen and (max-width:1025px){
-    //     border-radius:10px 10px 0 0;
-    //     width:100%;
-    // }
 `
 
 const NameDot = styled.div`
@@ -260,10 +225,6 @@ const Textarea = styled.textarea`
     max-height:97%;
     font-size:20px;
     border-radius:0 0 0 10px;
-
-    // @media screen and (max-width:1025px){
-    //     border-radius:0 0 0 10px;
-    // }
 `
 
 const ButtonsHolder = styled.div`
@@ -288,22 +249,9 @@ const Send = styled.button`
     background:forestgreen;
     outline-color:lightgreen;
     border-radius:0 0 10px 0;
-
-    // @media screen and (max-width:1370px){
-    //     border-radius:0 0 10px 0;
-    // }
 `
 
 const Name = styled.h1`
     font-size:30px;
     margin-left:5px;
-    // @media screen and (max-width:600px){
-    //     font-size:30px;
-    // }
-    // @media screen and (max-width:500px){
-    //     font-size:25px;
-    // }
-    // @media screen and (max-width:376px){
-    //     font-size:20px;
-    // } 
 `

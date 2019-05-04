@@ -46,7 +46,7 @@ export default connect(mapStateToProps)(Profile)
 
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
-const sw = 'background:#F2F7F7;'
+// const sw = 'background:#F2F7F7;'
 const ProfileBody = styled.div`
     width:25vw;
     background:#F2F7F7;
@@ -55,16 +55,13 @@ const ProfileBody = styled.div`
     flex-direction:column;
     margin-right:1vw;
     margin-top:1.5vh;
-    min-width:320px;
+    min-width:315px;
     border-radius:0 10px 10px 0;
     margin-bottom:1.5vh;
     align-items:center;
-    // @media screen and (max-width:1370px){
-    //     display:none;
-    // }
-    // @media screen and (max-width:1280px){
-    //     margin:1.5vh auto
-    // }
+    @media screen and (min-width:300px) and (max-width:1024px){
+        width:97vw
+    }
 `
 const ChevronLeft = styled.i `
     font-size:45px;

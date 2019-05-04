@@ -40,7 +40,6 @@ export default Message
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
 
-
 const MessageBody = styled.div`
     width:25vw;
     background:#363E47;
@@ -50,14 +49,11 @@ const MessageBody = styled.div`
     justify-content:space-evenly;
     margin-top:1.5vh;
     margin-bottom:1.5vh;
-    min-width:320px;
-    // @media screen and (max-width:1300px){
-    //     width:40vw;
-    //     border-radius:10px 0 0 10px
-    // }
-    // @media screen and (max-width:1025px){
-    //     display:none;
-    // }
+    min-width:315px;
+    @media screen and (min-width:300px) and (max-width:1024px){
+        min-width:97vw;
+        max-width:97vw
+    }
 `
 
 const FormHolder = styled.div`
@@ -71,9 +67,6 @@ const FormHolder = styled.div`
 const Hamburger = styled.i`
     color:lightgrey;
     font-size:35px;
-    // @media screen and (min-width:1300px){
-    //     display:none;
-    // }
     &:hover{
         color:white;
     }
@@ -91,8 +84,8 @@ const Form = styled.form`
 const Search = styled.div`
     font-size:25px;
     color:lightgrey;
-
 `
+
 const Input = styled.input`
     font-size:25px;
     background:#303841;
@@ -108,23 +101,6 @@ const Input = styled.input`
     &::-webkit-input-placeholder {
         color: lightgray;
     }
-`
-
-const Button = styled.button`
-    height:65%;
-    width:15%;
-    border-radius:50%;
-    background:#303841;
-    border:#303841;
-    &:focus {
-        box-shadow: 0 0 1px 1px darkgrey;
-        outline: none;
-    }
-`
-
-const Plus = styled.i`
-    font-size:25px;
-    color:lightgrey;
 `
 
 const Conditional = styled.div`
