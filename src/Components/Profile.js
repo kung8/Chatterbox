@@ -53,7 +53,8 @@ const ProfileBody = styled.div`
     height:97vh;
     display:flex;
     flex-direction:column;
-    margin-right:1vw;
+    margin-left:0.5vw;
+    margin-right:0.5vw;
     margin-top:1.5vh;
     min-width:315px;
     border-radius:0 10px 10px 0;

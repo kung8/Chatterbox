@@ -136,6 +136,8 @@ const ChatBody = styled.div`
     height:97vh;
     display:none;
     flex-direction:column;
+    margin-left:0.5vw;
+    margin-right:0.5vw;
     margin-top:1.5vh;
     margin-bottom:1.5vh;
     border-radius:10px;
