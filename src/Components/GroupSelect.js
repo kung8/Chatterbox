@@ -11,9 +11,11 @@ class GroupSelect extends Component {
     render(){
         return(
             <div style={{height:'50px',display:'flex', alignItems:'center',background:'lightblue',borderRadius:'10px',width:'98%',marginLeft:'1%',position:'relative'}}>
-                {this.props.groupName?<Input onChange={(e)=>this.props.handleGroupNameCreation(e.target.value)} style={{marginLeft:10,height:40,borderRadius:'10px',background:'#363E47',fontSize:25,width:'75%',color:'white'}} placeholder='Create Group Name'/>:<h3 style={{marginLeft:10}}>Create New Group</h3>}
+                {this.props.groupName?<Input onChange={(e)=>this.props.handleGroupNameCreation(e.target.value)} style={{marginLeft:10,height:40,borderRadius:'10px',background:'#363E47',fontSize:25,width:'75%',color:'white'}} placeholder='Create Group Name'/>
+                :
+                <h3 style={{marginLeft:10}}>Create New Group</h3>}
                 {this.props.isGroupSelected?
-                <Button onClick={()=>this.props.createGroup()} style={{position:'absolute',right:'5px',background:'green',boxShadow:'0 0 1px 1px black',height:'30px'}}>
+                <Button onClick={this.props.createGroup} style={{position:'absolute',right:'5px',background:'green',boxShadow:'0 0 1px 1px black',height:'30px'}}>
                     {/* <i style={{fontSize:25,color:'white'}} className="fas fa-users"/> */}
                     <Plus className="fas fa-plus"/>                
                 </Button>

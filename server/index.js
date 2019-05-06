@@ -36,8 +36,11 @@ const io = socket(app.listen(SERVER_PORT,()=>{
 
 //ENDPOINTS
 // app.get('/api/users/:id',ctrl.getUsers);
+app.post('/api/chat/group/create',ctrl.createGroup);
+app.get('/api/chats/group/getAll/:user_id',ctrl.getGroups);
 app.get('/api/chats/:id',ctrl.getChats);
 app.get('/api/friends/:id',ctrl.getFriends);
+
 // app.get('/api/friends/:id',ctrl.middlewarePractice,ctrl.getFriends);
 app.post('/api/user/register',ctrl.register);
 app.post('/api/user/logout',ctrl.logout);

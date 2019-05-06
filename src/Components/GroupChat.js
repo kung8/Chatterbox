@@ -2,40 +2,40 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import socket from './Sockets'
-import { updateChat } from '../ducks/reducer';
+import { updateGroupChat } from '../ducks/reducer';
 import axios from 'axios'
 
-class Chat extends Component {
+class GroupChat extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            message: ''
+            // message: ''
         }
     }
 
     componentDidMount() {
-        socket.on('startChat', chat => {
-            this.props.updateChat(chat)
-        })
-        socket.on('sendMsg', messages => {
-            console.log(messages)
-            this.props.updateChat(messages)
-            this.setState({
-                message: ''
-            })
-        })
+        // socket.on('startChat', chat => {
+        //     this.props.updateChat(chat)
+        // })
+        // socket.on('sendMsg', messages => {
+        //     console.log(messages)
+        //     this.props.updateChat(messages)
+        //     this.setState({
+        //         message: ''
+        //     })
+        // })
     }
 
     send(){
-        const { message } = this.state;
-        const { room } = this.props;
-        const { id } = this.props.user
-        socket.emit('startChat',{room})
-        socket.emit('sendMsg', { message, room, id })
+        // const { message } = this.state;
+        // const { room } = this.props;
+        // const { id } = this.props.user
+        // socket.emit('startChat',{room})
+        // socket.emit('sendMsg', { message, room, id })
     }
 
     render() {
-        const mappedChat = this.props.chat.map(message => {
+        const mappedGroupChat = this.props.groupChat.map(message => {
             let color;
             let position;
             if (message.user_id === this.props.user.id) {
@@ -78,7 +78,7 @@ class Chat extends Component {
                 <ChatHeading>
                     <NameDot>
                         <ChevronLeft className="fas fa-chevron-left" onClick={()=>this.props.handleChatToggle()}/>
-                        <Name onClick={this.props.handleProfileToggle}>{this.props.friend.first} {this.props.friend.last}</Name>
+                        <Name onClick={this.props.handleProfileToggle}>{this.props.groupChat.group_name}</Name>
                         <Dot></Dot>
                     </NameDot>
                     {/* <IconHolder>
@@ -89,7 +89,7 @@ class Chat extends Component {
                 </ChatHeading>
 
                 <Chats>
-                    {mappedChat}
+                    {mappedGroupChat}
                 </Chats>
 
                 <FormHolder>
@@ -117,14 +117,12 @@ class Chat extends Component {
 
 function mapStateToProps(reduxState) {
     return {
-        friend: reduxState.friend,
-        chat: reduxState.chat,
-        room: reduxState.room,
-        user: reduxState.user
+        groupChat:reduxState.groupChat,
+        selectedGroup:reduxState.selectedGroup
     }
 }
 
-export default connect(mapStateToProps, { updateChat })(Chat)
+export default connect(mapStateToProps, { updateGroupChat })(GroupChat)
 
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////

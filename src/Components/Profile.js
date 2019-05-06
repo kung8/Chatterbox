@@ -12,7 +12,6 @@ class Profile extends Component {
     
     render(){
         const {last,first,email,pic} = this.props.friend
-        console.log(this.props.friend)
         return(
             <ProfileBody style={{borderRadius:'10px',position:'relative', display:this.props.isProfileOpened?'flex':'none',zIndex:this.props.isProfileOpened&&4}}>
                     <ChevronLeft className="fas fa-chevron-left" onClick={()=>this.props.handleProfileToggle()}/>
