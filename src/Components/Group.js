@@ -1,11 +1,12 @@
 import React, {Component,memo} from 'react';
 import {connect} from 'react-redux';
-import {selectedFriend,updateRoom} from '../ducks/reducer';
+import {selectedFriend,updateRoom,updateGroups} from '../ducks/reducer';
 import socket from './Sockets'
 import styled from 'styled-components';
 import GroupAddList from './GroupAddList';
 import GroupSelect from './GroupSelect';
 import axios from 'axios';
+import IndGroup from './IndGroup';
 
 class Group extends Component {
     constructor(){
@@ -15,10 +16,22 @@ class Group extends Component {
             isUserSelected:false,
             group:[],
             groupName:false,
-            name:''
+            name:'',
+            groups:[]
         }
     }
     
+    componentDidMount(){
+        this.getAllGroups()
+    }
+
+    getAllGroups=async()=>{
+        const {id} = this.props.user
+        let groups = await axios.get(`api/chats/group/getAll/${id}`)
+        console.log(groups.data)
+        this.props.updateGroups(groups.data)
+    }
+
     startChat(userId,user){
         this.props.hamburgerToggleChatOnly()
         this.props.handleChatToggle()
@@ -62,14 +75,23 @@ class Group extends Component {
     }
 
     createGroup=async()=>{
-        if(this.state.group.length < 2){
+        const {group,name} = this.state
+        const {id} = this.props.user
+        console.log('hit group creation',group,name)
+        if(group.length < 2){
             alert('Group chats are meant for more than two users, please add an additional user')
-        } else if (this.state.name.charAt(0) =='') {
+        } else if (name.charAt(0) =='') {
             alert('Please create a group name')
-        } else {
-            console.log(this.state.group,this.state.name)
-            //Need to hide the search bar when trying to create a group
-            
+        } 
+        else {
+            console.log(group,name)
+            group.unshift(id)
+            console.log(group)
+            await axios.post('/api/chat/group/create',{group,name})
+            //Need to hide the search bar when trying to create a group or it will search for groups only
+            //create the room by sending the group name
+            //backend will create the room and add all the users into that room
+            //should send back the newly created room on componennt did mount so that it could be uptodate 
         }
     }
 
@@ -79,9 +101,18 @@ class Group extends Component {
         })
     }
 
+
+
     render(){
         const userId = this.props.user.id;
-        const {search,friends} = this.props
+        const {search,friends,groups} = this.props
+
+        const mappedGroups = groups.map(group=>{
+            return(
+                <IndGroup key={group.group_users_id} group={group}/>
+            )
+        })
+
         const mappedfriends = friends.filter(user=>{
             const friendSearch = search.toLowerCase().split(' ')
               for (let i = 0; i < friendSearch.length; i++) {
@@ -104,6 +135,13 @@ class Group extends Component {
                 <h1 style={{textAlign:'center',background:'#303841',marginTop:0,marginBottom:0,color:'white'}}>Groups</h1>
                 <Users style={{maxHeight:'90%',minHeight:'90%',background:'lightgrey',overflowY:'scroll'}}>
                     <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
+                        <Users style={{minHeight:'40%',background:'lightgrey',overflowY:'scroll'}}>
+                            {mappedGroups}
+                        </Users>
+                    </div>
+                
+
+                    <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
                         <GroupSelect handleGroupNameCreation={this.handleGroupNameCreation} groupName={this.state.groupName} isGroupSelected={this.state.isGroupSelected} handleIsGroupSelected={this.handleIsGroupSelected} createGroup={this.createGroup}/>
                         {this.state.isGroupSelected&&
                             <>
@@ -115,6 +153,7 @@ class Group extends Component {
                             </>                        
                         }
                     </div>
+                    
                     {/* <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
                         <div style={{display:'flex', alignItems:'center',background:'lightgreen',borderRadius:'10px',width:'98%',marginLeft:'1%',position:'relative'}}>
                             <img style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
@@ -167,11 +206,11 @@ function mapStateToProps(reduxState){
         chats:reduxState.chats,
         user:reduxState.user,        
         friends:reduxState.friends,
-
+        groups:reduxState.groups
     }
 }
 
-export default memo(connect(mapStateToProps,{selectedFriend,updateRoom})(Group));
+export default memo(connect(mapStateToProps,{selectedFriend,updateRoom,updateGroups})(Group));
 
 const Button = styled.button`
     height:65%;

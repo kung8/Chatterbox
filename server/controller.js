@@ -15,7 +15,25 @@ module.exports = {
         //     next()
         // },
         
-        
+        createGroup:async(req,res)=>{
+            const {group, name} = req.body;
+            const db = req.app.get('db')
+            const newGroup = await db.create_group({name})
+            const {group_chat_id} = newGroup[0]
+            const addedUser = group.map(async user_id=>{
+                return await db.add_user_to_group({group_chat_id,user_id})
+            })
+            Promise.all(addedUser).then(()=>res.sendStatus(200))
+        },
+
+        getGroups:async(req,res)=>{
+            const {user_id} = req.params
+            const db = req.app.get('db')
+            const groups = await db.get_all_user_groups({user_id})
+            console.log(groups)
+            res.status(200).send(groups)
+        },
+
         getChats: async (req,res,next)=>{
             const db = req.app.get('db');
             let {id}= req.params;

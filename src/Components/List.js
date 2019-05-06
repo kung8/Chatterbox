@@ -42,8 +42,6 @@ class Message extends Component {
         socket.emit('startChat',{room});
     }
 
-
-
     render(){
         const {chats,search} = this.props
         const userId = this.props.user.id

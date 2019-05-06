@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {updateChats,updateUser} from './../ducks/reducer';
+import GroupChat from './GroupChat';
 
 class Dashboard extends Component {
     constructor(){
@@ -55,7 +56,6 @@ class Dashboard extends Component {
         await this.setState({
             isHamburgerOpened:!this.state.isHamburgerOpened
         })
-        console.log(this.state.isHamburgerOpened)
     }
 
     hamburgerToggleChatOnly=()=>{
@@ -91,7 +91,8 @@ class Dashboard extends Component {
             <Dash>
                 <Nav updateState={this.updateState} messageType={this.state.messageType} isHamburgerOpened={this.state.isHamburgerOpened} handleHamburgerToggle={this.handleHamburgerToggle} isChatClicked={this.state.isChatClicked}/>
                 <Message isMessageOpened={this.state.isMessageOpened} messageType={this.state.messageType} isHamburgerOpened={this.state.isHamburgerOpened} handleHamburgerToggle={this.handleHamburgerToggle} isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} hamburgerToggleChatOnly={this.hamburgerToggleChatOnly} isProfileOpened={this.state.isProfileOpened}/>
-                <Chat isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} handleProfileToggle={this.handleProfileToggle}  isProfileOpened={this.state.isProfileOpened}/>
+                {!this.props.friend?<GroupChat isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} handleProfileToggle={this.handleProfileToggle}  isProfileOpened={this.state.isProfileOpened}/>:
+                <Chat isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} handleProfileToggle={this.handleProfileToggle}  isProfileOpened={this.state.isProfileOpened}/>}
                 <Profile isProfileOpened={this.state.isProfileOpened} handleProfileToggle={this.handleProfileToggle}/>
             </Dash>
         )
@@ -103,7 +104,7 @@ function mapStateToProps(reduxState){
     return{
         chats:reduxState.chats,
         user:reduxState.user,
-        
+        friend:reduxState.friend
     }
 }
 
