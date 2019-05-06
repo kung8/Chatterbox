@@ -45,7 +45,7 @@ class Chat extends Component {
                     <div key={message.id} style={{ width: "98%", display: "flex", justifyContent: `${position}`, marginRight: "5px" }}>
                         <div style={{ background: `${color}`, display: "flex", marginTop: "5px", maxWidth: "60%", justifyContent: "flex-end", borderRadius: "10px", padding: "4px" }}>
                             <div style={{ display: "flex"}}>
-                                <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" }}>{message.message}</p>
+                                <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" ,minHeight:'2rem'}}>{message.message}</p>
                             </div>
                             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", height: "100%" }}>
                                 <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%", marginLeft:'5px' }} />
@@ -63,7 +63,7 @@ class Chat extends Component {
                                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
                                     <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%" , marginRight:'5px' }} />
                                 </div>
-                                <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" }}>
+                                <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" ,minHeight:'2rem'}}>
                                     {message.message}
                                 </p>
                             </div>
@@ -167,6 +167,7 @@ const ChatHeading = styled.div`
     border-bottom:darkgrey solid 0.05px;
     width:100%;
     justify-content:space-between;
+    
 `
 
 const NameDot = styled.div`
@@ -255,4 +256,7 @@ const Send = styled.button`
 const Name = styled.h1`
     font-size:30px;
     margin-left:5px;
+    @media screen and (min-width:300px) and (max-width:700px){
+        font-size:20px
+    }
 `
