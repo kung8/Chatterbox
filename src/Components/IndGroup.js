@@ -8,6 +8,7 @@ class IndGroup extends Component {
     async startGroupChat(group){
         await this.props.selectGroup(group)
         console.log(this.props.selectedGroup)
+        
     }
     
     render() {

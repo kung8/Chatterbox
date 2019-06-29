@@ -125,7 +125,7 @@ class Group extends Component {
               return true
           }).map(user =>{
             return(
-                <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
+                <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:5}}>
                     <GroupAddList key={user.id} user={user} handleAddUserToGroup={this.handleAddUserToGroup}/>
                 </div>
             )
@@ -133,7 +133,7 @@ class Group extends Component {
         return(
             <>
                 <h1 style={{textAlign:'center',background:'#303841',marginTop:0,marginBottom:0,color:'white'}}>Groups</h1>
-                <Users style={{maxHeight:'90%',minHeight:'90%',background:'lightgrey',overflowY:'scroll'}}>
+                <Users style={{maxHeight:'90%',minHeight:'90%',background:'lightgrey',overflowY:'scroll',marginTop:50}}>
                     <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
                         <Users style={{minHeight:'40%',background:'lightgrey',overflowY:'scroll'}}>
                             {mappedGroups}
@@ -142,7 +142,8 @@ class Group extends Component {
                 
 
                     <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                        <GroupSelect handleGroupNameCreation={this.handleGroupNameCreation} groupName={this.state.groupName} isGroupSelected={this.state.isGroupSelected} handleIsGroupSelected={this.handleIsGroupSelected} createGroup={this.createGroup}/>
+                        <GroupSelect 
+                            handleGroupNameCreation={this.handleGroupNameCreation} groupName={this.state.groupName} isGroupSelected={this.state.isGroupSelected} handleIsGroupSelected={this.handleIsGroupSelected} createGroup={this.createGroup}/>
                         {this.state.isGroupSelected&&
                             <>
                                 <h1 style={{textAlign:'center',background:'#303841',marginBottom:0,marginTop:'5px',color:'white'}}>All Users</h1>
@@ -154,48 +155,7 @@ class Group extends Component {
                         }
                     </div>
                     
-                    {/* <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                        <div style={{display:'flex', alignItems:'center',background:'lightgreen',borderRadius:'10px',width:'98%',marginLeft:'1%',position:'relative'}}>
-                            <img style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
-                            <h3 >Group 2</h3>
-                            <Button style={{position:'absolute',right:'5px'}}>
-                                <Plus className="fas fa-plus"/>
-                            </Button>
-                        </div>
-                    </div>
-                    <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                        <div style={{display:'flex', alignItems:'center',background:'#E6E6FA',borderRadius:'10px',width:'98%',marginLeft:'1%',position:'relative'}}>
-                            <img style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
-                            <h3 >Group 3</h3>
-                            <Button style={{position:'absolute',right:'5px'}}>
-                                <Plus className="fas fa-plus"/>
-                            </Button>
-                        </div>
-                    </div>
-                    <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                        <div style={{display:'flex', alignItems:'center',background:'yellow',borderRadius:'10px',width:'98%',marginLeft:'1%',position:'relative'}}>
-                            <img style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
-                            <h3 >Group 4</h3>
-                            <Button style={{position:'absolute',right:'5px'}}>
-                                <Plus className="fas fa-plus"/>
-                            </Button>
-                        </div>
-                    </div>
-                    <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                        <div style={{display:'flex', alignItems:'center',background:'pink',borderRadius:'10px',width:'98%',marginLeft:'1%',position:'relative'}}>
-                            <img style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
-                            <h3 >Group 5</h3>
-                            <Button style={{position:'absolute',right:'5px'}}>
-                                <Plus className="fas fa-plus"/>
-                            </Button>
-                        </div>
-                    </div> */}
                 </Users>
-
-                {/* <h1 style={{textAlign:'center',background:'#303841',marginBottom:0,color:'white'}}>All Users</h1>
-                <Users style={{maxHeight:'40%',minHeight:'40%',background:'lightgrey',overflowY:'scroll'}}>
-                    {mappedfriends}
-                </Users> */}
             </>
         )
     }

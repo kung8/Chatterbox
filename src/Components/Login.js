@@ -22,7 +22,8 @@ class Login extends Component {
         })
     }
 
-    register = async () => {
+    register = async (e) => {
+        e.preventDefault()
         const { first, last, email, password, username } = this.state
         if (first && last && email && password && username) {
             console.log(first, last, email, password, username)
@@ -35,7 +36,8 @@ class Login extends Component {
         }
     }
 
-    login = async () => {
+    login = async (e) => {
+        e.preventDefault()
         const { username, password } = this.state;
         try {
             if (username && password) {
