@@ -78,7 +78,7 @@ module.exports = {
 
     register: async (req,res) => {
         const db = req.app.get('db');
-        const {first,last,email,password,username} = req.body;
+        const {first,last,email,password,username,pic} = req.body;
         let checkedUser1 = await db.check_email({email});
         checkedUser1 = checkedUser1[0] 
         //if the email is equal to an existing email in the db then return 'this email is already in the db, please input another email'
@@ -98,7 +98,7 @@ module.exports = {
         //Need to hash their password before registering
         let salt = bcrypt.genSaltSync(10);
         let hash = bcrypt.hashSync(password,salt);
-        let newUser = await db.register({first,last,email,password:hash,username});
+        let newUser = await db.register({first,last,email,password:hash,username,pic});
         newUser = newUser[0];
         req.session.user = newUser;
         res.status(200).send(req.session.user);
@@ -122,7 +122,7 @@ module.exports = {
         }
     }, 
 
-    current: async (req,res) =>{
+    current: async (req,res,next) =>{
         const db = req.app.get('db');
         const {user} = req.session
         if(user){
@@ -130,11 +130,13 @@ module.exports = {
         } else {
             res.sendStatus(401);
         }
+        next()
     },
 
     logout: (req,res)=>{
         req.session.destroy(function(){
             res.status(200).send('Logged Out Connected!')
         });
-    }
+    },
+
 }

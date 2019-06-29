@@ -48,7 +48,6 @@ io.on('connection',function(socket){
         socket.leave(room)
     })
 })
-
 app.use(session({
     secret:SESSION_SECRET,
     resave: true,
@@ -78,7 +77,6 @@ app.post('/api/user/login',ctrl.login);
 app.post('/api/user/current',ctrl.current);
 // app.get('/api/chathistory/:room',ctrl.middlewarePractice);
 //SOCKETS ENDPOINTS
-
 
 // app.get('*', (req, res)=>{
 //     res.sendFile(path.join(__dirname, '../build/index.html'));

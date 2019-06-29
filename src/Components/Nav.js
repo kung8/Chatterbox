@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import List from './List';
 import Friends from './Friends';
 import Group from './Group';
+import Profile from './Profile'
 import Individual from './Individual';
 import styled from 'styled-components'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { clearAll } from '../ducks/reducer';
+import { clearAll,updateUser } from '../ducks/reducer';
+
+
 
 class Nav extends Component {
     constructor() {
@@ -31,10 +34,13 @@ class Nav extends Component {
         this.props.history.push('/')
     }
 
+    
+
     render() {
+        
         //Need to save availability to redux so that I can pass that to other users
         const { isHamburgerOpened } = this.props
-
+        console.log(this.props.user)
         const { updateState, messageType } = this.props;
 
         return (
@@ -51,7 +57,10 @@ class Nav extends Component {
                     </div>
                     {/* <hr style={{width:'100%',marginTop:'18px'}}/> */}
                     <PicHolder>
-                        <ProfilePic src={this.props.user.pic} alt='profile' />
+                        <ProfilePic 
+                            src={this.props.user.pic} 
+                            alt='profile'
+                            />
                         <Active style={{ background: this.state.color }}></Active>
                     </PicHolder>
                 </NavTop>
@@ -84,7 +93,7 @@ function mapStateToProps(reduxState) {
         user: reduxState.user
     }
 }
-export default withRouter(connect(mapStateToProps, { clearAll })(Nav))
+export default withRouter(connect(mapStateToProps, { clearAll,updateUser })(Nav))
 
 
 

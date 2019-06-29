@@ -27,7 +27,11 @@ class Login extends Component {
         const { first, last, email, password, username } = this.state
         if (first && last && email && password && username) {
             console.log(first, last, email, password, username)
-            const user = await axios.post('/api/user/register', { first, last, email, password, username });
+            let randomNum = Math.floor(Math.random()*151)
+            let pic = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomNum}`)
+            pic = pic.data.sprites.front_shiny
+
+            const user = await axios.post('/api/user/register', { first, last, email, password, username,pic });
             console.log(user.data)
             this.props.updateUser(user.data)
             await this.props.history.push('/dashboard')
@@ -70,7 +74,7 @@ class Login extends Component {
                             <Input style={{ width: '85%', height: '3rem', fontSize: '2rem', background: '#303841', color: 'white' }} type="text" placeholder="Email" onChange={e => this.handleInput('email', e.target.value)} />
                             <Input style={{ width: '85%', height: '3rem', fontSize: '2rem', background: '#303841', color: 'white' }} type="text" placeholder="Username" onChange={e => this.handleInput('username', e.target.value)} />
                             <Input style={{ width: '85%', height: '3rem', fontSize: '2rem', background: '#303841', color: 'white' }} type="password" placeholder="Password" onChange={e => this.handleInput('password', e.target.value)} />
-                            <button style={{ width: '60%', height: '40px', borderRadius: '10px', background: '#303841', color: 'white', fontSize: 30 }} onClick={() => this.register()}>Register</button>
+                            <button style={{ width: '60%', height: '40px', borderRadius: '10px', background: '#303841', color: 'white', fontSize: 30 }} onClick={this.register}>Register</button>
                         </form>
                     </Register>
 
@@ -86,7 +90,7 @@ class Login extends Component {
                                     <Input style={{ width: '85%', height: '3rem', fontSize: '2rem', background: '#303841', color: 'white' }} type="text" placeholder="Email" onChange={e => this.handleInput('email', e.target.value)} />
                                     <Input style={{ width: '85%', height: '3rem', fontSize: '2rem', background: '#303841', color: 'white' }} type="text" placeholder="Username" onChange={e => this.handleInput('username', e.target.value)} />
                                     <Input style={{ width: '85%', height: '3rem', fontSize: '2rem', background: '#303841', color: 'white' }} type="password" placeholder="Password" onChange={e => this.handleInput('password', e.target.value)} />
-                                    <button style={{ width: '60%', height: '40px', borderRadius: '10px', background: '#303841', color: 'white', fontSize: 30 }} onClick={() => this.register()}>Register</button>
+                                    <button style={{ width: '60%', height: '40px', borderRadius: '10px', background: '#303841', color: 'white', fontSize: 30 }} onClick={this.register}>Register</button>
                                 </form>
                             </Register2>
                             <h3 onClick={() => this.setState({ isRegisteredClicked: false})}>Already have an account</h3>
