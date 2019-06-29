@@ -31,7 +31,6 @@ class Dashboard extends Component {
     current = async() => {
         const {id} = this.props.user;
         if(!id){
-            console.log('current entered')
             try{
                 const user = await axios.post('/api/user/current');
                 this.props.updateUser(user.data)

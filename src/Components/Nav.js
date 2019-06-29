@@ -10,8 +10,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearAll,updateUser } from '../ducks/reducer';
 
-
-
 class Nav extends Component {
     constructor() {
         super();
@@ -37,10 +35,8 @@ class Nav extends Component {
     
 
     render() {
-        
         //Need to save availability to redux so that I can pass that to other users
         const { isHamburgerOpened } = this.props
-        console.log(this.props.user)
         const { updateState, messageType } = this.props;
 
         return (

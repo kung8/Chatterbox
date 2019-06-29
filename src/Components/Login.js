@@ -26,13 +26,11 @@ class Login extends Component {
         e.preventDefault()
         const { first, last, email, password, username } = this.state
         if (first && last && email && password && username) {
-            console.log(first, last, email, password, username)
             let randomNum = Math.floor(Math.random()*151)
             let pic = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomNum}`)
             pic = pic.data.sprites.front_shiny
 
             const user = await axios.post('/api/user/register', { first, last, email, password, username,pic });
-            console.log(user.data)
             this.props.updateUser(user.data)
             await this.props.history.push('/dashboard')
         } else {
@@ -46,7 +44,6 @@ class Login extends Component {
         try {
             if (username && password) {
                 const user = await axios.post('/api/user/login', { username, password })
-                console.log(user.data);
                 this.props.updateUser(user.data)
                 this.props.history.push('/dashboard')
             } else {
