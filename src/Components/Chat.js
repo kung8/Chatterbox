@@ -28,10 +28,12 @@ class Chat extends Component {
 
     send(){
         const { message } = this.state;
-        const { room } = this.props;
-        const { id } = this.props.user
-        socket.emit('startChat',{room})
-        socket.emit('sendMsg', { message, room, id })
+        if(message !== ''){
+            const { room } = this.props;
+            const { id } = this.props.user
+            socket.emit('startChat',{room})
+            socket.emit('sendMsg', { message, room, id })
+        }
     }
 
     render() {
