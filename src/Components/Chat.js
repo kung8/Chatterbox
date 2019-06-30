@@ -26,7 +26,8 @@ class Chat extends Component {
         })
     }
 
-    send(){
+    send=(e)=>{
+        e.preventDefault()
         const { message } = this.state;
         if(message !== ''){
             const { room } = this.props;
@@ -109,7 +110,7 @@ class Chat extends Component {
                                     <Icons className="far fa-smile-wink"></Icons>
                                 </Buttons>
                             </TopButtons>
-                            <Send onClick={() => this.send()}>
+                            <Send onClick={this.send}>
                                 <Icons className="far fa-paper-plane"></Icons>
                             </Send>
                         </ButtonsHolder>

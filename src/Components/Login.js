@@ -26,6 +26,12 @@ class Login extends Component {
         e.preventDefault()
         const { first, last, email, password, username } = this.state
         if (first && last && email && password && username) {
+            first = first.trim()
+            last = last.trim()
+            email = email.trim()
+            password = password.trim()
+            username = username.trim()
+            
             let randomNum = Math.floor(Math.random()*151)
             let pic = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomNum}`)
             pic = pic.data.sprites.front_shiny
