@@ -86,13 +86,39 @@ class Dashboard extends Component {
 
 
     render(){
+        console.log(Object.keys(this.props.friend).length)
         return(
             <Dash>
-                <Nav updateState={this.updateState} messageType={this.state.messageType} isHamburgerOpened={this.state.isHamburgerOpened} handleHamburgerToggle={this.handleHamburgerToggle} isChatClicked={this.state.isChatClicked}/>
-                <Message isMessageOpened={this.state.isMessageOpened} messageType={this.state.messageType} isHamburgerOpened={this.state.isHamburgerOpened} handleHamburgerToggle={this.handleHamburgerToggle} isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} hamburgerToggleChatOnly={this.hamburgerToggleChatOnly} isProfileOpened={this.state.isProfileOpened}/>
-                {!this.props.friend?<GroupChat isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} handleProfileToggle={this.handleProfileToggle}  isProfileOpened={this.state.isProfileOpened}/>:
-                <Chat isChatClicked={this.state.isChatClicked} handleChatToggle={this.handleChatToggle} handleProfileToggle={this.handleProfileToggle}  isProfileOpened={this.state.isProfileOpened}/>}
-                <Profile isProfileOpened={this.state.isProfileOpened} handleProfileToggle={this.handleProfileToggle}/>
+                <Nav 
+                    updateState={this.updateState} 
+                    messageType={this.state.messageType} 
+                    isHamburgerOpened={this.state.isHamburgerOpened} 
+                    handleHamburgerToggle={this.handleHamburgerToggle} 
+                    isChatClicked={this.state.isChatClicked}/>
+                <Message 
+                    isMessageOpened={this.state.isMessageOpened} 
+                    messageType={this.state.messageType} 
+                    isHamburgerOpened={this.state.isHamburgerOpened} 
+                    handleHamburgerToggle={this.handleHamburgerToggle} 
+                    isChatClicked={this.state.isChatClicked} 
+                    handleChatToggle={this.handleChatToggle} 
+                    hamburgerToggleChatOnly={this.hamburgerToggleChatOnly} 
+                    isProfileOpened={this.state.isProfileOpened}/>
+                {Object.keys(this.props.friend).length === 0 ?
+                    <GroupChat 
+                        isChatClicked={this.state.isChatClicked} 
+                        handleChatToggle={this.handleChatToggle} 
+                        handleProfileToggle={this.handleProfileToggle}  
+                        isProfileOpened={this.state.isProfileOpened}/>
+                        :
+                    <Chat 
+                        isChatClicked={this.state.isChatClicked} 
+                        handleChatToggle={this.handleChatToggle} 
+                        handleProfileToggle={this.handleProfileToggle}  
+                        isProfileOpened={this.state.isProfileOpened}/>}
+                <Profile 
+                    isProfileOpened={this.state.isProfileOpened} 
+                    handleProfileToggle={this.handleProfileToggle}/>
             </Dash>
         )
     }
@@ -103,7 +129,8 @@ function mapStateToProps(reduxState){
     return{
         chats:reduxState.chats,
         user:reduxState.user,
-        friend:reduxState.friend
+        friend:reduxState.friend,
+        selectedGroup:reduxState.selectedGroup
     }
 }
 

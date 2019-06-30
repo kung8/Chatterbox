@@ -6,9 +6,9 @@ const initialState = {
     friend:{},
     chat:[],
     room:'',
-    groupChat:[],
-    groups:[],
-    selectedGroup:{}
+    groupChat:[], //group chat
+    groups:[], //all groups
+    selectedGroup:{} //select group
 }
 
 const UPDATE_USER = 'UPDATE_USER';
@@ -109,7 +109,7 @@ export default function Reducer(reduxState=initialState,action){
         case UPDATE_FRIENDS:
             return {...reduxState,friends:action.payload}
         case SELECTED_FRIEND:
-            return {...reduxState,friend:action.payload}
+            return {...reduxState,friend:action.payload,selectedGroup:{}}
         case UPDATE_MESSAGES:
             return {...reduxState,messages:action.payload}
         case UPDATE_ROOM:
@@ -119,7 +119,7 @@ export default function Reducer(reduxState=initialState,action){
         case UPDATE_GROUPS:
             return {...reduxState,groups:action.payload}
         case SELECT_GROUP:
-            return {...reduxState,selectedGroup:action.payload}
+            return {...reduxState,selectedGroup:action.payload,friend:{}}
         case CLEAR_ALL:
             return {...reduxState,user:{},chats:[],messages:[],friends:[],friend:{},chat:[],groupChat:[]}
         default:

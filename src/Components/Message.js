@@ -29,7 +29,12 @@ class Message extends Component {
 
                 </FormHolder>
                 <Conditional>
-                    <ConditionalComponent search={this.state.search} handleChatToggle={this.props.handleChatToggle} isChatClicked={this.props.isChatClicked} handleHamburgerToggle={this.props.handleHamburgerToggle} hamburgerToggleChatOnly={this.props.hamburgerToggleChatOnly}/>    
+                    <ConditionalComponent 
+                        search={this.state.search} 
+                        handleChatToggle={this.props.handleChatToggle} 
+                        isChatClicked={this.props.isChatClicked} 
+                        handleHamburgerToggle={this.props.handleHamburgerToggle} 
+                        hamburgerToggleChatOnly={this.props.hamburgerToggleChatOnly}/>    
                 </Conditional>
             </MessageBody>
         )

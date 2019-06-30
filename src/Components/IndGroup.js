@@ -2,13 +2,17 @@ import React, { Component } from 'react'
 import styled from 'styled-components';
 import socket from './Sockets'
 import {connect} from 'react-redux';
-import {selectGroup} from '../ducks/reducer'
+import {selectGroup,updateGroupChat} from '../ducks/reducer'
+import axios from 'axios'
 
 class IndGroup extends Component {
     async startGroupChat(group){
+        this.props.hamburgerToggleChatOnly()
+        this.props.handleChatToggle()
         await this.props.selectGroup(group)
-        console.log(this.props.selectedGroup)
-        
+        axios.get(`/api/getGroupChat/${group.group_chat_id}`).then(res=>{
+            this.props.updateGroupChat(res.data)
+        })
     }
     
     render() {
@@ -35,7 +39,7 @@ function mapStateToProps (reduxState) {
     }
 }
 
-export default connect(mapStateToProps,{selectGroup})(IndGroup)
+export default connect(mapStateToProps,{selectGroup,updateGroupChat})(IndGroup)
 
 const Button = styled.button`
     height:90%;

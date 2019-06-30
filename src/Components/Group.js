@@ -101,15 +101,17 @@ class Group extends Component {
         })
     }
 
-
-
     render(){
         const userId = this.props.user.id;
         const {search,friends,groups} = this.props
 
         const mappedGroups = groups.map(group=>{
             return(
-                <IndGroup key={group.group_users_id} group={group}/>
+                <IndGroup 
+                    key={group.group_users_id} 
+                    group={group}
+                    hamburgerToggleChatOnly={this.props.hamburgerToggleChatOnly}
+                    handleChatToggle={this.props.handleChatToggle} />
             )
         })
 

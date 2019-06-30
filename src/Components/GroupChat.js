@@ -14,24 +14,25 @@ class GroupChat extends Component {
     }
 
     componentDidMount() {
-        // socket.on('startChat', chat => {
-        //     this.props.updateChat(chat)
-        // })
-        // socket.on('sendMsg', messages => {
-        //     console.log(messages)
-        //     this.props.updateChat(messages)
-        //     this.setState({
-        //         message: ''
-        //     })
-        // })
+        socket.on('startGroupChat', chat => {
+            console.log(chat)
+            // this.props.updateGroupChat(chat)
+        })
+        socket.on('sendGroupMsg', messages => {
+            console.log(messages)
+            this.props.updateChat(messages)
+            this.setState({
+                message: ''
+            })
+        })
     }
 
-    send(){
-        // const { message } = this.state;
-        // const { room } = this.props;
-        // const { id } = this.props.user
-        // socket.emit('startChat',{room})
-        // socket.emit('sendMsg', { message, room, id })
+    send() {
+        const { message } = this.state;
+        const { room } = this.props;
+        const { id } = this.props.user
+        socket.emit('startChat', { room })
+        socket.emit('sendMsg', { message, room, id })
     }
 
     render() {
@@ -44,11 +45,11 @@ class GroupChat extends Component {
                 return (
                     <div key={message.id} style={{ width: "98%", display: "flex", justifyContent: `${position}`, marginRight: "5px" }}>
                         <div style={{ background: `${color}`, display: "flex", marginTop: "5px", maxWidth: "60%", justifyContent: "flex-end", borderRadius: "10px", padding: "4px" }}>
-                            <div style={{ display: "flex"}}>
+                            <div style={{ display: "flex" }}>
                                 <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" }}>{message.message}</p>
                             </div>
                             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", height: "100%" }}>
-                                <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%", marginLeft:'5px' }} />
+                                <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%", marginLeft: '5px' }} />
                             </div>
                         </div>
                     </div>
@@ -58,10 +59,10 @@ class GroupChat extends Component {
                 position = "flex-start";
                 return (
                     <div key={message.id} style={{ width: "98%", display: "flex", justifyContent: `${position}`, marginLeft: "5px" }} >
-                        <div style={{ background: `${color}`, display: "flex",marginTop: "5px", maxWidth: "60%", justifyContent: "flex-start", borderRadius: "10px", padding: "4px" }}>
+                        <div style={{ background: `${color}`, display: "flex", marginTop: "5px", maxWidth: "60%", justifyContent: "flex-start", borderRadius: "10px", padding: "4px" }}>
                             <div style={{ display: "flex", textAlign: "left", padding: "2px" }}>
                                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
-                                    <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%" , marginRight:'5px' }} />
+                                    <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%", marginRight: '5px' }} />
                                 </div>
                                 <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" }}>
                                     {message.message}
@@ -74,11 +75,11 @@ class GroupChat extends Component {
         })
 
         return (
-            <ChatBody style={{position:'relative',left:this.props.isChatClicked&&0, left:this.props.isProfileOpened&&'12.5vw',display:this.props.isChatClicked?'flex':'none'}}>
+            <ChatBody style={{ position: 'relative', left: this.props.isChatClicked && 0, left: this.props.isProfileOpened && '12.5vw', display: this.props.isChatClicked ? 'flex' : 'none' }}>
                 <ChatHeading>
                     <NameDot>
-                        <ChevronLeft className="fas fa-chevron-left" onClick={()=>this.props.handleChatToggle()}/>
-                        <Name onClick={this.props.handleProfileToggle}>{this.props.groupChat.group_name}</Name>
+                        <ChevronLeft className="fas fa-chevron-left" onClick={() => this.props.handleChatToggle()} />
+                        <Name onClick={this.props.handleProfileToggle}>{this.props.selectedGroup.group_name}</Name>
                         <Dot></Dot>
                     </NameDot>
                     {/* <IconHolder>
@@ -117,8 +118,9 @@ class GroupChat extends Component {
 
 function mapStateToProps(reduxState) {
     return {
-        groupChat:reduxState.groupChat,
-        selectedGroup:reduxState.selectedGroup
+        groupChat: reduxState.groupChat,
+        selectedGroup: reduxState.selectedGroup,
+        user: reduxState.user
     }
 }
 
@@ -143,7 +145,7 @@ const ChatBody = styled.div`
     }
 `
 
-const ChevronLeft = styled.i `
+const ChevronLeft = styled.i`
     font-size:45px;
     border-radius:50%;
     display:flex;
