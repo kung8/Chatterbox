@@ -21,10 +21,11 @@ class Message extends Component {
             <MessageBody style={{borderRadius:'10px',position:'relative',left:this.props.isHamburgerOpened&&'-75px',display:this.props.isChatClicked&&'none', display:this.props.isProfileOpened&&'none', display:!this.props.isMessageOpened&&'none'}}>
                 <FormHolder>
                     <Hamburger className="fas fa-bars" onClick={()=>this.props.handleHamburgerToggle()}/>
+                    {this.props.name !== 'Group' &&
                     <Form>
                         <Input placeholder='Search' id="search-input" onChange={e=>this.search(e.target.value)}/>
-                        <Search className="fas fa-search"/>
-                    </Form>
+                         <Search className="fas fa-search"/>
+                    </Form>}
                     
 
                 </FormHolder>
@@ -73,6 +74,9 @@ const FormHolder = styled.div`
 
 const Hamburger = styled.i`
     color:lightgrey;
+    position:absolute;
+    left:20px;
+
     font-size:35px;
     &:hover{
         color:white;

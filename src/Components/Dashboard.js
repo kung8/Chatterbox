@@ -15,7 +15,8 @@ class Dashboard extends Component {
     constructor(){
         super();
         this.state={
-            messageType:List, 
+            messageType:List,
+            name:'List', 
             messages:[],
             isHamburgerOpened:false,
             isChatClicked:false,
@@ -40,14 +41,15 @@ class Dashboard extends Component {
         } 
     }
 
-    updateState=(value)=>{
+    updateState=(value,name)=>{
         if(this.state.isHamburgerOpened){
             this.setState({
                 isHamburgerOpened:false
             })
         }
         this.setState({
-            messageType:value
+            messageType:value,
+            name
         })
     }
 
@@ -84,7 +86,6 @@ class Dashboard extends Component {
         })
     }
 
-
     render(){
         return(
             <Dash>
@@ -95,6 +96,7 @@ class Dashboard extends Component {
                     handleHamburgerToggle={this.handleHamburgerToggle} 
                     isChatClicked={this.state.isChatClicked}/>
                 <Message 
+                    name={this.state.name}
                     isMessageOpened={this.state.isMessageOpened} 
                     messageType={this.state.messageType} 
                     isHamburgerOpened={this.state.isHamburgerOpened} 

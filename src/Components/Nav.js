@@ -13,13 +13,11 @@ import { clearAll,updateUser } from '../ducks/reducer';
 class Nav extends Component {
     constructor() {
         super();
-
         this.state = {
             color: 'green'
         }
     }
-    componentDidMount() {
-    }
+
     handleDot(value) {
         this.setState({
             color: value
@@ -32,19 +30,20 @@ class Nav extends Component {
         this.props.history.push('/')
     }
 
-    
-
     render() {
         //Need to save availability to redux so that I can pass that to other users
         const { isHamburgerOpened } = this.props
         const { updateState, messageType } = this.props;
 
         return (
-            
             <NavBody style={{display:`${this.props.isHamburgerOpened?'flex':'none'}`,left:`${this.props.isHamburgerOpened?'75px':'0px'}`,zIndex:`${this.props.isHamburgerOpened&&2}`,position:`${this.props.isHamburgerOpened&&'relative'}`}}>
                 <NavTop>
                     <div style={{display:'flex',marginTop:'20px'}}>
-                        <Hamburger className="fas fa-bars" onClick={()=>this.props.handleHamburgerToggle()} style={{marginLeft:'-65px'}}/>
+                        <Hamburger 
+                            className="fas fa-bars" 
+                            onClick={()=>this.props.handleHamburgerToggle()} 
+                            style={{marginLeft:'-65px'}}
+                            />
                         {/* <ActiveDots>
                             <Dot onClick={() => this.handleDot('red')} id="red-dot"></Dot>
                             <Dot onClick={() => this.handleDot('yellow')} id="yellow-dot"></Dot>
@@ -62,20 +61,31 @@ class Nav extends Component {
                 </NavTop>
 
                 <IconHolder>
-                    <IndIconHolder onClick={() => updateState(List)} style={{ backgroundColor: messageType == List && 'white', borderRight: messageType == List && 'green solid 20px',width: messageType == List && '130px'}}>
-                        <Icons className="fas fa-comment"></Icons>
+                    <IndIconHolder 
+                        onClick={() => updateState(List,'List')} 
+                        style={{ backgroundColor: messageType == List && 'white', borderRight: messageType == List && 'green solid 20px',width: messageType == List && '130px'}}>
+                        <Icons 
+                            className="fas fa-comment"></Icons>
                     </IndIconHolder>
-                    <IndIconHolder onClick={() => updateState(Friends)} style={{ backgroundColor: messageType == Friends && 'white',borderRight: messageType == Friends && 'green solid 20px',width: messageType == Friends && '130px' }}>
-                        <Icons className="fas fa-address-book" ></Icons>
+                    <IndIconHolder 
+                        onClick={() => updateState(Friends,'Friends')} 
+                        style={{ backgroundColor: messageType == Friends && 'white',borderRight: messageType == Friends && 'green solid 20px',width: messageType == Friends && '130px' }}>
+                        <Icons 
+                            className="fas fa-address-book" ></Icons>
                     </IndIconHolder>
-                    <IndIconHolder onClick={() => updateState(Individual)} style={{ backgroundColor: messageType == Individual && 'white', borderRight: messageType == Individual && 'green solid 20px',width: messageType == Individual && '130px'}}>
+                    <IndIconHolder 
+                        onClick={() => updateState(Individual,'Individual')} 
+                        style={{ backgroundColor: messageType == Individual && 'white', borderRight: messageType == Individual && 'green solid 20px',width: messageType == Individual && '130px'}}>
                         <Icons className="fas fa-user"></Icons>
                     </IndIconHolder>
-                    <IndIconHolder onClick={() => updateState(Group)} style={{ backgroundColor: messageType == Group && 'white', borderRight: messageType == Group && 'green solid 20px',width: messageType == Group && '130px' }}>
+                    <IndIconHolder 
+                        onClick={() => updateState(Group,'Group')} 
+                        style={{ backgroundColor: messageType == Group && 'white', borderRight: messageType == Group && 'green solid 20px',width: messageType == Group && '130px' }}>
                         <Icons className="fas fa-users"></Icons>
                     </IndIconHolder>
                 </IconHolder>
-                <Logout onClick={this.logout}>
+                <Logout 
+                    onClick={this.logout}>
                     <Icons className="fas fa-power-off"></Icons>
                 </Logout>
             </NavBody>
@@ -117,6 +127,9 @@ const NavTop = styled.div`
 `
 const Hamburger = styled.i`
     color:lightgrey;
+    position:absolute;
+    left:85px;
+    top:15px;
     font-size:35px;
     &:hover{
         color:white;
