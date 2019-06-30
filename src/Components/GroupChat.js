@@ -14,7 +14,14 @@ class GroupChat extends Component {
     }
 
     componentDidMount() {
-        socket.on('startGroupChat', chat => {
+        const  room  = this.props.selectedGroup.group_chat_id
+
+        socket.emit('startGroupChat',{room})
+        socket.on('startGroupChat',(chat)=>{
+            console.log(chat)
+            this.props.updateGroupChat(chat)
+        })
+        socket.on('sendGroupMsg', chat => {
             this.props.updateGroupChat(chat)
             this.setState({message:''})
         })
@@ -25,7 +32,7 @@ class GroupChat extends Component {
         if(message !==''){
             const  room  = this.props.selectedGroup.group_chat_id
             const { id } = this.props.user
-            socket.emit('startGroupChat', { room,message,id })
+            socket.emit('sendGroupMsg', { room,message,id })
         } 
     }
     

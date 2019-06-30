@@ -51,17 +51,20 @@ io.on('connection',function(socket){
         const messages = await db.create_message({message,id,room})
         io.in(room).emit('sendMsg',messages)
     })
-
     socket.on('startGroupChat',async (data)=>{
+        const {room} = data
+        const db = app.get('db');
+        const messages = await db.get_group_chat({id:room})
+        socket.join(room)
+        io.in(room).emit('startGroupChat',messages)
+    })
+
+    socket.on('sendGroupMsg',async (data)=>{
         const db = app.get('db')
         const {room,id,message} = data
         const messages = await db.create_group_message({room,id,message})
-        socket.join(room)
-        io.in(data.room).emit('startGroupChat',messages)
+        io.in(room).emit('sendGroupMsg',messages)
     })
-    // socket.on('sendGroupMsg',async (data)=>{
-    //     console.log(data)
-    // })
 
     socket.on('endChat',function(room){
         socket.leave(room)
