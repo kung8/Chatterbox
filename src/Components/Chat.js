@@ -18,7 +18,6 @@ class Chat extends Component {
             this.props.updateChat(chat)
         })
         socket.on('sendMsg', messages => {
-            console.log(messages)
             this.props.updateChat(messages)
             this.setState({
                 message: ''
