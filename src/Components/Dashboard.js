@@ -86,7 +86,6 @@ class Dashboard extends Component {
 
 
     render(){
-        console.log(Object.keys(this.props.friend).length)
         return(
             <Dash>
                 <Nav 

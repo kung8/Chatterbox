@@ -9,32 +9,26 @@ class GroupChat extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            // message: ''
+            message: ''
         }
     }
 
     componentDidMount() {
         socket.on('startGroupChat', chat => {
-            console.log(chat)
-            // this.props.updateGroupChat(chat)
-        })
-        socket.on('sendGroupMsg', messages => {
-            console.log(messages)
-            this.props.updateChat(messages)
-            this.setState({
-                message: ''
-            })
+            this.props.updateGroupChat(chat)
+            this.setState({message:''})
         })
     }
 
     send() {
         const { message } = this.state;
-        const { room } = this.props;
-        const { id } = this.props.user
-        socket.emit('startChat', { room })
-        socket.emit('sendMsg', { message, room, id })
+        if(message !==''){
+            const  room  = this.props.selectedGroup.group_chat_id
+            const { id } = this.props.user
+            socket.emit('startGroupChat', { room,message,id })
+        } 
     }
-
+    
     render() {
         let mappedGroupChat
         if(this.props.groupChat.length){

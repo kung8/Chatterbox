@@ -12,6 +12,14 @@ const app = express();
 app.use(express.json());
 app.use( express.static( `${__dirname}/../build` ) );
 
+app.use(session({
+    secret:SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    cookie:{
+        maxAge:600000
+    }
+}))
 
 const io = socket(app.listen(SERVER_PORT,()=>{
     console.log('Server is running on port '+ SERVER_PORT)
@@ -44,18 +52,22 @@ io.on('connection',function(socket){
         io.in(room).emit('sendMsg',messages)
     })
 
+    socket.on('startGroupChat',async (data)=>{
+        const db = app.get('db')
+        const {room,id,message} = data
+        const messages = await db.create_group_message({room,id,message})
+        socket.join(room)
+        io.in(data.room).emit('startGroupChat',messages)
+    })
+    // socket.on('sendGroupMsg',async (data)=>{
+    //     console.log(data)
+    // })
+
     socket.on('endChat',function(room){
         socket.leave(room)
     })
 })
-app.use(session({
-    secret:SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-    cookie:{
-        maxAge:600000
-    }
-}))
+
 
 // app.use(function(req,res,next){
 //     console.log('Hey I am application level middleware')
