@@ -94,7 +94,7 @@ class Chat extends Component {
                 </ChatHeading>
 
                 <Chats>
-                    {mappedChat?mappedChat:<h3 style={{textAlign:'center',fontWeight:'bold'}}>Start Chat Now</h3>}
+                    {mappedChat?mappedChat:<h3 style={{textAlign:'center',fontWeight:'bold',marginTop:40}}>Start Chat Now</h3>}
                 </Chats>
 
                 <FormHolder>

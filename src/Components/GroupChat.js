@@ -36,43 +36,47 @@ class GroupChat extends Component {
     }
 
     render() {
-        const mappedGroupChat = this.props.groupChat.map(message => {
-            let color;
-            let position;
-            if (message.user_id === this.props.user.id) {
-                color = "#26f7ff75";
-                position = "flex-end";
-                return (
-                    <div key={message.id} style={{ width: "98%", display: "flex", justifyContent: `${position}`, marginRight: "5px" }}>
-                        <div style={{ background: `${color}`, display: "flex", marginTop: "5px", maxWidth: "60%", justifyContent: "flex-end", borderRadius: "10px", padding: "4px" }}>
-                            <div style={{ display: "flex" }}>
-                                <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" }}>{message.message}</p>
-                            </div>
-                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", height: "100%" }}>
-                                <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%", marginLeft: '5px' }} />
-                            </div>
-                        </div>
-                    </div>
-                )
-            } else {
-                color = "lightgreen";
-                position = "flex-start";
-                return (
-                    <div key={message.id} style={{ width: "98%", display: "flex", justifyContent: `${position}`, marginLeft: "5px" }} >
-                        <div style={{ background: `${color}`, display: "flex", marginTop: "5px", maxWidth: "60%", justifyContent: "flex-start", borderRadius: "10px", padding: "4px" }}>
-                            <div style={{ display: "flex", textAlign: "left", padding: "2px" }}>
-                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
-                                    <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%", marginRight: '5px' }} />
+        let mappedGroupChat
+        if(this.props.groupChat.length){
+
+            mappedGroupChat = this.props.groupChat.map(message => {
+                let color;
+                let position;
+                if (message.user_id === this.props.user.id) {
+                    color = "#26f7ff75";
+                    position = "flex-end";
+                    return (
+                        <div key={message.id} style={{ width: "98%", display: "flex", justifyContent: `${position}`, marginRight: "5px" }}>
+                            <div style={{ background: `${color}`, display: "flex", marginTop: "5px", maxWidth: "60%", justifyContent: "flex-end", borderRadius: "10px", padding: "4px" }}>
+                                <div style={{ display: "flex" }}>
+                                    <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" }}>{message.message}</p>
                                 </div>
-                                <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" }}>
-                                    {message.message}
-                                </p>
+                                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", height: "100%" }}>
+                                    <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%", marginLeft: '5px' }} />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                );
-            }
-        })
+                    )
+                } else {
+                    color = "lightgreen";
+                    position = "flex-start";
+                    return (
+                        <div key={message.id} style={{ width: "98%", display: "flex", justifyContent: `${position}`, marginLeft: "5px" }} >
+                            <div style={{ background: `${color}`, display: "flex", marginTop: "5px", maxWidth: "60%", justifyContent: "flex-start", borderRadius: "10px", padding: "4px" }}>
+                                <div style={{ display: "flex", textAlign: "left", padding: "2px" }}>
+                                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
+                                        <img src={message.pic} style={{ height: "2rem", width: "2rem", borderRadius: "50%", marginRight: '5px' }} />
+                                    </div>
+                                    <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" }}>
+                                        {message.message}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                }
+            })
+        }
 
         return (
             <ChatBody style={{ position: 'relative', left: this.props.isChatClicked && 0, left: this.props.isProfileOpened && '12.5vw', display: this.props.isChatClicked ? 'flex' : 'none' }}>
@@ -90,7 +94,7 @@ class GroupChat extends Component {
                 </ChatHeading>
 
                 <Chats>
-                    {mappedGroupChat}
+                    {mappedGroupChat?mappedGroupChat:<h3 style={{textAlign:'center',fontWeight:'bold',marginTop:40}}>Start Group Chat Now</h3>}
                 </Chats>
 
                 <FormHolder>
