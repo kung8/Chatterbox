@@ -47,7 +47,7 @@ class Chat extends Component {
                     position = "flex-end";
                     return (
                         <div key={message.id} style={{ width: "98%", display: "flex", justifyContent: `${position}`, marginRight: "5px" }}>
-                            <div style={{ background: `${color}`, display: "flex", marginTop: "5px", maxWidth: "60%", justifyContent: "flex-end", borderRadius: "10px", padding: "4px" }}>
+                            <div style={{ background: `${color}`, display: "flex", marginTop: "5px", maxWidth: "60%", justifyContent: "flex-end", borderRadius: "10px", padding: "4px" ,minHeight:40}}>
                                 <div style={{ display: "flex"}}>
                                     <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px" ,minHeight:'2rem'}}>{message.message}</p>
                                 </div>
@@ -204,7 +204,7 @@ const Chats = styled.div`
     display:flex;
     background:lightgrey;
     height:75%;
-    max-height:75%;
+    // max-height:75%;
     width:100%;
     flex-direction:column;
     overflow-y:scroll;
