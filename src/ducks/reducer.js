@@ -8,7 +8,9 @@ const initialState = {
     room:'',
     groupChat:[], //group chat
     groups:[], //all groups
-    selectedGroup:{} //select group
+    selectedGroup:{}, //select group
+    selectedIndProfile:{},
+    selectedGroupProfile:{}
 }
 
 const UPDATE_USER = 'UPDATE_USER';
@@ -22,6 +24,9 @@ const UPDATE_ROOM = 'UPDATE_ROOM';
 const UPDATE_GROUP_CHAT = 'UPDATE_GROUP_CHAT';
 const UPDATE_GROUPS = 'UPDATE_GROUPS';
 const SELECT_GROUP = 'SELECT_GROUP';
+const UPDATE_SELECTED_IND_PROFILE = 'UPDATE_SELECTED_IND_PROFILE';
+const UPDATE_SELECTED_GROUP_PROFILE = 'UPDATE_SELECTED_GROUP_PROFILE';
+
 
 export function updateUser(user){
     return{
@@ -92,6 +97,19 @@ export function selectGroup(group){
     }
 }
 
+export function updateSelectedIndProfile(profile){
+    return{
+        type:UPDATE_SELECTED_IND_PROFILE,
+        payload:profile
+    }
+}
+export function updateSelectedGroupProfile(group){
+    return{
+        type:UPDATE_SELECTED_GROUP_PROFILE,
+        payload:group
+    }
+}
+
 export function clearAll(){
     return{
         type:CLEAR_ALL
@@ -120,6 +138,10 @@ export default function Reducer(reduxState=initialState,action){
             return {...reduxState,groups:action.payload}
         case SELECT_GROUP:
             return {...reduxState,selectedGroup:action.payload,friend:{}}
+        case UPDATE_SELECTED_GROUP_PROFILE:
+            return {...reduxState,selectedGroupProfile:action.payload}
+        case UPDATE_SELECTED_IND_PROFILE:
+            return {...reduxState,selectedIndProfile:action.payload}    
         case CLEAR_ALL:
             return {...reduxState,user:{},chats:[],messages:[],friends:[],friend:{},chat:[],groupChat:[]}
         default:

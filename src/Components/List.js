@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import socket from './Sockets'
 import axios from 'axios';
-import {updateChats,selectedFriend,updateRoom} from './../ducks/reducer';
+import {updateChats,selectedFriend,updateRoom,updateSelectedIndProfile} from './../ducks/reducer';
 
 class Message extends Component {
     constructor(){
@@ -26,6 +26,7 @@ class Message extends Component {
         this.props.hamburgerToggleChatOnly()
         this.props.handleChatToggle()
         this.props.selectedFriend(user)
+        this.props.updateSelectedIndProfile(user)
         const {id} = user;
         socket.emit('endChat',this.props.room);
         let bigger;
@@ -87,4 +88,4 @@ function mapStateToProps(reduxState){
     }
 }
 
-export default connect(mapStateToProps,{updateChats,selectedFriend,updateRoom})(Message)
+export default connect(mapStateToProps,{updateChats,selectedFriend,updateRoom,updateSelectedIndProfile})(Message)
