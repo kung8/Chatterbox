@@ -71,6 +71,7 @@ class Message extends Component {
         })
         return(
             <div>
+                <h1 style={{textAlign:'center',background:'#303841',marginTop:0,marginBottom:0,color:'white'}}>All Chats</h1>
                 {mappedChats}
             </div>
         )

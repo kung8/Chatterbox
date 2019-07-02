@@ -15,8 +15,8 @@ class Dashboard extends Component {
     constructor(){
         super();
         this.state={
-            messageType:Group,
-            name:'Group', 
+            messageType:List,
+            name:'List', 
             messages:[],
             isHamburgerOpened:false,
             isChatClicked:false,
@@ -126,7 +126,6 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps(reduxState){
-
     return{
         chats:reduxState.chats,
         user:reduxState.user,

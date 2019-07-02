@@ -137,7 +137,7 @@ class Group extends Component {
                 <h1 style={{textAlign:'center',background:'#303841',marginTop:0,marginBottom:0,color:'white'}}>Groups</h1>
                 <Users style={{maxHeight:'90%',minHeight:'90%',overflowY:'scroll'}}>
                     <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                        <Users style={{minHeight:'40%',background:'lightgrey',overflowY:'scroll'}}>
+                        <Users style={{minHeight:'40%',overflowY:'scroll'}}>
                             {mappedGroups}
                         </Users>
                     </div>
@@ -145,7 +145,11 @@ class Group extends Component {
 
                     <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
                         <GroupSelect 
-                            handleGroupNameCreation={this.handleGroupNameCreation} groupName={this.state.groupName} isGroupSelected={this.state.isGroupSelected} handleIsGroupSelected={this.handleIsGroupSelected} createGroup={this.createGroup}/>
+                            handleGroupNameCreation={this.handleGroupNameCreation} 
+                            groupName={this.state.groupName} 
+                            isGroupSelected={this.state.isGroupSelected} 
+                            handleIsGroupSelected={this.handleIsGroupSelected} 
+                            createGroup={this.createGroup}/>
                         {this.state.isGroupSelected&&
                             <>
                                 <h1 style={{textAlign:'center',background:'#303841',marginBottom:0,marginTop:'5px',color:'white'}}>All Users</h1>
