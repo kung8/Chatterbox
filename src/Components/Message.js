@@ -26,8 +26,6 @@ class Message extends Component {
                         <Input placeholder='Search' id="search-input" onChange={e=>this.search(e.target.value)}/>
                          <Search className="fas fa-search"/>
                     </Form>}
-                    
-
                 </FormHolder>
                 <Conditional>
                     <ConditionalComponent 
@@ -116,4 +114,8 @@ const Input = styled.input`
 
 const Conditional = styled.div`
     height:90%;
+    overflow-y:scroll;
+    ::-webkit-scrollbar {
+        width:0px
+    }
 `

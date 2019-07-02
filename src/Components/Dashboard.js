@@ -15,8 +15,8 @@ class Dashboard extends Component {
     constructor(){
         super();
         this.state={
-            messageType:List,
-            name:'List', 
+            messageType:Group,
+            name:'Group', 
             messages:[],
             isHamburgerOpened:false,
             isChatClicked:false,

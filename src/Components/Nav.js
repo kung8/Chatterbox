@@ -67,12 +67,7 @@ class Nav extends Component {
                         <Icons 
                             className="fas fa-comment"></Icons>
                     </IndIconHolder>
-                    <IndIconHolder 
-                        onClick={() => updateState(Friends,'Friends')} 
-                        style={{ backgroundColor: messageType == Friends && 'white',borderRight: messageType == Friends && 'green solid 20px',width: messageType == Friends && '130px' }}>
-                        <Icons 
-                            className="fas fa-address-book" ></Icons>
-                    </IndIconHolder>
+                    
                     <IndIconHolder 
                         onClick={() => updateState(Individual,'Individual')} 
                         style={{ backgroundColor: messageType == Individual && 'white', borderRight: messageType == Individual && 'green solid 20px',width: messageType == Individual && '130px'}}>
@@ -82,6 +77,12 @@ class Nav extends Component {
                         onClick={() => updateState(Group,'Group')} 
                         style={{ backgroundColor: messageType == Group && 'white', borderRight: messageType == Group && 'green solid 20px',width: messageType == Group && '130px' }}>
                         <Icons className="fas fa-users"></Icons>
+                    </IndIconHolder>
+                    <IndIconHolder 
+                        onClick={() => updateState(Friends,'Friends')} 
+                        style={{ backgroundColor: messageType == Friends && 'white',borderRight: messageType == Friends && 'green solid 20px',width: messageType == Friends && '130px' }}>
+                        <Icons 
+                            className="fas fa-address-book" ></Icons>
                     </IndIconHolder>
                 </IconHolder>
                 <Logout 

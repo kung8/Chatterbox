@@ -133,9 +133,9 @@ class Group extends Component {
             )
         })
         return(
-            <>
+            <div>
                 <h1 style={{textAlign:'center',background:'#303841',marginTop:0,marginBottom:0,color:'white'}}>Groups</h1>
-                <Users style={{maxHeight:'90%',minHeight:'90%',background:'lightgrey',overflowY:'scroll',marginTop:50}}>
+                <Users style={{maxHeight:'90%',minHeight:'90%',overflowY:'scroll'}}>
                     <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
                         <Users style={{minHeight:'40%',background:'lightgrey',overflowY:'scroll'}}>
                             {mappedGroups}
@@ -158,7 +158,7 @@ class Group extends Component {
                     </div>
                     
                 </Users>
-            </>
+            </div>
         )
     }
 } 
