@@ -72,8 +72,8 @@ class Profile extends Component {
     }
 
     render() {
-        console.log(this.state)
-        // console.log(this.props.selectedIndProfile,this.props.user)
+        // console.log(this.state)
+        console.log(this.props.selectedIndProfile,this.props.user)
         const { selectedIndProfile, user } = this.props
         const { last, first, email, pic, username } = this.props.selectedIndProfile
         return (
@@ -90,11 +90,11 @@ class Profile extends Component {
                     {this.state.isEditClicked && selectedIndProfile.id === user.id?
                         this.handleEditInputs()
                         :
-                        <div style={{marginTop:5}}>
-                            <p>{first} {last}</p>
-                            <p>{username}</p>
+                        <div style={{marginTop:5,textAlign:'center'}}>
+                            <p style={{fontSize:25}}>{first} {last}</p>
+                            <p style={{fontSize:25}}>{username}</p>
                             {/* the name needs to shrink when the name is very long to keep it on one line or break it on first and last name or when the window gets smaller.  */}
-                            <p>{email}</p>
+                            <p style={{fontSize:25}}>{email}</p>
                         </div>
                     }
                     {/* <p>Location</p>
