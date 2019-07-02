@@ -24,7 +24,7 @@ class Login extends Component {
 
     register = async (e) => {
         e.preventDefault()
-        const { first, last, email, password, username } = this.state
+        let { first, last, email, password, username } = this.state
         if (first && last && email && password && username) {
             first = first.trim()
             last = last.trim()
