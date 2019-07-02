@@ -198,7 +198,6 @@ const PicHolder = styled.div`
         background:white;
         margin-left:0px;
         width:100%;
-        height:100%
     }
 `
 
