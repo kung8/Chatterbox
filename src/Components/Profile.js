@@ -1,48 +1,117 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { throws } from 'assert';
 
 class Profile extends Component {
-    constructor(){
-        super();
-        this.state={
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            isEditClicked: false,
+            pic: props.user.pic,
+            email: props.user.email,
+            username: props.user.username,
+            first: props.user.first,
+            last: props.user.last
         }
     }
-    
-    render(){
-        console.log(this.props.selectedIndProfile,this.props.user)
-        const {selectedIndProfile,user} = this.props
-        const {last,first,email,pic} = this.props.selectedIndProfile
-        return(
-            <ProfileBody style={{borderRadius:'10px',position:'relative', display:this.props.isProfileOpened?'flex':'none',zIndex:this.props.isProfileOpened&&4}}>
-                    <ChevronLeft className="fas fa-chevron-left" onClick={()=>selectedIndProfile.id === user.id ? this.props.handleProfileCloseFromOwnProfile() :this.props.handleProfileToggle()}/>
-            
-                    <h1 style={{fontSize:35}}>PROFILE</h1>
+
+    handleInput = (e) => {
+        const { value, name } = e.target
+        this.setState({
+            [name]: value
+        })
+    }
+
+    handleEditToggle = () => {
+        this.setState({
+            isEditClicked: true
+        })
+    }
+
+    handleCancel(){
+        const {pic,email,username,first,last} = this.props.user
+        this.setState({
+            isEditClicked: false,
+            pic,
+            email,
+            username,
+            first,
+            last
+        })
+    }
+
+    handleEditInputs() {
+        return (
+            <div style={{ display: 'flex', flexDirection: 'column',width:'90%'}}>
+                <input style={{fontSize:25,marginTop:5}} type="text" name='pic' placeholder='pic' value={this.state.pic} onChange={this.handleInput} />
+                {/* <div> */}
+                    <input style={{fontSize:25,marginTop:5}} type="text" name='first' placeholder='first name' value={this.state.first} onChange={this.handleInput} />
+                    <input style={{fontSize:25,marginTop:5}} type="text" name='last' placeholder='last name' value={this.state.last} onChange={this.handleInput}/>
+                {/* </div> */}
+                <input style={{fontSize:25,marginTop:5}} type="text" name='username' placeholder='username' value={this.state.username} onChange={this.handleInput} />
+                <input style={{fontSize:25,marginTop:5}} type="text" name='email' placeholder='email' value={this.state.email} onChange={this.handleInput} />
+                <div style={{display:'flex',justifyContent:'space-evenly',marginTop:5}}>
+                    <button style={{background:'red',width:120, fontWeight:800,height:45, borderRadius:10, fontSize:25,color:'white',border:'black solid 1px'}} onClick={() => this.handleCancel()}>CANCEL</button>
+                    <button style={{background:'green',fontWeight:800,width:100, height:45, borderRadius:10, fontSize:25,color:'white',border:'black solid 1px'}}>SAVE</button>
+                </div>
+            </div>
+        )
+    }
+
+    saveProfileEdit = () => {
+        //axios call for saving what is being edited
+        //might need to look into s3 upload for the image
+    }
+
+    handleProfileClose=()=>{
+        this.props.handleProfileCloseFromOwnProfile()
+        this.setState({
+            isEditClicked:false
+        })
+    }
+
+    render() {
+        console.log(this.state)
+        // console.log(this.props.selectedIndProfile,this.props.user)
+        const { selectedIndProfile, user } = this.props
+        const { last, first, email, pic, username } = this.props.selectedIndProfile
+        return (
+            <ProfileBody style={{ borderRadius: '10px', position: 'relative', display: this.props.isProfileOpened ? 'flex' : 'none', zIndex: this.props.isProfileOpened && 4 }}>
+                <ChevronLeft className="fas fa-chevron-left" onClick={() => selectedIndProfile.id === user.id ?  this.handleProfileClose(): this.props.handleProfileToggle()} />
+                <h1 style={{ fontSize: 35 }}>PROFILE</h1>
                 <ImageHolder>
-                    <Image 
-                        src={pic} 
+                    <Image
+                        src={pic}
                         alt='friend pic'
-                        />
+                    />
                 </ImageHolder>
                 <PersonalHolder>
-                    <p>{first} {last}</p>
-                    {/* the name needs to shrink when the name is very long to keep it on one line or break it on first and last name or when the window gets smaller.  */}
-                    <p>{email}</p>
+                    {this.state.isEditClicked && selectedIndProfile.id === user.id?
+                        this.handleEditInputs()
+                        :
+                        <div style={{marginTop:5}}>
+                            <p>{first} {last}</p>
+                            <p>{username}</p>
+                            {/* the name needs to shrink when the name is very long to keep it on one line or break it on first and last name or when the window gets smaller.  */}
+                            <p>{email}</p>
+                        </div>
+                    }
                     {/* <p>Location</p>
                     <p>Phone</p>
                     <p>Social Media</p> */}
+                    {!this.state.isEditClicked && (selectedIndProfile.id === user.id && <button style={{fontWeight:800,background:'green',width:100, height:45, borderRadius:10, fontSize:25,marginTop:5,color:'white',border:'black solid 1px'}} onClick={this.handleEditToggle}>EDIT</button>)}
                 </PersonalHolder>
             </ProfileBody>
-            )
+        )
     }
 }
 
-function mapStateToProps(reduxState){
-    return{
-        selectedIndProfile:reduxState.selectedIndProfile,
-        selectedGroupProfile:reduxState.selectedGroupProfile,
-        user:reduxState.user
+function mapStateToProps(reduxState) {
+    return {
+        selectedIndProfile: reduxState.selectedIndProfile,
+        selectedGroupProfile: reduxState.selectedGroupProfile,
+        user: reduxState.user
     }
 }
 
@@ -68,7 +137,7 @@ const ProfileBody = styled.div`
         width:97vw
     }
 `
-const ChevronLeft = styled.i `
+const ChevronLeft = styled.i`
     font-size:45px;
     border-radius:50%;
     display:flex;
