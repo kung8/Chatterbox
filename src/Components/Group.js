@@ -134,16 +134,29 @@ class Group extends Component {
         })
         return(
             <div>
-                <h1 style={{textAlign:'center',background:'#303841',marginTop:0,marginBottom:0,color:'white'}}>Groups</h1>
+                <h1 style={{
+                        textAlign:'center',
+                        background:'#303841',
+                        marginTop:0,
+                        marginBottom:0,
+                        color:'white'}}>Groups</h1>
                 <Users style={{maxHeight:'90%',minHeight:'90%',overflowY:'scroll'}}>
-                    <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
+                    <div 
+                        style={{
+                            display:'flex', 
+                            flexDirection:'column',
+                            justifyContent:'center',
+                            marginTop:'5px'}}>
                         <Users style={{minHeight:'40%',overflowY:'scroll'}}>
                             {mappedGroups}
                         </Users>
                     </div>
                 
-
-                    <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
+                    <div style={{
+                        display:'flex', 
+                        flexDirection:'column',
+                        justifyContent:'center'
+                        }}>
                         <GroupSelect 
                             handleGroupNameCreation={this.handleGroupNameCreation} 
                             groupName={this.state.groupName} 
