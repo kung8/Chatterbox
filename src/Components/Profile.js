@@ -11,10 +11,13 @@ class Profile extends Component {
     }
     
     render(){
+        console.log(this.props.selectedIndProfile,this.props.user)
+        const {selectedIndProfile,user} = this.props
         const {last,first,email,pic} = this.props.selectedIndProfile
         return(
             <ProfileBody style={{borderRadius:'10px',position:'relative', display:this.props.isProfileOpened?'flex':'none',zIndex:this.props.isProfileOpened&&4}}>
-                    <ChevronLeft className="fas fa-chevron-left" onClick={()=>this.props.handleProfileToggle()}/>
+                    <ChevronLeft className="fas fa-chevron-left" onClick={()=>selectedIndProfile.id === user.id ? this.props.handleProfileCloseFromOwnProfile() :this.props.handleProfileToggle()}/>
+            
                     <h1 style={{fontSize:35}}>PROFILE</h1>
                 <ImageHolder>
                     <Image 
@@ -38,7 +41,8 @@ class Profile extends Component {
 function mapStateToProps(reduxState){
     return{
         selectedIndProfile:reduxState.selectedIndProfile,
-        selectedGroupProfile:reduxState.selectedGroupProfile
+        selectedGroupProfile:reduxState.selectedGroupProfile,
+        user:reduxState.user
     }
 }
 

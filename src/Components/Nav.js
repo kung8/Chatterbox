@@ -55,6 +55,7 @@ class Nav extends Component {
                         <ProfilePic 
                             src={this.props.user.pic} 
                             alt='profile'
+                            onClick={this.props.picHandle}
                             />
                         <Active style={{ background: this.state.color }}></Active>
                     </PicHolder>
