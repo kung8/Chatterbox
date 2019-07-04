@@ -152,6 +152,7 @@ const Hamburger = styled.i`
 const ActiveDots = styled.div`
     display:flex;
     margin-right:-50px;
+    margin-top:100px;
     &:hover > #red-dot {
         background:red;
         border:lightcoral solid 1px;
@@ -171,10 +172,10 @@ const ActiveDots = styled.div`
         margin-top:10px;
     }
     @media (min-height:760px) and (max-height:800px){
-        margin-top:10px;
+        margin-top:5px;
     }
     @media (min-height:800px) and (max-height:824px){
-        margin-top:20px;
+        margin-top:10px;
     }
     @media (min-height:1024px) and (max-height:1366px){
         margin-top:20px;
