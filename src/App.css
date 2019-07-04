@@ -3,3 +3,28 @@
     margin:0;
     padding:0;
 }
+
+@media screen and (max-width:1024px){
+    #yellow-dot {
+        background:yellow;
+        border:#FFFFCC solid 1px;
+    };
+            
+}
+@media screen and (max-width:1024px){
+    #red-dot {
+        background:red;
+        border:lightcoral solid 1px;
+    };
+            
+}
+@media screen and (max-width:1024px){
+    #green-dot {
+        background:green;
+        border:#00FF7F solid 1px;
+    }      
+            
+}
+
+
+

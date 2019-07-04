@@ -105,8 +105,10 @@ class Profile extends Component {
         const { last, first, email, pic, username } = this.props.selectedIndProfile
         return (
             <ProfileBody style={{ borderRadius: '10px', position: 'relative', display: this.props.isProfileOpened ? 'flex' : 'none', zIndex: this.props.isProfileOpened && 4 }}>
-                <ChevronLeft className="fas fa-chevron-left" onClick={() => selectedIndProfile.id === user.id ? this.handleProfileClose() : this.props.handleProfileToggle()} />
-                <h1 style={{ fontSize: 35 }}>PROFILE</h1>
+                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',width:'90%',marginTop:40}}>
+                    <ChevronLeft className="fas fa-chevron-left" onClick={() => selectedIndProfile.id === user.id ? this.handleProfileClose() : this.props.handleProfileToggle()} />
+                    <h1 style={{ marginRight:'25%',fontSize: 35 }}>PROFILE</h1>
+                </div>
                 <ImageHolder>
                     <Image
                         src={pic}
@@ -170,7 +172,7 @@ const ChevronLeft = styled.i`
     display:flex;
     align-items:center;
     justify-content:center;
-    position:relative;
+    // position:relative;
     top:70px;
     left:-145px;
     height:50px;
