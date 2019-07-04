@@ -36,6 +36,13 @@ class Chat extends Component {
         }
     }
 
+
+    handleChatToggle(){
+        const {room} = this.props
+        socket.emit('endChat',{room})
+        this.props.handleChatToggle()
+    }
+
     render() {
         let mappedChat
         if(this.props.chat.length){
@@ -82,7 +89,7 @@ class Chat extends Component {
             <ChatBody style={{position:'relative',left:this.props.isChatClicked&&0, left:this.props.isProfileOpened&&'12.5vw',display:this.props.isChatClicked?'flex':'none'}}>
                 <ChatHeading>
                     <NameDot>
-                        <ChevronLeft className="fas fa-chevron-left" onClick={()=>this.props.handleChatToggle()}/>
+                        <ChevronLeft className="fas fa-chevron-left" onClick={()=>this.handleChatToggle()}/>
                         <Name onClick={this.props.handleProfileToggle}>{this.props.friend.first} {this.props.friend.last}</Name>
                         <Dot></Dot>
                     </NameDot>
