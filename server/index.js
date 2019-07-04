@@ -90,6 +90,7 @@ app.post('/api/user/register',ctrl.register);
 app.post('/api/user/logout',ctrl.logout);
 app.post('/api/user/login',ctrl.login);
 app.post('/api/user/current',ctrl.current);
+app.put('/api/user/edit',ctrl.editProfile)
 app.get('/api/getGroupChat/:id',ctrl.getGroupChat)
 // app.get('/api/chathistory/:room',ctrl.middlewarePractice);
 //SOCKETS ENDPOINTS

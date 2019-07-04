@@ -139,4 +139,20 @@ module.exports = {
         });
     },
 
+    editProfile:async(req,res)=>{
+        const {first,last,email,pic,username} = req.body
+        const {id} = req.session.user
+        const db = req.app.get('db')
+        const emailCheck = await db.edit_check_email({id,email})
+        const usernameCheck = await db.edit_check_username({id,username})
+        if(emailCheck.length || usernameCheck.length){
+            return res.status(409)
+        }
+        let user = await db.update_user({id,first,last,email,pic,username})
+        user = user[0]
+        delete user.password
+        req.session.user = user
+        res.status(200).send(req.session.user)
+    }
+
 }
