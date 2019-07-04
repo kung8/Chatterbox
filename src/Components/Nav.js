@@ -152,7 +152,7 @@ const Hamburger = styled.i`
 const ActiveDots = styled.div`
     display:flex;
     margin-right:-50px;
-    margin-top:100px;
+    margin-top:10px;
     &:hover > #red-dot {
         background:red;
         border:lightcoral solid 1px;
