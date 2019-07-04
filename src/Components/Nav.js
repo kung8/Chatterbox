@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import List from './List';
 import Friends from './Friends';
-import Group from './Group';
+import Group from './Group/Group';
 import Profile from './Profile'
 import Individual from './Individual';
 import styled from 'styled-components'

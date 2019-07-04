@@ -3,13 +3,13 @@ import Nav from './Nav';
 import Message from './Message';
 import Chat from './Chat';
 import Profile from './Profile';
-import Group from './Group';
+import Group from './Group/Group';
 import List from './List';
 import styled from 'styled-components';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateChats, updateUser,updateSelectedIndProfile } from './../ducks/reducer';
-import GroupChat from './GroupChat';
+import GroupChat from './Group/GroupChat';
 
 class Dashboard extends Component {
     constructor() {

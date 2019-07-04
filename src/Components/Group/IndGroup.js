@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
-import socket from './Sockets'
 import {connect} from 'react-redux';
-import {selectGroup,updateGroupChat} from '../ducks/reducer'
+import {selectGroup,updateGroupChat} from '../../ducks/reducer'
 import axios from 'axios'
 
 class IndGroup extends Component {

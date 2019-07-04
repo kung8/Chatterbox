@@ -1,7 +1,7 @@
 import React, {Component,memo} from 'react';
 import {connect} from 'react-redux';
-import {selectedFriend,updateRoom,updateGroups} from '../ducks/reducer';
-import socket from './Sockets'
+import {selectedFriend,updateRoom,updateGroups} from '../../ducks/reducer';
+import socket from '../Sockets'
 import styled from 'styled-components';
 import GroupAddList from './GroupAddList';
 import GroupSelect from './GroupSelect';
