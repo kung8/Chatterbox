@@ -171,10 +171,10 @@ const ActiveDots = styled.div`
         margin-top:10px;
     }
     @media (min-height:760px) and (max-height:800px){
-        margin-top:5px;
+        margin-top:10px;
     }
     @media (min-height:800px) and (max-height:824px){
-        margin-top:10px;
+        margin-top:20px;
     }
     @media (min-height:1024px) and (max-height:1366px){
         margin-top:20px;
