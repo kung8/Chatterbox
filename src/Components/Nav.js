@@ -250,12 +250,25 @@ const Active = styled.div`
     border-radius:50%;
     box-shadow:-1px -1px 3px 2px black;
     position:relative;
-    top:25px;
-    left:-15px;
-    // @media screen and (max-width:2000px){
-    //     left:-25px;
-    //     top:45px;
-    // }
+    top:30px;
+    left:-25px;
+    
+    @media (min-height:731px){
+        left:-20px;
+        top:30px;
+    }
+    @media (min-height:800px){
+        left:-18px;
+        top:30px;
+    }
+    @media (min-height:1000px){
+        left:-15px;
+        top:35px;
+    }
+    @media (min-height:1025px){
+        left:-18px;
+        top:50px;
+    }
 `
 
 const Logout = styled.div`
