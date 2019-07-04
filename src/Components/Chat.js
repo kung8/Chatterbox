@@ -204,10 +204,10 @@ const Chats = styled.div`
     display:flex;
     background:lightgrey;
     height:75%;
-    max-height:75%;
+    // max-height:75%;
     width:100%;
     flex-direction:column;
-    overflow-y:scroll;
+    overflow-y:auto;
     ::-webkit-scrollbar {
         width:0px
     }
