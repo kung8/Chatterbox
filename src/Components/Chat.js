@@ -52,7 +52,7 @@ class Chat extends Component {
                     color = "#26f7ff75";
                     position = "flex-end";
                     return (
-                        <Message key={message.id} style={{ justifyContent: `${position}`,marginRight: 5}}>
+                        <Message key={message.id} style={{ justifyContent: `${position}`,marginRight: 5,marginBottom:5}}>
                             <div style={{ background: `${color}`, display: "flex", marginTop: "5px", maxWidth: "60%", justifyContent: "flex-end", borderRadius: "10px", padding: "4px" ,minHeight:40}}>
                                 <div style={{ display: "flex"}}>
                                     <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px"}}>{message.message}</p>
@@ -67,7 +67,7 @@ class Chat extends Component {
                     color = "lightgreen";
                     position = "flex-start";
                     return (
-                        <Message key={message.id} style={{justifyContent: `${position}`, marginLeft:5 }} >
+                        <Message key={message.id} style={{justifyContent: `${position}`, marginLeft:5 ,marginBottom:5}} >
                             <div style={{ background: `${color}`, display: "flex",marginTop: "5px", maxWidth: "60%", justifyContent: "flex-start", borderRadius: "10px", padding: "4px",minHeight:40 }}>
                                 <div style={{ display: "flex", textAlign: "left", padding: "2px" }}>
                                     <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
