@@ -169,5 +169,6 @@ const Dash = styled.div`
     width:100%;
     background:#5d697f;
     justify-content:center;
-    overflow:hidden;
+    overflow-y:hidden;
+    height:100vh;
 `
