@@ -17,23 +17,6 @@ class Profile extends Component {
         }
     }
 
-    // componentDidUpdate(prevProps) {
-    //     console.log(prevProps)
-    //     if (prevProps.user.pic !== this.props.user.pic || 
-    //         prevProps.user.email !== this.props.user.email ||
-    //         prevProps.user.first !== this.props.user.first ||
-    //         prevProps.user.last !== this.props.user.last ||
-    //         prevProps.user.username !== this.props.user.username) {
-    //         this.setState({
-    //             pic: this.props.user.pic,
-    //             email: this.props.user.email,
-    //             username: this.props.user.username,
-    //             first: this.props.user.first,
-    //             last: this.props.user.last
-    //         })
-    //     }
-    // }
-
     handleInput = (e) => {
         const { value, name } = e.target
         this.setState({
@@ -102,7 +85,7 @@ class Profile extends Component {
     render() {
         // console.log(this.props.selectedIndProfile,this.props.user)
         const { selectedIndProfile, user } = this.props
-        const { last, first, email, pic, username } = this.props.selectedIndProfile
+        const { last, first, email, pic, username} = this.props.selectedIndProfile
         return (
             <ProfileBody style={{ borderRadius: '10px', position: 'relative', display: this.props.isProfileOpened ? 'flex' : 'none', zIndex: this.props.isProfileOpened && 4 }}>
                 <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',width:'90%',marginTop:40}}>

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateUser } from './../ducks/reducer';
 import styled from 'styled-components'
+import socket from './Sockets'
+
 class Login extends Component {
     constructor() {
         super();
@@ -51,6 +53,7 @@ class Login extends Component {
             if (username && password) {
                 const user = await axios.post('/api/user/login', { username, password })
                 this.props.updateUser(user.data)
+                socket.emit('updateActive',{active:'active',user:user.data})
                 this.props.history.push('/dashboard')
             } else {
                 alert('please fill out all fields')

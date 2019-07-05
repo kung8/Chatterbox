@@ -1,91 +1,103 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import socket from './Sockets'
 import axios from 'axios';
-import {updateChats,selectedFriend,updateRoom,updateSelectedIndProfile} from './../ducks/reducer';
+import { updateChats, selectedFriend, updateRoom, updateSelectedIndProfile ,updateChatsAvailability} from './../ducks/reducer';
 
 class Message extends Component {
-    constructor(){
+    constructor() {
         super();
-        this.state={
+        this.state = {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getChats()
+        socket.on('updateActive',(active)=>{
+            this.props.updateChatsAvailability(active)
+        })
     }
 
-    getChats = async() => {
-        const {id} = this.props.user;
+    getChats = async () => {
+        const { id } = this.props.user;
         const users = await axios.get(`/api/chats/${id}`);
         this.props.updateChats(users.data)
         //will evenutally need to be converted to the message table on the SQL file
-    }    
+    }
 
-    startChat(userId,user){
+    startChat(userId, user) {
         this.props.hamburgerToggleChatOnly()
         this.props.handleChatToggle()
         this.props.selectedFriend(user)
         this.props.updateSelectedIndProfile(user)
-        const {id} = user;
-        socket.emit('endChat',this.props.room);
+        const { id } = user;
+        socket.emit('endChat', this.props.room);
         let bigger;
         let smaller;
-        if(userId > id){
+        if (userId > id) {
             bigger = userId;
             smaller = id
         } else {
             bigger = id;
             smaller = userId;
-        } 
-        let room = bigger+':'+smaller;
+        }
+        let room = bigger + ':' + smaller;
         this.props.updateRoom(room)
-        socket.emit('startChat',{room});
+        socket.emit('startChat', { room });
     }
 
-    render(){
-        const {chats,search} = this.props
+    render() {
+        const { chats, search } = this.props
         const userId = this.props.user.id
-        const mappedChats = chats.filter(user=>{
+        let availability
+        const mappedChats = chats.filter(user => {
             const friendSearch = search.toLowerCase().split(' ')
-              for (let i = 0; i < friendSearch.length; i++) {
+            for (let i = 0; i < friendSearch.length; i++) {
                 const searchName = friendSearch[i];
                 if (!user.first.toLowerCase().includes(searchName) &&
-                  !user.last.toLowerCase().includes(searchName)) {
-                  return false
+                    !user.last.toLowerCase().includes(searchName)) {
+                    return false
                 }
-              }
-              return true
-          })
-        
-        .map(user =>{
-            return(
-                <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                    <div onClick={()=>this.startChat(userId,user)} key={user.id} style={{display:'flex', alignItems:'center',background:'orange',borderRadius:'10px',width:'98%',marginLeft:'1%'}}>
-                        <img src={user.pic} style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
-                        <h3 >{user.first} {user.last}</h3>
-                        {/* <p>{user.message}</p>   */}
-                        {/* add time and date*/}
-                    </div>
-                </div>
-            )
+            }
+            return true
         })
-        return(
+
+            .map(user => {
+                if (user.active === 'active') {
+                    availability = 'green'
+                } else if (user.active === 'busy') {
+                    availability = 'yellow'
+                } else {
+                    availability = 'red'
+
+                }
+                return (
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '5px' }}>
+                        <div onClick={() => this.startChat(userId, user)} key={user.id} style={{ display: 'flex', alignItems: 'center', background: availability, borderRadius: '10px', width: '98%', marginLeft: '1%' }}>
+                            <img src={user.pic} style={{ height: '50px', width: '50px', borderRadius: '50%', marginLeft: '10px', marginRight: '10px' }} alt='pic' />
+                            <h3 >{user.first} {user.last}</h3>
+                            {/* <p>{user.message}</p>   */}
+                            {/* add time and date*/}
+                        </div>
+                    </div>
+                )
+            })
+        return (
             <div>
-                <h1 style={{textAlign:'center',background:'#303841',marginTop:0,marginBottom:0,color:'white'}}>All Chats</h1>
+                <h1 style={{ textAlign: 'center', background: '#303841', marginTop: 0, marginBottom: 0, color: 'white' }}>All Chats</h1>
                 {mappedChats}
             </div>
         )
     }
 }
 
-function mapStateToProps(reduxState){
-    return{
-        chats:reduxState.chats,
-        user:reduxState.user,
-        room:reduxState.room,
-        friend:reduxState.friend
+function mapStateToProps(reduxState) {
+    return {
+        chats: reduxState.chats,
+        user: reduxState.user,
+        room: reduxState.room,
+        friend: reduxState.friend
     }
 }
 
-export default connect(mapStateToProps,{updateChats,selectedFriend,updateRoom,updateSelectedIndProfile})(Message)
+export default connect(mapStateToProps, { updateChats, selectedFriend, updateRoom, updateSelectedIndProfile, updateChatsAvailability })(Message)

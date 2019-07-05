@@ -44,6 +44,17 @@ class Chat extends Component {
 
     render() {
         let mappedChat
+        let availability
+        const {active} = this.props.friend
+        if(this.props.friend){
+            if(active === 'active'){
+                availability = 'green'
+            } else if(active === 'busy'){
+                availability = 'yellow'
+            } else {
+                availability = 'red'
+            }
+        }
         if(this.props.chat.length){
             mappedChat = this.props.chat.map(message => {
                 let color;
@@ -92,7 +103,7 @@ class Chat extends Component {
                     <NameDot>
                         <ChevronLeft className='fas fa-chevron-left' onClick={()=>this.handleChatToggle()}/>
                         <Name onClick={this.props.handleProfileToggle}>{this.props.friend.first} {this.props.friend.last}</Name>
-                        <Dot></Dot>
+                        <Dot style={{background:availability}}></Dot>
                     </NameDot>
                     {/* <IconHolder>
                         <Icons className="fas fa-folder"></Icons>
@@ -192,7 +203,6 @@ const Dot = styled.div`
     margin-right:10px;
     height:10px;
     width:10px;
-    background:red;
     border-radius:50%;
 `
 // const IconHolder = styled.div`

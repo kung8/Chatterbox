@@ -11,6 +11,13 @@ class Individuals extends Component {
         }
     }
     
+    componentDidMount(){
+        socket.on('updateActive',(active)=>{
+            console.log(active)
+            this.props.updateFriendsAvailability(active)
+        })
+    }
+
     startChat(userId,user){
         this.props.hamburgerToggleChatOnly()
         this.props.handleChatToggle()
@@ -35,6 +42,7 @@ class Individuals extends Component {
     render(){
         const userId = this.props.user.id;
         const {search,chats} = this.props
+        let availability
         const mappedChats = chats.filter(user=>{
             const friendSearch = search.toLowerCase().split(' ')
               for (let i = 0; i < friendSearch.length; i++) {
@@ -46,9 +54,17 @@ class Individuals extends Component {
               }
               return true
           }).map(user =>{
+            if (user.active === 'active') {
+                availability = 'green'
+            } else if (user.active === 'busy') {
+                availability = 'yellow'
+            } else {
+                availability = 'red'
+
+            }
             return(
                 <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                    <div onClick={()=>this.startChat(userId,user)} key={user.id} style={{display:'flex', alignItems:'center',background:'orange',borderRadius:'10px',width:'98%',marginLeft:'1%'}}>
+                    <div onClick={()=>this.startChat(userId,user)} key={user.id} style={{display:'flex', alignItems:'center',background:availability,borderRadius:'10px',width:'98%',marginLeft:'1%'}}>
                         <img src={user.pic} style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
                         <h3 >{user.first} {user.last}</h3>
                     </div>

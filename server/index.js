@@ -22,12 +22,50 @@ app.use(session({
     }
 }))
 
-const io = socket(app.listen(SERVER_PORT, () => {
-    console.log('Server is running on port ' + SERVER_PORT)
-}))
-
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db);
+    const io = socket(app.listen(SERVER_PORT, () => {
+        console.log('Server is running on port ' + SERVER_PORT)
+    }))
+    
+    //SOCKET ENDPOINTS
+    io.on('connection', socket => {
+        const db = app.get('db')
+        //Individual Chats
+        socket.on('startChat', async (room) => {
+            let messages = await db.individual.get_room(room)
+            if (messages[0]) {
+                socket.join(room.room);
+                io.in(room.room).emit('startChat', messages)
+            } else {
+                await db.individual.create_room(room)
+                socket.join(room)
+                io.in(room).emit('startChat', messages)
+            }
+        })
+        socket.on('sendMsg', async (data)=>{
+            const {message,id,room} = data;
+            const messages = await db.individual.create_message({message,id,room})
+            io.in(room).emit('sendMsg',messages)
+        })
+    
+        socket.on('updateActive',async(data)=>{
+            io.emit('updateActive',data)
+        })    
+        //Group Chats
+        socket.on('startGroupChat', async (data)=>{
+            const {room} = data
+            const messages = await db.groups.get_group_chat({id:room})
+            socket.join(room)
+            io.in(room).emit('startGroupChat',messages)
+        })
+        socket.on('sendGroupMsg', async (data)=>{
+            const {room,id,message} = data
+            const messages = await db.groups.create_group_message({room,id,message})
+            io.in(room).emit('sendGroupMsg',messages)
+        })
+        socket.on('endChat', room => socket.leave(room))
+    })
 })
 
 //AUTH ENDPOINTS
@@ -35,7 +73,8 @@ app.post('/api/user/register', AuthCtrl.register);
 app.post('/api/user/logout', AuthCtrl.logout);
 app.post('/api/user/login', AuthCtrl.login);
 app.post('/api/user/current', AuthCtrl.current);
-app.put('/api/user/edit', AuthCtrl.editProfile)
+app.put('/api/user/edit', AuthCtrl.editProfile);
+app.put('/api/user/availability',AuthCtrl.changeAvailability);
 
 //CHAT ENDPOINTS
 app.get('/api/chats/group/getAll/:user_id', GroupCtrl.getGroups);
@@ -45,38 +84,3 @@ app.get('/api/getGroupChat/:id', GroupCtrl.getGroupChat);
 app.get('/api/chats/:id', IndCtrl.getChats);
 app.get('/api/friends/:id', IndCtrl.getFriends);
 
-//SOCKET ENDPOINTS
-io.on('connection', socket => {
-    const db = app.get('db')
-    //Individual Chats
-    socket.on('startChat', async (room) => {
-        let messages = await db.individual.get_room(room)
-        if (messages[0]) {
-            socket.join(room.room);
-            io.in(room.room).emit('startChat', messages)
-        } else {
-            await db.individual.create_room(room)
-            socket.join(room)
-            io.in(room).emit('startChat', messages)
-        }
-    })
-    socket.on('sendMsg', async (data)=>{
-        const {message,id,room} = data;
-        const messages = await db.individual.create_message({message,id,room})
-        io.in(room).emit('sendMsg',messages)
-    })
-
-    //Group Chats
-    socket.on('startGroupChat', async (data)=>{
-        const {room} = data
-        const messages = await db.group.get_group_chat({id:room})
-        socket.join(room)
-        io.in(room).emit('startGroupChat',messages)
-    })
-    socket.on('sendGroupMsg', async (data)=>{
-        const {room,id,message} = data
-        const messages = await db.group.create_group_message({room,id,message})
-        io.in(room).emit('sendGroupMsg',messages)
-    })
-    socket.on('endChat', room => socket.leave(room))
-})

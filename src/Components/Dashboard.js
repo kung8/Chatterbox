@@ -10,6 +10,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateChats, updateUser,updateSelectedIndProfile } from './../ducks/reducer';
 import GroupChat from './Group/GroupChat';
+import socket from './Sockets'
 
 class Dashboard extends Component {
     constructor() {
@@ -27,6 +28,7 @@ class Dashboard extends Component {
 
     componentDidMount() {
         this.current()
+        
     }
 
     current = async () => {
@@ -151,7 +153,8 @@ function mapStateToProps(reduxState) {
         chats: reduxState.chats,
         user: reduxState.user,
         friend: reduxState.friend,
-        selectedGroup: reduxState.selectedGroup
+        selectedGroup: reduxState.selectedGroup,
+    
     }
 }
 

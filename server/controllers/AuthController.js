@@ -23,7 +23,7 @@ module.exports = {
         //Need to hash their password before registering
         let salt = bcrypt.genSaltSync(10);
         let hash = bcrypt.hashSync(password, salt);
-        let newUser = await db.auth.register({ first, last, email, password: hash, username, pic });
+        let newUser = await db.auth.register({ first, last, email, password: hash, username, pic ,active:'active'});
         newUser = newUser[0];
         req.session.user = newUser;
         res.status(200).send(req.session.user);
@@ -39,6 +39,8 @@ module.exports = {
         }
         let authenticated = bcrypt.compareSync(password, user.password);
         if (authenticated) {
+            user = await db.auth.make_active({username})
+            user = user[0]
             delete user.password;
             req.session.user = user;
             res.status(200).send(req.session.user);
@@ -58,7 +60,10 @@ module.exports = {
         next()
     },
 
-    logout: (req, res) => {
+    logout: async(req, res) => {
+        const db = req.app.get('db')
+        const {id} = req.session.user
+        await db.auth.not_active({id})
         req.session.destroy(function () {
             res.status(200).send('Logged Out Connected!')
         });
@@ -74,6 +79,17 @@ module.exports = {
             return res.status(409)
         }
         let user = await db.auth.update_user({id,first,last,email,pic,username})
+        user = user[0]
+        delete user.password
+        req.session.user = user
+        res.status(200).send(req.session.user)
+    },
+
+    changeAvailability:async(req,res)=>{
+        const db = req.app.get('db')
+        const {id} = req.session.user
+        const {active} = req.body
+        let user = await db.auth.update_active({id,active})
         user = user[0]
         delete user.password
         req.session.user = user

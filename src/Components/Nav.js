@@ -9,12 +9,13 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearAll,updateUser } from '../ducks/reducer';
+import socket from './Sockets';
 
 class Nav extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            color: 'green'
+            color: props.user.active
         }
     }
 
@@ -26,14 +27,31 @@ class Nav extends Component {
 
     logout = async () => {
         await axios.post('/api/user/logout')
+        socket.emit('updateActive',{active:'no',user:this.props.user})
         this.props.clearAll()
         this.props.history.push('/')
     }
 
+    async updateActive(active){
+        let user = await axios.put('/api/user/availability',{active})
+        this.props.updateUser(user.data)
+        socket.emit('updateActive',{active,user:user.data})
+    }
+
     render() {
         //Need to save availability to redux so that I can pass that to other users
-        const { isHamburgerOpened } = this.props
+        const { isHamburgerOpened,user } = this.props
         const { updateState, messageType } = this.props;
+        let availability
+        if(user){
+            if(user.active === 'active'){
+                availability = 'green'
+            } else if(user.active === 'busy'){
+                availability = 'yellow'
+            } else {
+                availability = 'red'
+            }
+        }
 
         return (
             <NavBody style={{display:`${isHamburgerOpened?'flex':'none'}`,left:`${this.props.isHamburgerOpened?'75px':'0px'}`,zIndex:`${this.props.isHamburgerOpened&&2}`,position:`${this.props.isHamburgerOpened&&'relative'}`}}>
@@ -45,9 +63,9 @@ class Nav extends Component {
                             style={{marginLeft:'-65px'}}
                             />
                         <ActiveDots>
-                            <Dot onClick={() => this.handleDot('red')} id="red-dot"></Dot>
-                            <Dot onClick={() => this.handleDot('yellow')} id="yellow-dot"></Dot>
-                            <Dot onClick={() => this.handleDot('green')} id="green-dot"></Dot>
+                            <Dot onClick={() => this.updateActive('no')} id="red-dot"></Dot>
+                            <Dot onClick={() => this.updateActive('busy')} id="yellow-dot"></Dot>
+                            <Dot onClick={() => this.updateActive('active')} id="green-dot"></Dot>
                         </ActiveDots>
                     </div>
                     {/* <hr style={{width:'100%',marginTop:'18px'}}/> */}
@@ -57,7 +75,7 @@ class Nav extends Component {
                             alt='profile'
                             onClick={this.props.picHandle}
                             />
-                        <Active style={{ background: this.state.color }}></Active>
+                        <Active style={{ background: availability }}></Active>
                     </PicHolder>
                 </NavTop>
 
@@ -69,11 +87,11 @@ class Nav extends Component {
                             className="fas fa-comment"></Icons>
                     </IndIconHolder>
                     
-                    <IndIconHolder 
+                    {/* <IndIconHolder 
                         onClick={() => updateState(Individual,'Individual')} 
                         style={{ backgroundColor: messageType == Individual && 'white', borderRight: messageType == Individual && 'green solid 20px',width: messageType == Individual && '100%'}}>
                         <Icons className="fas fa-user"></Icons>
-                    </IndIconHolder>
+                    </IndIconHolder> */}
                     <IndIconHolder 
                         onClick={() => updateState(Group,'Group')} 
                         style={{ backgroundColor: messageType == Group && 'white', borderRight: messageType == Group && 'green solid 20px',width: messageType == Group && '100%' }}>
