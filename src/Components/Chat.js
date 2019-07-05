@@ -212,16 +212,13 @@ const Chats = styled.div`
     display:flex;
     background:lightgrey;
     height:100%;
-    // min-height:75vh;
+    min-height:75vh;
     width:100%;
     flex-direction:column;
-    overflow-y:auto;
+    overflow-y:scroll;
     // ::-webkit-scrollbar {
-    //     width:0px
-    // }
-    ::-webkit-scrollbar {
-        display: none;
-      }
+    //     display: none;
+    //   }
 `
 
 const Message = styled.div`
