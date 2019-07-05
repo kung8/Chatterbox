@@ -55,7 +55,7 @@ class Chat extends Component {
                         <Message key={message.id} style={{ justifyContent: `${position}`,marginRight: 5}}>
                             <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '85%', justifyContent: 'flex-end', borderRadius: 10, padding: 4 , minHeight:'2.5rem'}}>
                                 {/* <div style={{ display: 'flex'}}> */}
-                                    <p style={{ marginLeft: 2,fontSize:12}}>{message.message}</p>
+                                    <p style={{ marginLeft: 2,fontSize:12,wordWrap:'break-word',width:'80%',textAlign:'left'}}>{message.message}</p>
                                 {/* </div> */}
                                 {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100%' }}> */}
                                     <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%', marginLeft:5 }} alt=''/>
@@ -74,7 +74,7 @@ class Chat extends Component {
                                         <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%' , marginRight:5 }} alt='' />
                                     {/* </div> */}
                                     {/* <div style={{display:'flex'}}> */}
-                                        <p style={{ marginLeft: 2 ,fontSize:12}}>
+                                        <p style={{ marginLeft: 2, fontSize:12,wordWrap:'break-word',width:'80%',textAlign:'right'}}>
                                             {message.message}
                                         </p>
                                     {/* </div> */}
