@@ -52,29 +52,29 @@ class Chat extends Component {
                     color = "#26f7ff75";
                     position = "flex-end";
                     return (
-                        <Message key={message.id} style={{ justifyContent: `${position}`,marginRight: 5,marginBottom:5}}>
-                            <div style={{ background: `${color}`, display: "flex", marginTop: 5, maxWidth: "75%", justifyContent: "flex-end", borderRadius: 10, padding: 4 , minHeight:60}}>
-                                {/* <div style={{ display: "flex"}}> */}
-                                    <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: "2px"}}>{message.message}</p>
+                        <Message key={message.id} style={{ justifyContent: `${position}`,marginRight: 5}}>
+                            <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '75%', justifyContent: 'flex-end', borderRadius: 10, padding: 4 }}>
+                                {/* <div style={{ display: 'flex'}}> */}
+                                    <p style={{ marginLeft: 2,fontSize:12}}>{message.message}</p>
                                 {/* </div> */}
-                                {/* <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", height: "100%" }}> */}
-                                    <img src={message.pic} style={{ height: 50, width: 50, borderRadius: "50%", marginLeft:'5px' }} alt=''/>
+                                {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100%' }}> */}
+                                    <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%', marginLeft:5 }} alt=''/>
                                 {/* </div> */}
                             </div>
                         </Message>
                     )
                 } else {
-                    color = "lightgreen";
-                    position = "flex-start";
+                    color = 'lightgreen';
+                    position = 'flex-start';
                     return (
-                        <Message key={message.id} style={{justifyContent: `${position}`, marginLeft:5 ,marginBottom:5}} >
-                            <div style={{ background: `${color}`, display: "flex", marginTop: 5, maxWidth: "75%", justifyContent: "flex-start", borderRadius: 10, padding: 4, minHeight:60 }}>
-                                {/* <div style={{ display: "flex", textAlign: "left", padding: "2px" }}> */}
-                                    {/* <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}> */}
-                                        <img src={message.pic} style={{ height: 50, width: 50, borderRadius: "50%" , marginRight:5 }} alt='' />
+                        <Message key={message.id} style={{justifyContent: `${position}`, marginLeft:5 }} >
+                            <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '75%', justifyContent: 'flex-start', borderRadius: 10, padding: 4}}>
+                                {/* <div style={{ display: 'flex', textAlign: 'left', padding: 2 }}> */}
+                                    {/* <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%' }}> */}
+                                        <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%' , marginRight:5 }} alt='' />
                                     {/* </div> */}
                                     {/* <div style={{display:'flex'}}> */}
-                                        <p style={{ margin: 0, padding: 0, textAlign: "left", marginLeft: 2 }}>
+                                        <p style={{ marginLeft: 2 ,fontSize:12}}>
                                             {message.message}
                                         </p>
                                     {/* </div> */}
@@ -90,7 +90,7 @@ class Chat extends Component {
             <ChatBody style={{left:this.props.isChatClicked&&0, left:this.props.isProfileOpened&&'12.5vw',display:this.props.isChatClicked?'flex':'none'}}>
                 <ChatHeading>
                     <NameDot>
-                        <ChevronLeft className="fas fa-chevron-left" onClick={()=>this.handleChatToggle()}/>
+                        <ChevronLeft className='fas fa-chevron-left' onClick={()=>this.handleChatToggle()}/>
                         <Name onClick={this.props.handleProfileToggle}>{this.props.friend.first} {this.props.friend.last}</Name>
                         <Dot></Dot>
                     </NameDot>
