@@ -211,8 +211,8 @@ const Icons = styled.i`
 const Chats = styled.div`
     display:flex;
     background:lightgrey;
-    height:75%;
-    max-height:75vh;
+    height:75vh;
+    // max-height:75vh;
     width:100%;
     flex-direction:column;
     overflow-y:auto;
