@@ -195,13 +195,13 @@ const Dot = styled.div`
     background:red;
     border-radius:50%;
 `
-const IconHolder = styled.div`
-    display:flex;
-    width:30%;
-    height:98%;
-    align-items:center;
-    justify-content:space-evenly;
-`
+// const IconHolder = styled.div`
+//     display:flex;
+//     width:30%;
+//     height:98%;
+//     align-items:center;
+//     justify-content:space-evenly;
+// `
 
 const Icons = styled.i`
     font-size:25px;
@@ -212,7 +212,7 @@ const Chats = styled.div`
     display:flex;
     background:lightgrey;
     height:100%;
-    min-height:75vh;
+    // min-height:75vh;
     width:100%;
     flex-direction:column;
     overflow-y:auto;
