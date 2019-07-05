@@ -53,7 +53,7 @@ class Chat extends Component {
                     position = "flex-end";
                     return (
                         <Message key={message.id} style={{ justifyContent: `${position}`,marginRight: 5}}>
-                            <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '75%', justifyContent: 'flex-end', borderRadius: 10, padding: 4 }}>
+                            <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '75%', justifyContent: 'flex-end', borderRadius: 10, padding: 4 , minHeight:'2rem'}}>
                                 {/* <div style={{ display: 'flex'}}> */}
                                     <p style={{ marginLeft: 2,fontSize:12}}>{message.message}</p>
                                 {/* </div> */}
@@ -68,7 +68,7 @@ class Chat extends Component {
                     position = 'flex-start';
                     return (
                         <Message key={message.id} style={{justifyContent: `${position}`, marginLeft:5 }} >
-                            <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '75%', justifyContent: 'flex-start', borderRadius: 10, padding: 4}}>
+                            <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '75%', justifyContent: 'flex-start', borderRadius: 10, padding: 4, minHeight:'2rem' }}>
                                 {/* <div style={{ display: 'flex', textAlign: 'left', padding: 2 }}> */}
                                     {/* <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%' }}> */}
                                         <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%' , marginRight:5 }} alt='' />
@@ -212,7 +212,7 @@ const Chats = styled.div`
     display:flex;
     background:lightgrey;
     height:75vh;
-    // max-height:75vh;
+    min-height:75vh;
     width:100%;
     flex-direction:column;
     overflow-y:auto;
