@@ -216,9 +216,12 @@ const Chats = styled.div`
     width:100%;
     flex-direction:column;
     overflow-y:auto;
+    // ::-webkit-scrollbar {
+    //     width:0px
+    // }
     ::-webkit-scrollbar {
-        width:0px
-    }
+        display: none;
+      }
 `
 
 const Message = styled.div`
