@@ -46,9 +46,11 @@ massive(CONNECTION_STRING).then(db => {
         socket.on('sendMsg', async (data)=>{
             const {message,id,room} = data;
             const messages = await db.individual.create_message({message,id,room})
-            io.in(room).emit('sendMsg',messages)
+            io.in(room).emit('receiveMsg',{messages,id,room})
         })
-    
+        // socket.on('notifySend',data=>{
+        //     io.emit('notifyReceived',data)
+        // })
         socket.on('updateActive',async(data)=>{
             io.emit('updateActive',data)
         })    

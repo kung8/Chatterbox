@@ -13,6 +13,7 @@ const initialState = {
     selectedGroupProfile: {}
 }
 
+const HANDLE_PUSH_NOTIFICATION = 'HANDLE_PUSH_NOTIFICATION'
 const UPDATE_USER = 'UPDATE_USER';
 const UPDATE_CHATS = 'UPDATE_CHATS';
 const UPDATE_MESSAGES = 'UPDATE_MESSAGES';
@@ -131,10 +132,35 @@ export function clearAll() {
     }
 }
 
+export function handlePushNotification(id){
+    return {
+        type:HANDLE_PUSH_NOTIFICATION,
+        payload:id
+    }
+}
+
 export default function Reducer(reduxState = initialState, action) {
     switch (action.type) {
         case UPDATE_USER:
             return { ...reduxState, user: action.payload }
+        case HANDLE_PUSH_NOTIFICATION:
+            // let {id,room,messages} = action.payload
+            // let chatsCopy = [...reduxState.chats]
+            // let newMessageIndex = chatsCopy.findIndex(friend => +friend.id === +id)
+
+            // console.log(id,chatsCopy,newMessageIndex)
+            // if(newMessageIndex !== -1){
+            //     let newMessageCopy = {...chatsCopy[newMessageIndex]}
+            //     if(newMessageCopy.unread){
+            //         newMessageCopy.unread+=1
+            //         console.log('if',newMessageCopy)
+            //     } else {
+            //         newMessageCopy.unread = 1
+            //         console.log('else',newMessageCopy)
+            //     }
+            //     chatsCopy.splice(newMessageIndex,1,newMessageCopy)
+            //     return {...reduxState,chats:chatsCopy}
+            // } return {...reduxState}
         case UPDATE_CHATS:
             return { ...reduxState, chats: action.payload }
         case UPDATE_CHAT:

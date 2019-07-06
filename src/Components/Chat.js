@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import socket from './Sockets'
-import { updateChat } from '../ducks/reducer';
+import { updateChat,handlePushNotification } from '../ducks/reducer';
 
 class Chat extends Component {
     constructor(props) {
@@ -16,12 +16,18 @@ class Chat extends Component {
         socket.on('startChat', chat => {
             this.props.updateChat(chat)
         })
-        socket.on('sendMsg', messages => {
+        socket.on('receiveMsg', data => {
+            const {messages} = data
             this.props.updateChat(messages)
             this.setState({
                 message: ''
             })
+            // socket.emit('notifySend',data)
+            
         })
+        // socket.on('notifyReceived',data=>{
+        //     this.props.handlePushNotification(data)
+        // })
     }
 
     send=(e)=>{
@@ -103,7 +109,7 @@ class Chat extends Component {
                     <NameDot>
                         <ChevronLeft className='fas fa-chevron-left' onClick={()=>this.handleChatToggle()}/>
                         <Name onClick={this.props.handleProfileToggle}>{this.props.friend.first} {this.props.friend.last}</Name>
-                        <Dot style={{background:availability}}></Dot>
+                        <Dot style={{background:this.props.friend.active === 'active'? 'green' :(this.props.friend.active === 'busy' ? 'yellow':'red')}}></Dot>
                     </NameDot>
                     {/* <IconHolder>
                         <Icons className="fas fa-folder"></Icons>
@@ -148,7 +154,7 @@ function mapStateToProps(reduxState) {
     }
 }
 
-export default connect(mapStateToProps, { updateChat })(Chat)
+export default connect(mapStateToProps, { updateChat ,handlePushNotification})(Chat)
 
 
 //////////////////////////////////////////////STYLING COMPONENTS BELOW///////////////////////////////////////////
@@ -226,9 +232,9 @@ const Chats = styled.div`
     width:100%;
     flex-direction:column;
     overflow-y:scroll;
-    // ::-webkit-scrollbar {
-    //     display: none;
-    //   }
+    ::-webkit-scrollbar {
+        display: none;
+      }
 `
 
 const Message = styled.div`

@@ -69,15 +69,13 @@ class Message extends Component {
                     availability = 'yellow'
                 } else {
                     availability = 'red'
-
                 }
                 return (
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '5px' }}>
                         <div onClick={() => this.startChat(userId, user)} key={user.id} style={{ display: 'flex', alignItems: 'center', background: availability, borderRadius: '10px', width: '98%', marginLeft: '1%' }}>
                             <img src={user.pic} style={{ height: '50px', width: '50px', borderRadius: '50%', marginLeft: '10px', marginRight: '10px' }} alt='pic' />
                             <h3 >{user.first} {user.last}</h3>
-                            {/* <p>{user.message}</p>   */}
-                            {/* add time and date*/}
+                            {/* <div style={{border:'black 1px solid', width:40, height:40, borderRadius:'50%'}}>{user.unread}</div> */}
                         </div>
                     </div>
                 )

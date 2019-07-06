@@ -10,7 +10,6 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateChats, updateUser,updateSelectedIndProfile } from './../ducks/reducer';
 import GroupChat from './Group/GroupChat';
-import socket from './Sockets'
 
 class Dashboard extends Component {
     constructor() {
