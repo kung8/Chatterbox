@@ -54,7 +54,7 @@ class Nav extends Component {
         }
 
         return (
-            <NavBody style={{display:`${isHamburgerOpened?'flex':'none'}`,left:`${this.props.isHamburgerOpened?'75px':'0px'}`,zIndex:`${this.props.isHamburgerOpened&&2}`,position:`${this.props.isHamburgerOpened&&'relative'}`}}>
+            <NavBody style={{display:`${isHamburgerOpened?'flex':'none'}`,left:`${this.props.isHamburgerOpened?'75px':'0px'}`,zIndex:`${this.props.isHamburgerOpened&&10}`,position:`${this.props.isHamburgerOpened&&'relative'}`}}>
                 <NavTop>
                     <div style={{display:'flex',marginTop:'20px'}}>
                         <Hamburger 
@@ -134,7 +134,7 @@ const NavBody = styled.div`
     flex-direction:column;
     margin-top:1.5vh;
     border-radius:10px 0px 0px 10px;
-    margin-bottom:1.5vh;    
+    margin-bottom:1.5vh;
 `
 const NavTop = styled.div`
     height:25%;

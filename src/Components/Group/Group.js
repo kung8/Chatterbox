@@ -28,7 +28,7 @@ class Group extends Component {
     getAllGroups=async()=>{
         const {id} = this.props.user
         let groups = await axios.get(`api/chats/group/getAll/${id}`)
-        console.log(groups.data)
+        // console.log(groups.data)
         this.props.updateGroups(groups.data)
     }
 
@@ -71,22 +71,22 @@ class Group extends Component {
                 group:found
             })
         }
-        console.log(this.state.group)
+        // console.log(this.state.group)
     }
 
     createGroup=async()=>{
         const {group,name} = this.state
         const {id} = this.props.user
-        console.log('hit group creation',group,name)
+        // console.log('hit group creation',group,name)
         if(group.length < 2){
             alert('Group chats are meant for more than two users, please add an additional user')
         } else if (name.charAt(0) =='') {
             alert('Please create a group name')
         } 
         else {
-            console.log(group,name)
+            // console.log(group,name)
             group.unshift(id)
-            console.log(group)
+            // console.log(group)
             await axios.post('/api/chat/group/create',{group,name})
             //Need to hide the search bar when trying to create a group or it will search for groups only
             //create the room by sending the group name
@@ -155,7 +155,7 @@ class Group extends Component {
                     <div style={{
                         display:'flex', 
                         flexDirection:'column',
-                        justifyContent:'center'
+                        justifyContent:'center',
                         }}>
                         <GroupSelect 
                             handleGroupNameCreation={this.handleGroupNameCreation} 
@@ -165,8 +165,8 @@ class Group extends Component {
                             createGroup={this.createGroup}/>
                         {this.state.isGroupSelected&&
                             <>
-                                <h1 style={{textAlign:'center',background:'#303841',marginBottom:0,marginTop:'5px',color:'white'}}>All Users</h1>
-                                <Users style={{maxHeight:'40%',minHeight:'40%',background:'lightgrey',overflowY:'scroll'}}>
+                                <h1 style={{textAlign:'center',background:'#303841',marginBottom:0,marginTop:'5px',color:'white'}}>Add Users</h1>
+                                <Users style={{maxHeight:'40%',minHeight:'40%',background:'#303841',overflowY:'scroll'}}>
                                     {mappedfriends}
                                 </Users>
                                 <span style={{height:'10px',background:'#303841',marginTop:5}}></span>

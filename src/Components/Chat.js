@@ -15,6 +15,7 @@ class Chat extends Component {
     componentDidMount() {
         socket.on('startedChat', chat => {
             this.props.updateChat(chat)
+            this.pageScroll()
         })
         socket.on('receiveMsg', data => {
             const {messages,friend_id} = data
@@ -22,6 +23,7 @@ class Chat extends Component {
             this.setState({
                 message: ''
             })
+            this.pageScroll()
             socket.emit('notifySend',friend_id)
         })
         // socket.on('notifyReceived',data=>{
@@ -48,6 +50,11 @@ class Chat extends Component {
         this.props.handleChatToggle()
     }
 
+    pageScroll() {
+        document.getElementById('point').scrollBy(0, 1000000000000000000000000000);
+        setTimeout('pageScroll()', 0);
+    }
+
     render() {
         let mappedChat
         let availability
@@ -69,7 +76,7 @@ class Chat extends Component {
                     color = "#26f7ff75";
                     position = "flex-end";
                     return (
-                        <Message key={message.id} style={{ justifyContent: `${position}`,marginRight: 5}}>
+                        <Message key={message.id} style={{ justifyContent: position,marginRight: 5}}>
                             <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '65%', justifyContent: 'flex-end', borderRadius: 10, padding: 4 , minHeight:'2.5rem'}}>
                                 {/* <div style={{ display: 'flex'}}> */}
                                     <p style={{ marginLeft: 2,fontSize:12,width:'100%',textAlign:'right'}}>{message.message}</p>
@@ -84,7 +91,7 @@ class Chat extends Component {
                     color = 'lightgreen';
                     position = 'flex-start';
                     return (
-                        <Message key={message.id} style={{justifyContent: `${position}`, marginLeft:5 }} >
+                        <Message key={message.id} style={{justifyContent: position, marginLeft:5 }} >
                             <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '85%', justifyContent: 'flex-start', borderRadius: 10, padding: 4, minHeight:'2.5rem' }}>
                                 {/* <div style={{ display: 'flex', textAlign: 'left', padding: 2 }}> */}
                                     {/* <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%' }}> */}
@@ -118,7 +125,7 @@ class Chat extends Component {
                     </IconHolder> */}
                 </ChatHeading>
 
-                <Chats>
+                <Chats id='point'>
                     {mappedChat?mappedChat:<h3 style={{textAlign:'center',fontWeight:'bold',marginTop:40}}>Start Chat Now</h3>}
                 </Chats>
 
@@ -227,7 +234,7 @@ const Icons = styled.i`
 const Chats = styled.div`
     display:flex;
     background:lightgrey;
-    height:500px;    
+    height:100%;    
     flex-direction:column;
     overflow-y:scroll;
     ::-webkit-scrollbar {

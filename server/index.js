@@ -40,7 +40,7 @@ massive(CONNECTION_STRING).then(db => {
                 socket.join(room);
                 io.in(room).emit('startedChat', messages)
             } else {
-                await db.individual.create_room(room)
+                await db.individual.create_room({room})
                 socket.join(room)
                 io.in(room).emit('startedChat', messages)
             }

@@ -17,7 +17,7 @@ class IndGroup extends Component {
     render() {
         const {group} = this.props
         return (
-            <div style={{ display: 'flex', alignItems: 'center', background: 'orange', borderRadius: '10px', width: '98%', marginLeft: '1%', position: 'relative', height: 50,justifyContent:'space-between',marginBottom:5}}>
+            <div style={{ display: 'flex', alignItems: 'center', background: 'lightblue', borderRadius: '10px', width: '98%', marginLeft: '1%', position: 'relative', height: 50,justifyContent:'space-between',marginBottom:5}}>
                 <h3 style={{ marginLeft: 10 }}>{group.group_name}</h3>
                 <div style={{ display: 'flex',height:'75%',width:'30%',justifyContent:'space-between',marginRight:10,alignItems:'center'}}>
                     <Button onClick={()=>this.startGroupChat(group)}>

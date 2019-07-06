@@ -14,10 +14,8 @@ class GroupChat extends Component {
 
     componentDidMount() {
         const  room  = this.props.selectedGroup.group_chat_id
-
         socket.emit('startGroupChat',{room})
         socket.on('startGroupChat',(chat)=>{
-            console.log(chat)
             this.props.updateGroupChat(chat)
         })
         socket.on('sendGroupMsg', chat => {

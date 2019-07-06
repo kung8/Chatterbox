@@ -78,11 +78,11 @@ class Message extends Component {
                 }
                 return (
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '5px' }}>
-                        <div onClick={() => this.startChat(userId, user)} key={user.id} style={{ display: 'flex', position:'relative',alignItems: 'center', background: 'lightgrey', borderRadius: '10px', width: '98%', marginLeft: '1%' }}>
-                            <div style={{border:'1px solid black', width:50,height:50, borderRadius:'50%',marginLeft:10}}>
-                                <img src={user.pic} style={{ height: '50px', width: '50px', borderRadius: '50%', left:10, marginRight: '10px' ,position:'absolute'}} alt='pic' />
+                        <div onClick={() => this.startChat(userId, user)} key={user.id} style={{ display: 'flex', position:'relative',alignItems: 'center', background: '#29C9B8', borderRadius: '10px', width: '98%', marginLeft: '1%' }}>
+                            <div style={{border:'1px solid black', width:50,height:50, borderRadius:'50%',marginLeft:10,background:'white',marginRight:10}}>
+                                <img src={user.pic} style={{ height: '50px', width: '50px', borderRadius: '50%', left:10, marginRight: '10px' ,position:'absolute',zIndex:1}} alt='pic' />
                             </div>
-                            <div style={{background:availability,height:'15px',width:'15px',borderRadius:'50%',boxShadow:'-1px -1px 3px 2px black',position:'absolute',left:45,top:35}}></div>
+                            <div style={{background:availability,height:'15px',width:'15px',borderRadius:'50%',boxShadow:'-1px -1px 3px 2px black',position:'absolute',left:45,top:35,zIndex:2}}></div>
                             <h3 >{user.first} {user.last}</h3>
                             {user.unread !== 0 && <div style={{border:'black 1px solid', display:'flex',justifyContent:'center',alignItems:'center',width:40, height:40, borderRadius:10,position:'absolute',right:5,background:'red'}}><p style={{fontSize:25, color:'white',fontWeight:700}}>{user.unread}</p></div>}
                         </div>
