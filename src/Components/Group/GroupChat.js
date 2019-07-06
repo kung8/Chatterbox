@@ -80,7 +80,7 @@ class GroupChat extends Component {
         }
 
         return (
-            <ChatBody style={{ position: 'relative', left: this.props.isChatClicked && 0, left: this.props.isProfileOpened && '12.5vw', display: this.props.isChatClicked ? 'flex' : 'none' }}>
+            <ChatBody style={{ position: 'relative',left: this.props.isProfileOpened && '12.5vw', display: this.props.isChatClicked ? 'flex' : 'none' }}>
                 <ChatHeading>
                     <NameDot>
                         <ChevronLeft className='fas fa-chevron-left' onClick={() => this.props.handleChatToggle()} />

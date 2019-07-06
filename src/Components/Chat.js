@@ -43,7 +43,6 @@ class Chat extends Component {
         }
     }
 
-
     handleChatToggle(){
         const {room} = this.props;
         const {id} = this.props.user;
