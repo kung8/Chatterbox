@@ -227,9 +227,7 @@ const Icons = styled.i`
 const Chats = styled.div`
     display:flex;
     background:lightgrey;
-    // height:100%;
-    // min-height:60vh;
-    
+    height:100%;    
     flex-direction:column;
     overflow-y:scroll;
     ::-webkit-scrollbar {
