@@ -13,14 +13,17 @@ class GroupChat extends Component {
     }
 
     componentDidMount() {
-        const  room  = this.props.selectedGroup.group_chat_id
+        const room = this.props.selectedGroup.group_chat_id
         socket.emit('startGroupChat',{room})
-        socket.on('startGroupChat',(chat)=>{
+        socket.on('groupChatStarted',chat=>{
+            console.log('hit group chat')
             this.props.updateGroupChat(chat)
+            this.pageScroll()
         })
-        socket.on('sendGroupMsg', chat => {
+        socket.on('sentGroupMsg', async chat => {
             this.props.updateGroupChat(chat)
             this.setState({message:''})
+            this.pageScroll()
         })
     }
 
@@ -33,8 +36,17 @@ class GroupChat extends Component {
             socket.emit('sendGroupMsg', { room,message,id })
         } 
     }
+
+    pageScroll(){
+        console.log('hit this page going down')
+        document.getElementById('group').scrollBy(0, 1000000000000000000000000000);
+        setTimeout('pageScroll()', 0);
+    }
     
+
+
     render() {
+        console.log(this.props.selectedGroup)
         let mappedGroupChat
         if(this.props.groupChat.length){
 
@@ -94,7 +106,7 @@ class GroupChat extends Component {
                     </IconHolder> */}
                 </ChatHeading>
 
-                <Chats>
+                <Chats id='group'>
                     {mappedGroupChat?mappedGroupChat:<h3 style={{textAlign:'center',fontWeight:'bold',marginTop:40}}>Start Group Chat Now</h3>}
                 </Chats>
 

@@ -49,7 +49,7 @@ class Group extends Component {
         } 
         let room = bigger+':'+smaller;
         this.props.updateRoom(room)
-        socket.emit('startChat',{room});
+        socket.emit('startGroupChat',{room});
     }
 
     handleIsGroupSelected=()=>{

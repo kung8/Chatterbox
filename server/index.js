@@ -68,12 +68,12 @@ massive(CONNECTION_STRING).then(db => {
             const {room} = data
             const messages = await db.groups.get_group_chat({id:room})
             socket.join(room)
-            io.in(room).emit('startGroupChat',messages)
+            io.in(room).emit('groupChatStarted',messages)
         })
         socket.on('sendGroupMsg', async (data)=>{
             const {room,id,message} = data
             const messages = await db.groups.create_group_message({room,id,message})
-            io.in(room).emit('sendGroupMsg',messages)
+            io.in(room).emit('sentGroupMsg',messages)
         })
         socket.on('endChat', async data => {
             const {room,id,friend_id} = data
