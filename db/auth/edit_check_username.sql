@@ -1,3 +1,3 @@
 select * 
 from users 
-where id != ${id} and username = ${username}
+where id != ${id} and username ilike ${username}

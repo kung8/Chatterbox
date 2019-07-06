@@ -1,4 +1,4 @@
 update users 
 set active = 'active'
-where username = ${username}
+where username ilike ${username}
 returning *
