@@ -13,7 +13,7 @@ class Chat extends Component {
     }
 
     componentDidMount() {
-        socket.on('startChat', chat => {
+        socket.on('startedChat', chat => {
             this.props.updateChat(chat)
         })
         socket.on('receiveMsg', data => {

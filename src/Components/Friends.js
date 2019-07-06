@@ -44,12 +44,13 @@ class Friends extends Component {
         } 
         let room = bigger+':'+smaller;
         this.props.updateRoom(room)
-        socket.emit('startChat',{room});
+        socket.emit('startChat',{room,id, friend_id:userId});
     }
 
     render(){
         const userId = this.props.user.id
         const {friends,search} = this.props
+        console.log(friends)
         let availability
         const friendsArray = friends.filter(friend => {
             const friendSearch = search.toLowerCase().split(' ')
@@ -75,9 +76,11 @@ class Friends extends Component {
             }
             return(
                 <div style={{display:'flex', flexDirection:'column',justifyContent:'center',marginTop:'5px'}}>
-                    <div onClick={()=>this.startChat(userId,friend)} style={{display:'flex', alignItems:'center',background:availability,borderRadius:'10px',width:'98%',marginLeft:'1%'}}>
+                    <div onClick={()=>this.startChat(userId,friend)} style={{display:'flex', alignItems:'center',background:'lightgrey',borderRadius:'10px',width:'98%',marginLeft:'1%',position:'relative'}}>
                         <img src={friend.pic} style={{height:'50px',width:'50px',borderRadius:'50%',marginLeft:'10px',marginRight:'10px'}} alt='pic'/>
+                        <div style={{background:availability,height:'15px',width:'15px',borderRadius:'50%',boxShadow:'-1px -1px 3px 2px black',position:'absolute',left:45,top:35}}></div>
                         <h3>{friend.first} {friend.last}</h3>
+                        {friend.unread !== 0 && <div style={{border:'black 1px solid', display:'flex',justifyContent:'center',alignItems:'center',width:40, height:40, borderRadius:10,position:'absolute',right:5,background:'red'}}><p style={{fontSize:25, color:'white',fontWeight:700}}>{friend.unread}</p></div>}
                     </div>
                 </div>
             )    

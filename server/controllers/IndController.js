@@ -37,6 +37,17 @@ module.exports = {
         const db = req.app.get('db');
         let { id } = req.params;
         let friends = await db.individual.get_friends({ id });
-        res.status(200).send(friends);
+        let friendsCopy = friends.map(async friend => {
+            if(!friend.unread){
+                let friendCopy1 =  await db.individual.create_unread({id1:friend.id,id:+id})
+                return friendCopy1[0]
+            } else {
+                let friendCopy2 = await db.individual.get_chat({id1:friend.id, id:+id})
+                return friendCopy2[0]
+            }
+        })
+        Promise.all(friendsCopy).then(response=>{
+            res.status(200).send(response);
+        })
     }
 }
