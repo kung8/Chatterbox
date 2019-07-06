@@ -1,4 +1,5 @@
-select first,last,pic,id,email,active
+select first,last,pic,id,username,email,active, unread
 from users
-where id = ${id1}
+join unread on unread.sender_id = users.id
+where sender_id = ${id1} and receiver_id = ${id} 
 order by id asc

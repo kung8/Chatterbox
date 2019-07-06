@@ -9,18 +9,17 @@ module.exports = {
             const array = []
             let users = chats.map(room => {
                 const roomArr = room.room_id.split(':')
-                const user = roomArr.filter(item => {
-                    if (item != id) {
-                        return item
-                    }
-                })
+                const user = roomArr.filter(item => item !== id)
                 return user
             }).map(userId => {
                 return +userId[0]
             })
 
             let awaiting = users.map(async id1 => {
-                let awaitedUsers = await db.individual.get_chat({ id1 })
+                let awaitedUsers = await db.individual.get_chat({ id1, id:+id })
+                if(awaitedUsers.length === 0){
+                    awaitedUsers = await db.individual.create_unread({id1,id:+id})
+                }
                 array.push(awaitedUsers[0])
                 return array
             })
@@ -38,6 +37,6 @@ module.exports = {
         const db = req.app.get('db');
         let { id } = req.params;
         let friends = await db.individual.get_friends({ id });
-        res.status(200).send(friends)
+        res.status(200).send(friends);
     }
 }

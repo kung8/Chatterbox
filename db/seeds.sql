@@ -22,3 +22,10 @@ group_chat_id integer,
 user_id integer,
 message text
 );
+
+create table unread (
+unread_id serial primary key, 
+receiver_id int, 
+sender_id int, 
+unread int
+)

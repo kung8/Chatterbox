@@ -17,13 +17,12 @@ class Chat extends Component {
             this.props.updateChat(chat)
         })
         socket.on('receiveMsg', data => {
-            const {messages} = data
+            const {messages,friend_id} = data
             this.props.updateChat(messages)
             this.setState({
                 message: ''
             })
-            // socket.emit('notifySend',data)
-            
+            socket.emit('notifySend',friend_id)
         })
         // socket.on('notifyReceived',data=>{
         //     this.props.handlePushNotification(data)
@@ -36,8 +35,9 @@ class Chat extends Component {
         if(message !== ''){
             const { room } = this.props;
             const { id } = this.props.user
+            const friend_id = this.props.friend.id
             socket.emit('startChat',{room})
-            socket.emit('sendMsg', { message, room, id })
+            socket.emit('sendMsg', { message, room, id,friend_id })
         }
     }
 
@@ -70,9 +70,9 @@ class Chat extends Component {
                     position = "flex-end";
                     return (
                         <Message key={message.id} style={{ justifyContent: `${position}`,marginRight: 5}}>
-                            <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '85%', justifyContent: 'flex-end', borderRadius: 10, padding: 4 , minHeight:'2.5rem'}}>
+                            <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '65%', justifyContent: 'flex-end', borderRadius: 10, padding: 4 , minHeight:'2.5rem'}}>
                                 {/* <div style={{ display: 'flex'}}> */}
-                                    <p style={{ marginLeft: 2,fontSize:12,wordWrap:'break-word',width:'80%',textAlign:'left'}}>{message.message}</p>
+                                    <p style={{ marginLeft: 2,fontSize:12,width:'100%',textAlign:'right'}}>{message.message}</p>
                                 {/* </div> */}
                                 {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100%' }}> */}
                                     <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%', marginLeft:5 }} alt=''/>
@@ -91,7 +91,7 @@ class Chat extends Component {
                                         <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%' , marginRight:5 }} alt='' />
                                     {/* </div> */}
                                     {/* <div style={{display:'flex'}}> */}
-                                        <p style={{ marginLeft: 2, fontSize:12,wordWrap:'break-word',width:'80%',textAlign:'right'}}>
+                                        <p style={{ marginLeft: 2, fontSize:12,wordWrap:'break-word',width:'80%',textAlign:'left'}}>
                                             {message.message}
                                         </p>
                                     {/* </div> */}

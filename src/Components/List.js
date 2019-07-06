@@ -11,10 +11,16 @@ class Message extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount(){
         this.getChats()
         socket.on('updateActive',(active)=>{
             this.props.updateChatsAvailability(active)
+        })
+        socket.on('notifyReceived',()=>{
+            this.getChats()
+        })
+        socket.on('chatEnded',()=>{
+            this.getChats()
         })
     }
 
@@ -43,7 +49,7 @@ class Message extends Component {
         }
         let room = bigger + ':' + smaller;
         this.props.updateRoom(room)
-        socket.emit('startChat', { room });
+        socket.emit('startChat', { room ,id, friend_id:userId});
     }
 
     render() {
@@ -72,10 +78,11 @@ class Message extends Component {
                 }
                 return (
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '5px' }}>
-                        <div onClick={() => this.startChat(userId, user)} key={user.id} style={{ display: 'flex', alignItems: 'center', background: availability, borderRadius: '10px', width: '98%', marginLeft: '1%' }}>
+                        <div onClick={() => this.startChat(userId, user)} key={user.id} style={{ display: 'flex', position:'relative',alignItems: 'center', background: 'lightgrey', borderRadius: '10px', width: '98%', marginLeft: '1%' }}>
                             <img src={user.pic} style={{ height: '50px', width: '50px', borderRadius: '50%', marginLeft: '10px', marginRight: '10px' }} alt='pic' />
+                            <div style={{background:availability,height:'15px',width:'15px',borderRadius:'50%',boxShadow:'-1px -1px 3px 2px black',position:'absolute',left:45,top:35}}></div>
                             <h3 >{user.first} {user.last}</h3>
-                            {/* <div style={{border:'black 1px solid', width:40, height:40, borderRadius:'50%'}}>{user.unread}</div> */}
+                            {user.unread !== 0 && user.unread && <div style={{border:'black 1px solid', display:'flex',justifyContent:'center',alignItems:'center',width:40, height:40, borderRadius:10,position:'absolute',right:5,background:'red'}}><p style={{fontSize:25, color:'white',fontWeight:700}}>{user.unread}</p></div>}
                         </div>
                     </div>
                 )

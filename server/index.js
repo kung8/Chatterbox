@@ -32,11 +32,13 @@ massive(CONNECTION_STRING).then(db => {
     io.on('connection', socket => {
         const db = app.get('db')
         //Individual Chats
-        socket.on('startChat', async (room) => {
-            let messages = await db.individual.get_room(room)
+        socket.on('startChat', async (data) => {
+            const {room, id,friend_id} = data
+            let messages = await db.individual.get_room({room})
+            await db.individual.update_unread({id,friend_id,unread:0})
             if (messages[0]) {
-                socket.join(room.room);
-                io.in(room.room).emit('startChat', messages)
+                socket.join(room);
+                io.in(room).emit('startChat', messages)
             } else {
                 await db.individual.create_room(room)
                 socket.join(room)
@@ -44,13 +46,20 @@ massive(CONNECTION_STRING).then(db => {
             }
         })
         socket.on('sendMsg', async (data)=>{
-            const {message,id,room} = data;
+            const {message,id,room,friend_id} = data;
             const messages = await db.individual.create_message({message,id,room})
-            io.in(room).emit('receiveMsg',{messages,id,room})
+            let user = await db.individual.find_unread_user({id,friend_id})
+            if(user.length === 0 ){
+                await db.individual.create_unread({id1:id,id:friend_id})
+            } else {
+                let unread = ++user[0].unread
+                await db.individual.update_unread({id,friend_id, unread})
+            }
+            io.in(room).emit('receiveMsg',{messages,id,room,friend_id})
         })
-        // socket.on('notifySend',data=>{
-        //     io.emit('notifyReceived',data)
-        // })
+        socket.on('notifySend',async ()=>{
+            io.emit('notifyReceived')
+        })
         socket.on('updateActive',async(data)=>{
             io.emit('updateActive',data)
         })    
@@ -66,7 +75,10 @@ massive(CONNECTION_STRING).then(db => {
             const messages = await db.groups.create_group_message({room,id,message})
             io.in(room).emit('sendGroupMsg',messages)
         })
-        socket.on('endChat', room => socket.leave(room))
+        socket.on('endChat', room => {
+            socket.leave(room)
+            io.emit('chatEnded')
+        })
     })
 })
 
@@ -85,4 +97,3 @@ app.get('/api/getGroupChat/:id', GroupCtrl.getGroupChat);
 
 app.get('/api/chats/:id', IndCtrl.getChats);
 app.get('/api/friends/:id', IndCtrl.getFriends);
-
