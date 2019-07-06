@@ -104,7 +104,7 @@ class Chat extends Component {
         } 
 
         return (
-            <ChatBody style={{left:this.props.isChatClicked&&0, left:this.props.isProfileOpened&&'12.5vw',display:this.props.isChatClicked?'flex':'none'}}>
+            <ChatBody style={{display:this.props.isChatClicked?'flex':'none'}}>
                 <ChatHeading>
                     <NameDot>
                         <ChevronLeft className='fas fa-chevron-left' onClick={()=>this.handleChatToggle()}/>
@@ -227,14 +227,14 @@ const Icons = styled.i`
 const Chats = styled.div`
     display:flex;
     background:lightgrey;
-    height:100%;
-    min-height:75vh;
-    width:100%;
+    // height:100%;
+    // min-height:60vh;
+    
     flex-direction:column;
     overflow-y:scroll;
     ::-webkit-scrollbar {
         display: none;
-      }
+    }
 `
 
 const Message = styled.div`
