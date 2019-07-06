@@ -75,7 +75,9 @@ massive(CONNECTION_STRING).then(db => {
             const messages = await db.groups.create_group_message({room,id,message})
             io.in(room).emit('sendGroupMsg',messages)
         })
-        socket.on('endChat', room => {
+        socket.on('endChat', async data => {
+            const {room,id,friend_id} = data
+            await db.individual.update_unread({id:friend_id,friend_id:id,unread:0})
             socket.leave(room)
             io.emit('chatEnded')
         })

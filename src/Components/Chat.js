@@ -45,8 +45,10 @@ class Chat extends Component {
 
 
     handleChatToggle(){
-        const {room} = this.props
-        socket.emit('endChat',{room})
+        const {room} = this.props;
+        const {id} = this.props.user;
+        const friend_id = this.props.friend.id
+        socket.emit('endChat',{room,id,friend_id})
         this.props.handleChatToggle()
     }
 
@@ -170,7 +172,7 @@ const ChatBody = styled.div`
     width:25vw;
     min-width:315px;
     height:97vh;
-    max-height:97vh;
+    // max-height:97vh;
     display:none;
     flex-direction:column;
     margin-left:0.5vw;
