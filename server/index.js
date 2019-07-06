@@ -38,7 +38,7 @@ massive(CONNECTION_STRING).then(db => {
             await db.individual.update_unread({id,friend_id,unread:0})
             if (messages[0]) {
                 socket.join(room);
-                io.in(room).emit('startChated', messages)
+                io.in(room).emit('startedChat', messages)
             } else {
                 await db.individual.create_room(room)
                 socket.join(room)
