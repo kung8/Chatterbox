@@ -171,7 +171,7 @@ const ChatBody = styled.div`
     width:25vw;
     min-width:315px;
     height:97vh;
-    // max-height:97vh;
+    min-height:97vh;
     display:none;
     flex-direction:column;
     margin-left:0.5vw;
@@ -201,7 +201,7 @@ const ChatHeading = styled.div`
     display:flex;
     align-items:center;
     background:lightgrey;
-    height:10%;
+    height:70px;
     border-radius:10px 10px 0 0;
     border-bottom:darkgrey solid 0.05px;
     width:100%;
@@ -235,7 +235,7 @@ const Icons = styled.i`
 const Chats = styled.div`
     display:flex;
     background:lightgrey;
-    // height:100%;    
+    height:calc(100vh - 190px);    
     flex-direction:column;
     overflow-y:scroll;
     ::-webkit-scrollbar {
@@ -251,7 +251,7 @@ const Message = styled.div`
 const FormHolder = styled.div`
     display:flex;
     align-items:center;
-    height:15%;
+    height:120px;
     width:100%
 `
 const Form = styled.form`
