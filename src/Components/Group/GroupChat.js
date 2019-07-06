@@ -46,9 +46,9 @@ class GroupChat extends Component {
                     position = 'flex-end';
                     return (
                         <div key={message.id} style={{ width: '98%', display: 'flex', justifyContent: `${position}`, marginRight: '5px' }}>
-                            <div style={{ background: `${color}`, display: 'flex', marginTop: '5px', maxWidth: '60%', justifyContent: 'flex-end', borderRadius: '10px', padding: '4px' }}>
-                                <div style={{ display: 'flex' }}>
-                                    <p style={{ margin: 0, padding: 0, textAlign: 'left', marginLeft: '2px' }}>{message.message}</p>
+                            <div style={{ background: `${color}`, display: 'flex', marginTop: '5px', maxWidth: '70%', justifyContent: 'flex-end', borderRadius: '10px', padding: '4px' }}>
+                                <div style={{ display: 'flex',flexWrap:'wrap' }}>
+                                    <p style={{ margin: 0, fontSize:12, padding: 0, textAlign: 'left', marginLeft: '2px',wordWrap:'break-word' }}>{message.message}</p>
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100%' }}>
                                     <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%', marginLeft: '5px' }} alt=''/>
@@ -61,14 +61,16 @@ class GroupChat extends Component {
                     position = 'flex-start';
                     return (
                         <div key={message.id} style={{ width: '98%', display: 'flex', justifyContent: `${position}`, marginLeft: '5px' }} >
-                            <div style={{ background: `${color}`, display: 'flex', marginTop: '5px', maxWidth: '60%', justifyContent: 'flex-start', borderRadius: '10px', padding: '4px' }}>
+                            <div style={{ background: `${color}`, display: 'flex', marginTop: '5px', maxWidth: '70%', justifyContent: 'flex-start', borderRadius: '10px', padding: '4px' }}>
                                 <div style={{ display: 'flex', textAlign: 'left', padding: '2px' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%' }}>
                                         <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%', marginRight: '5px' }} alt='' />
                                     </div>
-                                    <p style={{ margin: 0, padding: 0, textAlign: 'left', marginLeft: '2px' }}>
-                                        {message.message}
-                                    </p>
+                                    <div style={{display:'flex',flexWrap:'wrap'}}>
+                                        <p style={{ margin: 0, fontSize:12, padding: 0, textAlign: 'left', marginLeft: '2px' ,wordBreak:'break-word'}}>
+                                            {message.message}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

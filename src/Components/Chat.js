@@ -78,9 +78,9 @@ class Chat extends Component {
                     return (
                         <Message key={message.id} style={{ justifyContent: position,marginRight: 5}}>
                             <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '65%', justifyContent: 'flex-end', borderRadius: 10, padding: 4 , minHeight:'2.5rem'}}>
-                                {/* <div style={{ display: 'flex'}}> */}
-                                    <p style={{ marginLeft: 2,fontSize:12,width:'100%',textAlign:'right'}}>{message.message}</p>
-                                {/* </div> */}
+                                <div style={{ flexWrap:'wrap',display: 'flex'}}>
+                                    <p style={{ marginLeft: 2,fontSize:12,width:'100%',textAlign:'right',wordBreak:'break-word'}}>{message.message}</p>
+                                </div>
                                 {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100%' }}> */}
                                     <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%', marginLeft:5 }} alt=''/>
                                 {/* </div> */}
@@ -97,11 +97,11 @@ class Chat extends Component {
                                     {/* <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%' }}> */}
                                         <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%' , marginRight:5 }} alt='' />
                                     {/* </div> */}
-                                    {/* <div style={{display:'flex'}}> */}
-                                        <p style={{ marginLeft: 2, fontSize:12,wordWrap:'break-word',width:'80%',textAlign:'left'}}>
+                                    <div style={{display:'flex',flexWrap:'wrap'}}>
+                                        <p style={{ marginLeft: 2, fontSize:12,width:'100%',textAlign:'left' ,wordBreak:'break-word'}}>
                                             {message.message}
                                         </p>
-                                    {/* </div> */}
+                                    </div>
                                 {/* </div> */}
                             </div>
                         </Message>
