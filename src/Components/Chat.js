@@ -246,7 +246,7 @@ const Chats = styled.div`
 const Message = styled.div`
     width: 98%;
     display: flex;
-    min-height:35px; 
+    height:35px; 
     margin-bottom:10px;
     `
 
