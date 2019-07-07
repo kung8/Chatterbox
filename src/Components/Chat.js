@@ -78,7 +78,7 @@ class Chat extends Component {
                     position = "flex-end";
                     return (
                         <Message key={message.id} style={{ justifyContent: position,marginRight: 5}}>
-                            <div style={{ background: `${color}`, display: 'flex',maxWidth: '80%', minHeight:'40px',justifyContent: 'flex-end', borderRadius: 10, padding: 4 }}>
+                            <div style={{ background: color, display: 'flex',maxWidth: '80%', minHeight:'40px',justifyContent: 'flex-end', borderRadius: 10, padding: 4 }}>
                                 <div style={{ flexWrap:'wrap',display: 'flex'}}>
                                     <p style={{ marginLeft: 2,fontSize:12,textAlign:'right',wordBreak:'break-word'}}>{message.message}</p>
                                 </div>

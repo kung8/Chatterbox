@@ -57,42 +57,42 @@ class GroupChat extends Component {
                     color = '#26f7ff75';
                     position = 'flex-end';
                     return (
-                        <div key={message.id} style={{ width: '98%', display: 'flex', justifyContent: `${position}`, marginRight: '5px' }}>
-                            <div style={{ background: `${color}`, display: 'flex', marginTop: '5px', maxWidth: '70%', justifyContent: 'flex-end', borderRadius: '10px', padding: '4px' }}>
-                                <div style={{ display: 'flex',flexWrap:'wrap' }}>
-                                    <p style={{ margin: 0, fontSize:12, padding: 0, textAlign: 'left', marginLeft: '2px',wordWrap:'break-word' }}>{message.message}</p>
+                        <Message key={message.id} style={{ justifyContent: position,marginRight: 5}}>
+                            <div style={{ background: color, display: 'flex',maxWidth: '80%', minHeight:40,justifyContent: position, borderRadius: 10, padding: 4 }}>
+                                <div style={{ flexWrap:'wrap',display: 'flex'}}>
+                                    <p style={{ marginLeft: 2,fontSize:12,textAlign:'right',wordBreak:'break-word'}}>{message.message}</p>
                                 </div>
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100%' }}>
-                                    <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%', marginLeft: '5px' }} alt=''/>
-                                </div>
+                                {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100%' }}> */}
+                                    <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%', marginLeft:5 }} alt=''/>
+                                {/* </div> */}
                             </div>
-                        </div>
+                        </Message>
                     )
                 } else {
                     color = 'lightgreen';
                     position = 'flex-start';
                     return (
-                        <div key={message.id} style={{ width: '98%', display: 'flex', justifyContent: `${position}`, marginLeft: '5px' }} >
-                            <div style={{ background: `${color}`, display: 'flex', marginTop: '5px', maxWidth: '70%', justifyContent: 'flex-start', borderRadius: '10px', padding: '4px' }}>
-                                <div style={{ display: 'flex', textAlign: 'left', padding: '2px' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%' }}>
-                                        <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%', marginRight: '5px' }} alt='' />
-                                    </div>
-                                    <div style={{display:'flex',flexWrap:'wrap'}}>
-                                        <p style={{ margin: 0, fontSize:12, padding: 0, textAlign: 'left', marginLeft: '2px' ,wordBreak:'break-word'}}>
+                        <Message key={message.id} style={{justifyContent: position, marginLeft:5 }} >
+                            <div style={{ background: color, display: 'flex', maxWidth: '80%', justifyContent: position, borderRadius: 10, padding: 4, minHeight:'2.5rem' }}>
+                                {/* <div style={{ display: 'flex', textAlign: 'left', padding: 2 }}> */}
+                                    {/* <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%' }}> */}
+                                        <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%' , marginRight:5 }} alt='' />
+                                    {/* </div> */}
+                                    <div style={{display:'flex'}}>
+                                        <p style={{ marginLeft: 2, fontSize:12,textAlign:'left' ,wordBreak:'break-word',wordWrap:'break-word'}}>
                                             {message.message}
                                         </p>
                                     </div>
-                                </div>
+                                {/* </div> */}
                             </div>
-                        </div>
+                        </Message>
                     );
                 }
             })
         }
 
         return (
-            <ChatBody style={{ position: 'relative',left: this.props.isProfileOpened && '12.5vw', display: this.props.isChatClicked ? 'flex' : 'none' }}>
+            <ChatBody style={{ display: this.props.isChatClicked ? 'flex' : 'none' }}>
                 <ChatHeading>
                     <NameDot>
                         <ChevronLeft className='fas fa-chevron-left' onClick={() => this.props.handleChatToggle()} />
@@ -150,6 +150,7 @@ const ChatBody = styled.div`
     width:25vw;
     min-width:315px;
     height:97vh;
+    min-height:97vh;
     display:none;
     flex-direction:column;
     margin-left:0.5vw;
@@ -162,7 +163,7 @@ const ChatBody = styled.div`
     }
 `
 
-const ChevronLeft = styled.i`
+const ChevronLeft = styled.i `
     font-size:45px;
     border-radius:50%;
     display:flex;
@@ -179,7 +180,7 @@ const ChatHeading = styled.div`
     display:flex;
     align-items:center;
     background:lightgrey;
-    height:10%;
+    height:70px;
     border-radius:10px 10px 0 0;
     border-bottom:darkgrey solid 0.05px;
     width:100%;
@@ -195,16 +196,15 @@ const Dot = styled.div`
     margin-right:10px;
     height:10px;
     width:10px;
-    background:red;
     border-radius:50%;
 `
-const IconHolder = styled.div`
-    display:flex;
-    width:30%;
-    height:98%;
-    align-items:center;
-    justify-content:space-evenly;
-`
+// const IconHolder = styled.div`
+//     display:flex;
+//     width:30%;
+//     height:98%;
+//     align-items:center;
+//     justify-content:space-evenly;
+// `
 
 const Icons = styled.i`
     font-size:25px;
@@ -214,20 +214,25 @@ const Icons = styled.i`
 const Chats = styled.div`
     display:flex;
     background:lightgrey;
-    height:75%;
-    max-height:75%;
-    width:100%;
+    height:calc(100vh - 170px);    
     flex-direction:column;
     overflow-y:scroll;
     ::-webkit-scrollbar {
-        width:0px
+        display: none;
     }
 `
+
+const Message = styled.div`
+    width: 98%;
+    display: flex;
+    min-height:35px; 
+    margin-bottom:8px;
+    `
 
 const FormHolder = styled.div`
     display:flex;
     align-items:center;
-    height:15%;
+    height:100px;
     width:100%
 `
 const Form = styled.form`
@@ -272,4 +277,7 @@ const Send = styled.button`
 const Name = styled.h1`
     font-size:30px;
     margin-left:5px;
+    @media screen and (min-width:300px) and (max-width:700px){
+        font-size:20px
+    }
 `
