@@ -173,6 +173,7 @@ const ChatBody = styled.div`
     height:97vh;
     min-height:97vh;
     display:none;
+    overflow:hidden;
     flex-direction:column;
     margin-left:0.5vw;
     margin-right:0.5vw;
@@ -246,7 +247,7 @@ const Chats = styled.div`
 const Message = styled.div`
     width: 98%;
     display: flex;
-    height:35px; 
+    min-height:35px; 
     margin-bottom:10px;
     `
 
