@@ -173,7 +173,6 @@ const ChatBody = styled.div`
     height:97vh;
     min-height:97vh;
     display:none;
-    overflow:hidden;
     flex-direction:column;
     margin-left:0.5vw;
     margin-right:0.5vw;
