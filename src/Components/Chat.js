@@ -78,9 +78,9 @@ class Chat extends Component {
                     position = "flex-end";
                     return (
                         <Message key={message.id} style={{ justifyContent: position,marginRight: 5}}>
-                            <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '65%', justifyContent: 'flex-end', borderRadius: 10, padding: 4 , minHeight:'2.5rem'}}>
+                            <div style={{ background: `${color}`, display: 'flex',maxWidth: '80%', minHeight:'40px',justifyContent: 'flex-end', borderRadius: 10, padding: 4 }}>
                                 <div style={{ flexWrap:'wrap',display: 'flex'}}>
-                                    <p style={{ marginLeft: 2,fontSize:12,width:'100%',textAlign:'right',wordBreak:'break-word'}}>{message.message}</p>
+                                    <p style={{ marginLeft: 2,fontSize:12,textAlign:'right',wordBreak:'break-word'}}>{message.message}</p>
                                 </div>
                                 {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100%' }}> */}
                                     <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%', marginLeft:5 }} alt=''/>
@@ -93,13 +93,13 @@ class Chat extends Component {
                     position = 'flex-start';
                     return (
                         <Message key={message.id} style={{justifyContent: position, marginLeft:5 }} >
-                            <div style={{ background: `${color}`, display: 'flex', marginTop: 5, maxWidth: '85%', justifyContent: 'flex-start', borderRadius: 10, padding: 4, minHeight:'2.5rem' }}>
+                            <div style={{ background: `${color}`, display: 'flex', maxWidth: '80%', justifyContent: 'flex-start', borderRadius: 10, padding: 4, minHeight:'2.5rem' }}>
                                 {/* <div style={{ display: 'flex', textAlign: 'left', padding: 2 }}> */}
                                     {/* <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%' }}> */}
                                         <img src={message.pic} style={{ height: '2rem', width: '2rem', borderRadius: '50%' , marginRight:5 }} alt='' />
                                     {/* </div> */}
                                     <div style={{display:'flex',flexWrap:'wrap'}}>
-                                        <p style={{ marginLeft: 2, fontSize:12,width:'100%',textAlign:'left' ,wordBreak:'break-word'}}>
+                                        <p style={{ marginLeft: 2, fontSize:12,textAlign:'left' ,wordBreak:'break-word'}}>
                                             {message.message}
                                         </p>
                                     </div>
@@ -235,7 +235,7 @@ const Icons = styled.i`
 const Chats = styled.div`
     display:flex;
     background:lightgrey;
-    height:calc(100vh - 190px);    
+    height:calc(100vh - 170px);    
     flex-direction:column;
     overflow-y:scroll;
     ::-webkit-scrollbar {
@@ -247,13 +247,13 @@ const Message = styled.div`
     width: 98%;
     display: flex;
     min-height:35px; 
-    margin-bottom:10px;
+    margin-bottom:8px;
     `
 
 const FormHolder = styled.div`
     display:flex;
     align-items:center;
-    height:120px;
+    height:100px;
     width:100%
 `
 const Form = styled.form`
