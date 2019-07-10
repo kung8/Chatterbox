@@ -16,7 +16,6 @@ class GroupChat extends Component {
         const room = this.props.selectedGroup.group_chat_id
         socket.emit('startGroupChat',{room})
         socket.on('groupChatStarted',chat=>{
-            console.log('hit group chat')
             this.props.updateGroupChat(chat)
             this.pageScroll()
         })
@@ -38,15 +37,11 @@ class GroupChat extends Component {
     }
 
     pageScroll(){
-        console.log('hit this page going down')
         document.getElementById('group').scrollBy(0, 1000000000000000000000000000);
         setTimeout('pageScroll()', 0);
     }
-    
-
 
     render() {
-        console.log(this.props.selectedGroup)
         let mappedGroupChat
         if(this.props.groupChat.length){
 
@@ -96,7 +91,7 @@ class GroupChat extends Component {
                 <ChatHeading>
                     <NameDot>
                         <ChevronLeft className='fas fa-chevron-left' onClick={() => this.props.handleChatToggle()} />
-                        <Name onClick={this.props.handleProfileToggle}>{this.props.selectedGroup.group_name}</Name>
+                        <Name>{this.props.selectedGroup.group_name}</Name>
                         <Dot></Dot>
                     </NameDot>
                     {/* <IconHolder>

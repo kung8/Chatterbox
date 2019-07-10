@@ -28,7 +28,6 @@ class Group extends Component {
     getAllGroups=async()=>{
         const {id} = this.props.user
         let groups = await axios.get(`api/chats/group/getAll/${id}`)
-        // console.log(groups.data)
         this.props.updateGroups(groups.data)
     }
 

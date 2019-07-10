@@ -23,4 +23,22 @@ module.exports = {
         const groups = await db.groups.get_all_user_groups({ user_id })
         res.status(200).send(groups)
     },
+    
+    getMembers: async (req, res) => {
+        const db = req.app.get('db')
+        const {group_chat_id } = req.params
+        const members = await db.groups.get_all_members({group_chat_id})
+        res.send(members)
+    },
+    
+    updateGroup: async(req,res)=>{
+        const db = req.app.get('db')
+        const {group_chat_id} = req.params;
+        const {members} = req.body;
+        console.log(members)
+        members.forEach(async member => {
+            await db.groups.update_group({group_chat_id,member})
+        })
+        res.sendStatus(200)
+    }
 }

@@ -92,10 +92,13 @@ app.post('/api/user/current', AuthCtrl.current);
 app.put('/api/user/edit', AuthCtrl.editProfile);
 app.put('/api/user/availability',AuthCtrl.changeAvailability);
 
-//CHAT ENDPOINTS
+//GROUP ENDPOINTS
 app.get('/api/chats/group/getAll/:user_id', GroupCtrl.getGroups);
 app.post('/api/chat/group/create', GroupCtrl.createGroup);
 app.get('/api/getGroupChat/:id', GroupCtrl.getGroupChat);
+app.get('/api/group/members/:group_chat_id',GroupCtrl.getMembers);
+app.put('/api/group/members/:group_chat_id',GroupCtrl.updateGroup);
 
+//INDIVIDUAL ENDPOINTS
 app.get('/api/chats/:id', IndCtrl.getChats);
 app.get('/api/friends/:id', IndCtrl.getFriends);
