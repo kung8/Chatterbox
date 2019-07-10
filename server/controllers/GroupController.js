@@ -35,7 +35,6 @@ module.exports = {
         const db = req.app.get('db')
         const {group_chat_id} = req.params;
         const {members} = req.body;
-        console.log(members)
         members.forEach(async member => {
             await db.groups.update_group({group_chat_id,member})
         })
