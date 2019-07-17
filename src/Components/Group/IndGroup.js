@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { selectGroup, updateGroupChat } from '../../ducks/reducer'
 import axios from 'axios'
+import IndEditGroup from './IndEditGroup'
 
 class IndGroup extends Component {
     constructor() {
@@ -13,7 +14,8 @@ class IndGroup extends Component {
             removed: [],
             remaining: [],
             search: '',
-            added: []
+            added: [],
+            isClicked:false
         }
     }
     async startGroupChat(group) {
@@ -37,20 +39,22 @@ class IndGroup extends Component {
     deleteMember = (id) => {
         if (this.state.members.length > 3) {
             const members = [...this.state.members]
-            const index = members.findIndex(member => member.group_users_id === id)
+            const index = members.findIndex(member => member.id === id)
             members.splice(index, 1)
             let removed = [...this.state.removed, id]
-            this.setState({ members, removed })
+            this.setState({ members,removed })
         } else {
             alert('Sorry cannot have less than 3 people')
         }
     }
 
     updateMembers = async (id) => {
-        if (this.state.removed.length !== 0) {
+        console.log(id,'hit update')
+        if (this.state.removed.length !== 0 || this.state.added.length !== 0) {
             try {
-                await axios.put(`/api/group/members/${id}`, { members: this.state.removed })
+                await axios.put(`/api/group/members/${id}`, { removed: this.state.removed ,added:this.state.added})
                 this.setState({ isEditOpened: false })
+                console.log({added:this.state.added,removed:this.state.removed})
             } catch {
                 alert('Something went wrong with the update')
             }
@@ -61,9 +65,18 @@ class IndGroup extends Component {
     }
 
     addMember = async (id) => {
-        console.log(id, this.state.members[0].group_chat_id)
+        let added = [...this.state.added]
+        added.push(id)
+        let reduced = added.filter((id,i)=> added.indexOf(id) === i)
+        this.setState({added:reduced})
+    }
 
-
+    deleteNewMember=(id)=>{
+        let added = [...this.state.added]
+        let index = added.findIndex(num=> num === id)
+        added.splice(index,1)
+        let reduced = added.filter((id,i)=> added.indexOf(id) === i)
+        this.setState({added:reduced})
     }
 
     //Need to handle the add still and need to reconfigure the update so that it handles more than just the delete
@@ -73,7 +86,6 @@ class IndGroup extends Component {
     render() {
         const { group } = this.props
         const searchList = [...this.props.friends]
-        console.log(this.state.members)
         for (let i = 0; i < this.state.members.length; i++) {
             for (let j = 0; j < searchList.length; j++) {
                 if (this.state.members[i].id === searchList[j].id) {
@@ -93,7 +105,8 @@ class IndGroup extends Component {
 
             } return true
         }).map(person => {
-            const { first, last, active, pic, id } = person
+            const {  active } = person
+
             let availability
             if (active === 'active') {
                 availability = 'green'
@@ -103,22 +116,13 @@ class IndGroup extends Component {
                 availability = 'red'
             }
             return (
-                <div key={id} style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                    <div style={{ border: '1px solid black', width: 50, height: 50, borderRadius: '50%', marginLeft: 10, background: 'white', marginRight: 10 }}>
-                        <img src={pic} style={{ height: '50px', width: '50px', borderRadius: '50%', left: 10, marginRight: '10px', position: 'absolute', zIndex: 1 }} alt='pic' />
-                    </div>
-                    <div style={{ background: availability, height: '15px', width: '15px', borderRadius: '50%', boxShadow: '-1px -1px 3px 2px black', position: 'absolute', left: 45, top: 35, zIndex: 2 }}></div>
-                    <h3 >{first} {last}</h3>
-
-                    <button onClick={() => this.addMember(id)} style={{ background: 'red', position: 'absolute', right: 20, borderRadius: '50%' }}>
-                        <Plus className="fas fa-plus" />
-                    </button>
-                </div>
+                <IndEditGroup availability={availability} person={person} addMember={this.addMember} deleteNewMember={this.deleteNewMember}/>
             )
         })
 
         const mappedMembers = this.state.members.map(member => {
-            const { first, last, active, pic, group_users_id } = member
+            // console.log(member)
+            const { first, last, active, pic, group_users_id,id } = member
             let availability
             if (active === 'active') {
                 availability = 'green'
@@ -129,14 +133,14 @@ class IndGroup extends Component {
             }
 
             return (
-                <div key={group_users_id} style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                <div key={group_users_id} style={{ position: 'relative', display: 'flex', alignItems: 'center',background: 'lightgrey', borderRadius: '10px', width: '90%', margin: '0px auto',marginBottom:5 }}>
                     <div style={{ border: '1px solid black', width: 50, height: 50, borderRadius: '50%', marginLeft: 10, background: 'white', marginRight: 10 }}>
                         <img src={pic} style={{ height: '50px', width: '50px', borderRadius: '50%', left: 10, marginRight: '10px', position: 'absolute', zIndex: 1 }} alt='pic' />
                     </div>
                     <div style={{ background: availability, height: '15px', width: '15px', borderRadius: '50%', boxShadow: '-1px -1px 3px 2px black', position: 'absolute', left: 45, top: 35, zIndex: 2 }}></div>
                     <h3 >{first} {last}</h3>
 
-                    <button onClick={() => this.deleteMember(group_users_id)} style={{ background: 'red', position: 'absolute', right: 20, borderRadius: '50%' }}>
+                    <button onClick={() => this.deleteMember(id)} style={{ background: 'red', position: 'absolute', right: 20, borderRadius: '50%' }}>
                         <Icons className="fas fa-minus-circle" />
                     </button>
                 </div>
@@ -167,6 +171,10 @@ class IndGroup extends Component {
                         </div>}
                 </div>
                 {this.state.isEditOpened && mappedMembers}
+                {this.state.isEditOpened && <Form style={{margin:'10px auto',justifyContent:'center',width:'80%',border:'white solid 1px'}}>
+                        <Input placeholder='Search' id="search-input" onChange={e=>this.setState({search:e.target.value})}/>
+                         <Search className="fas fa-search"/>
+                    </Form>}
                 {this.state.isEditOpened && searched}
             </>
         )
@@ -192,6 +200,37 @@ const Button = styled.button`
         box-shadow: 0 0 1px 1px darkgrey;
         outline: none;
     }
+`
+
+const Form = styled.form`
+    background:#303841;
+    width:65%;
+    height:65%;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+`
+
+const Input = styled.input`
+    font-size:25px;
+    background:#303841;
+    color:lightgrey;
+    height:65%;
+    width:78%;
+    border:transparent;
+    margin-left:10px;
+    margin-right:0.5rem;
+    &:focus {
+        outline:none;
+    }
+    &::-webkit-input-placeholder {
+        color: lightgray;
+    }
+`
+
+const Search = styled.div`
+    font-size:25px;
+    color:lightgrey;
 `
 
 const Icons = styled.i`

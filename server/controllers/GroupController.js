@@ -34,10 +34,20 @@ module.exports = {
     updateGroup: async(req,res)=>{
         const db = req.app.get('db')
         const {group_chat_id} = req.params;
-        const {members} = req.body;
-        members.forEach(async member => {
-            await db.groups.update_group({group_chat_id,member})
-        })
+        const {removed,added} = req.body;
+        if(removed.length !==0){
+            removed.forEach(async member => {
+                await db.groups.update_group({group_chat_id,member})
+            })
+        }
+        if(added.length !== 0){
+            added.forEach(async id => {
+                let returnedUser = await db.groups.check_if_id_exist({group_chat_id,id})
+                if(!returnedUser[0]){
+                    await db.groups.add_member_to_existing_group({group_chat_id,id})
+                }
+            })
+        }
         res.sendStatus(200)
     }
 }

@@ -76,21 +76,14 @@ class Group extends Component {
     createGroup=async()=>{
         const {group,name} = this.state
         const {id} = this.props.user
-        // console.log('hit group creation',group,name)
         if(group.length < 2){
             alert('Group chats are meant for more than two users, please add an additional user')
         } else if (name.charAt(0) =='') {
             alert('Please create a group name')
         } 
         else {
-            // console.log(group,name)
             group.unshift(id)
-            // console.log(group)
             await axios.post('/api/chat/group/create',{group,name})
-            //Need to hide the search bar when trying to create a group or it will search for groups only
-            //create the room by sending the group name
-            //backend will create the room and add all the users into that room
-            //should send back the newly created room on componennt did mount so that it could be uptodate 
         }
     }
 
